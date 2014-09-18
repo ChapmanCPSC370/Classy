@@ -1,0 +1,26 @@
+<%= form_for [@course, Post.new], url: {course_id: @course.id} do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content, class: "my-code-area", rows: "8", style: "width: 100%" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<textarea class="my-code-area" rows="8" style="width: 100%">put code here</textarea>
+<script>
+  $('.my-code-area').ace({ theme: 'twilight', lang: 'ruby' })
+</script>

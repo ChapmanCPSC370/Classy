@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @course.name %></h1>
+
+<%= form_for [@course, Post.new], url: {user_id: current_user.id} do |f| %>
+<% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.hidden_field :user_id %>
+  <div class="field">
+    <%= f.text_area :content, class: "my-code-area", rows: "6", style: "width: 100%" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+<br>
+<% @posts.each do |post| %>
+    <div class="panel panel-default panel-body">
+      <div class="row">
+        <div class="col-md-2">
+          <% if post.user.presence %>
+            <%= post.user.email %>
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <%= simple_format(post.content) %>
+         
+        </div>
+        </div>
+        <%= link_to 'Show', post %>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+    <% end %>
+
+<br>
+
+<script>
+  $('.my-code-area').ace({ theme: 'twilight', lang: 'ruby' })
+</script>

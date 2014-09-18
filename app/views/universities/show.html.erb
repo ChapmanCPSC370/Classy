@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @university.name %><%= @university.id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @university.description %>
+</p>
+
+<%= link_to 'Edit', edit_university_path(@university) %> |
+<%= link_to 'Back', universities_path %>
+<%= link_to 'Courses', university_courses_path(@university) %>
+
+<hr>
+
+<%= form_for [@universty, Course.new], url: {university_id: @university.id} do |f| %>
+<%= f.hidden_field :university_id %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </p>
+<p>
+  <%= f.label :credits %>
+  <%= f.text_field :credits %>
+  </p>
+  <%= f.submit "Save New Course", class: "btn btn-primary" %>
+<% end %>
