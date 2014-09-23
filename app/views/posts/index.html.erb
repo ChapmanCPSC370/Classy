@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @course.name %></h1>
+<h1><%= link_to @course.name, @course %></h1>
 
 <%= form_for [@course, Post.new], url: {user_id: current_user.id} do |f| %>
 <% if @post.errors.any? %>
@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-md-2">
           <% if post.user.presence %>
-            <%= post.user.email %>
+          <%= link_to post.user.email, post.user %>
           <% end %>
         </div>
         <div class="col-md-6">

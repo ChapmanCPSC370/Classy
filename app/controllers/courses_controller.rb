@@ -5,6 +5,10 @@ class CoursesController < ApplicationController
 
   # GET /courses
   # GET /courses.json
+  def all_courses
+    @courses = Course.all
+  end
+  
   def index
     @courses = Course.all
     @university = University.find(params[:university_id])
@@ -24,6 +28,8 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+   # @course = Course.find(params[:id])
+    @university = University.find(@course.university_id)
   end
 
   # POST /courses

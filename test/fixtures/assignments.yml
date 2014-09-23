@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section_id: 1
+  name: MyString
+  description: MyText
+  duedate: 2014-09-23 18:33:44
+  points: 1.5
+
+two:
+  section_id: 1
+  name: MyString
+  description: MyText
+  duedate: 2014-09-23 18:33:44
+  points: 1.5

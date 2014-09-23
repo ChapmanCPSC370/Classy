@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :assignments
+
+  resources :colusseums
+  resources :sections
+
   resources :universities
 
    as :user do
@@ -22,11 +27,14 @@ Rails.application.routes.draw do
   end
   
   get 'static_pages/home'
+  get 'courses/all_courses'
   get 'static_pages/about'
   root 'static_pages#home'
   
   resource :devise
-  resources :posts
+  resources :posts do
+    resources :users 
+  end
   resources :universities do
     resources :courses do
       resources :posts
@@ -34,13 +42,17 @@ Rails.application.routes.draw do
     end
   end
   resources :courses do
-    resources :posts
+    get 'alli'
+    resources :sections
+    resources :posts do
+      resources :users
+    end
     post "course/new"
   end
   
   post "course/create"
   
-  resource :users
+  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

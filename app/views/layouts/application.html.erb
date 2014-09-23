@@ -25,13 +25,13 @@
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
               <li>
-                <%= link_to "Profile", universities_path %>
+                <%= link_to "Profile", current_user %>
               </li>
                 <li>
                 <%= link_to "Universities", universities_path %>
               </li>
               <li>
-                <%= link_to "Courses", universities_path %>
+                <%= link_to "Courses", courses_all_courses_path %>
               </li></ul>
             
             <ul class="nav navbar-nav navbar-right">

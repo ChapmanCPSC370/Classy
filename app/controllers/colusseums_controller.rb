@@ -1,0 +1,2 @@
+class ColusseumsController < ApplicationController
+end
