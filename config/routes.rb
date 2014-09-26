@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
+  resources :majors
+
+  resources :enrollments
+
+  resources :announcements
+
   resources :assignments
 
   resources :colusseums
-  resources :sections
+  resources :sections do
+    resources :assignments
+    resources :announcements
+    resources :users
+  end
+  
 
   resources :universities
 
@@ -52,7 +63,9 @@ Rails.application.routes.draw do
   
   post "course/create"
   
-  resources :users
+  resources :users do
+    resources :enrollments
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

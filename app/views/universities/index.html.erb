@@ -1,15 +1,14 @@
-<h1>Listing universities</h1>
 
     <% @universities.each do |university| %>
       <tr>
-        <h3><%= university.name %></h3>
-        <%= link_to 'Courses', university_courses_path(university), class: "btn btn-sm btn-primary" %> | 
+        <h3><i class="fa fa-university"></i> <%= university.name %></h3>
+        <%= link_to 'See All Courses', university_courses_path(university), class: "btn btn-block pull-right btn-sm btn-primary" %>
         <%= link_to 'Show', university %> | 
         <%= link_to 'Edit', edit_university_path(university) %> | 
         <%= link_to 'Destroy', university, method: :delete, data: { confirm: 'Are you sure?' } %>
         <br>
         <td><%= university.description %></td>
-      </tr>
+</tr>
     <% end %>
 <br>
 

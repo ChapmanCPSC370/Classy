@@ -1,26 +1,19 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>University:</strong>
-  <%= @course.university_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+<h1><%= @course.name %> </h1>
+<h4><span class="label label-primary"><%= @course.credits %> Credits</span> <%= link_to @course.university.name, university_courses_path(@course.university) %></h4>
 
 <p>
   <strong>Description:</strong>
   <%= @course.description %>
 </p>
 
-<p>
-  <strong>Credits:</strong>
-  <%= @course.credits %>
-</p>
-
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %> | 
 <%= link_to 'Posts', course_posts_path(@course) %>
 <%= link_to 'Sections', course_sections_path(@course) %>
+<h4>Sections</h4>
+<% @course.sections.each do |f| %>
+<div class="well">
+<%= f.teacher %>
+</div>
+<% end %>

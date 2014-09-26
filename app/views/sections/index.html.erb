@@ -3,8 +3,17 @@
 
 <%= form_for [@course, Section.new], url: {controller: :sections, course_id: @course.id } do |f| %>
   <%= f.hidden_field :course_id %>
-  <%= f.hidden_field :name, value: @course.name %>
+  <%= f.hidden_field :name, value: @course.name %><p>
+<%= f.label :term %>
+<%= f.text_field :term %></p><p>
+<%= f.label :teacher %>
+<%= f.text_field :teacher %></p><p>
+<%= f.label :room %>
+<%= f.text_field :room %></p><p>
+<%= f.label :schedule %>
+<%= f.text_field :schedule %></p><p>
   <%= f.submit %>
+</p>
 <% end %>
 
 <table>

@@ -15,7 +15,8 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
-    @section = Section.new
+    @course = Course.find(params[:course_id])
+    @section = @course.ection.new
   end
 
   # GET /sections/1/edit
@@ -24,12 +25,13 @@ class SectionsController < ApplicationController
 
   # POST /sections
   # POST /sections.json
-  def create
-    @section = Section.new(section_params)
+  def create   
+    @course = Course.find(params[:course_id])
+    @section = @course.sections.new(section_params)
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
+        format.html { redirect_to @course, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }

@@ -1,29 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Course:</strong>
-  <%= @section.course_id %>
-</p>
+<h1><%= @section.course.name %></h1>
 
-<p>
-  <strong>Term:</strong>
-  <%= @section.term %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @section.teacher %>
-</p>
-
-<p>
-  <strong>Schedule:</strong>
-  <%= @section.schedule %>
-</p>
-
-<p>
-  <strong>Room:</strong>
-  <%= @section.room %>
-</p>
-
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+<h4>
+  <span class="label label-primary"><%= @section.course.credits %> Credits</span>
+  <span class="label label-success"><%= @section.term %></span>
+  <span class="label label-success">Professor <%= @section.teacher %></span>
+  <span class="label label-success"><%= @section.schedule %></span>
+  <span class="label label-success"><%= @section.room %></span>
+</h4>
+<%= form_for [current_user, Enrollment.new] do |f| %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :section_id, value: @section.id %>
+<%= f.submit "Follow", class: "btn btn-default" %>
+<% end %> | 
+<%= link_to "Enroll", @section, class: "btn btn-default" %> | 
+<%= link_to "+Wishlist", @section, class: "btn btn-default" %> |  
+<%= link_to "Courses", university_courses_path(@section.course.university), class: "btn btn-default" %> | 
+<%= link_to "Students", section_users_path(@section), class: "btn btn-default" %> |  
+<%= link_to "Sections", course_sections_path(@section.course), class: "btn btn-default" %> <br>
+<% @section.enrollments.each do |f| %><%= f.user.email %><% end %>
+<div class="">
+  <h2>Assignments</h2>
+  <% @section.assignments.order("duedate desc").each do |f| %><div class="well"><h4>
+    <%= link_to f.name, f %>
+    <span class="label label-default"><%= f.points %> Points</span>
+    <span class="label label-default">Due <%= f.duedate.to_date %></span>
+    </h4><h5><%= f.description %>
+    </h5></div>
+  <% end %>
+  <%= form_for [@section, Assignment.new] do |f| %>
+  <%= f.hidden_field :section_id, value: @section.id %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :points %>
+  <%= f.text_field :points %>
+  <%= f.label :duedate %>
+  <%= f.date_select :duedate %>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <%= f.submit %>
+  <% end %>
+</div>
+<div class="well">
+  <h2>Learning Materials</h2>
+</div>

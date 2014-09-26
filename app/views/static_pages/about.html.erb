@@ -1,10 +1,14 @@
 <h1>Classy - About</h1>
-<p>The mission of Classy is to provide the best way for students to get information about courses so that they are empowered to design the best education for themselves. </p>
-</div>
-<div class="well">
+
+<p>The mission of Classy is to provide the best way for students to get information about courses so that they are empowered to design the best education for themselves. </p><ul>
+<h4><i class="fa fa-arrow-right"></i> Easily search for course information and then add it to a wishlist</h4>
+<h4><i class="fa fa-arrow-right"></i> See what courses your friends are taking</h4>
+<h4><i class="fa fa-arrow-right"></i> Get reviews of courses and teachers</h4>
+</ul>
   <h2>Which schools are on Classy?</h2>
   <% @universities.each do |f| %>
-  <h3 class="panel panel-default panel-body"><%= f.name %><i class="fa fa-user"></i></h3>
+  <h3 class="panel panel-default panel-body"><i class="fa fa-university"></i> <%= f.name %></h3>
   <% end %>
   <p>Login to see information about these schools!</p>
-</div>
+
+<h6>Made by James Steininger &copy; 2014 | San Jose, California</h6>
