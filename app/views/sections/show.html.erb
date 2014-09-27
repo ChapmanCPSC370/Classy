@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @section.course.name %></h1>
-
+<%= link_to 'Edit', edit_section_path(@section) %>
 <h4>
   <span class="label label-primary"><%= @section.course.credits %> Credits</span>
   <span class="label label-success"><%= @section.term %></span>

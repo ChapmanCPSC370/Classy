@@ -13,9 +13,10 @@
  *= require_tree .
  *= require_self
 *- require font-awesome
+*= require fullcalendar
 journal flatly darkly readable paper slate spacelab sandstone superhero simplex united
  */
-@import "bootswatch/readable/variables";
+@import "bootswatch/slate/variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
@@ -23,4 +24,4 @@ body {
   padding-top: 75px;
 }
 
-@import "bootswatch/readable/bootswatch";
+@import "bootswatch/slate/bootswatch";

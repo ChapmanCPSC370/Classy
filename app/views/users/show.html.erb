@@ -1,6 +1,30 @@
 <p id="notice"><%= notice %></p>
-<div class="well">
+<div class="col-md-6">
 <%= image_tag @user.imageurl, width: 100 %> <%= link_to "Edit Profile", edit_user_registration_path(@user), class: "pull-right btn btn-default" %>
 <h1><%= @user.first_name %> <%= @user.last_name %></h1>
 <h3><%= @user.major %>, <% if @user.minor.presence %> Minor in <%= @user.minor %><% end %></h3>
-<%= @user.email %>
+</div>
+<div class="col-md-6 panel panel-primary">
+  <div class="panel-heading">
+<h5>Current schedule</h5>
+  </div>
+  <div class="panel-body">
+<% @user.enrollments.each do |f| %><p>
+    <%= link_to f.section.course.name, f.section %>
+    </p>
+<% end %>
+  </div>
+</div>
+
+<div id='calendarrrr'></div>
+<script>$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},defaultDate: '2014-09-12',
+  defaultView: 'agendaWeek',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: '/sections.json'
+		});</script>

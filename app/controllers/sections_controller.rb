@@ -4,8 +4,8 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    @course = Course.find(params[:course_id])
-    @sections = @course.sections.all
+    @course = Course.find(5)
+    @sections = Section.all
   end
 
   # GET /sections/1
@@ -72,6 +72,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:course_id, :term, :teacher, :schedule, :room)
+      params.require(:section).permit(:course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
     end
 end
