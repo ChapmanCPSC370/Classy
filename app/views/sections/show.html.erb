@@ -9,11 +9,20 @@
   <span class="label label-success"><%= @section.schedule %></span>
   <span class="label label-success"><%= @section.room %></span>
 </h4>
-<%= form_for [current_user, Enrollment.new] do |f| %>
+  <% if current_user.enrolled?(@section) %>
+    <%= form_for [current_user, Enrollment.new] do |f| %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :section_id, value: @section.id %>
-<%= f.submit "Follow", class: "btn btn-default" %>
-<% end %> | 
+<%= f.submit "Drop!", class: "btn btn-default" %>
+<% end %>
+  <% else %>
+    <%= form_for [current_user, Enrollment.new], html: { method: :delete } do |f| %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :section_id, value: @section.id %>
+<%= f.submit "Enroll!", class: "btn btn-default" %>
+<% end %>
+  <% end %> | 
+
 <%= link_to "Enroll", @section, class: "btn btn-default" %> | 
 <%= link_to "+Wishlist", @section, class: "btn btn-default" %> |  
 <%= link_to "Courses", university_courses_path(@section.course.university), class: "btn btn-default" %> | 

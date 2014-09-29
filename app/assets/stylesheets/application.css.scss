@@ -16,7 +16,7 @@
 *= require fullcalendar
 journal flatly darkly readable paper slate spacelab sandstone superhero simplex united
  */
-@import "bootswatch/slate/variables";
+@import "bootswatch/readable/variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
@@ -24,4 +24,4 @@ body {
   padding-top: 75px;
 }
 
-@import "bootswatch/slate/bootswatch";
+@import "bootswatch/readable/bootswatch";

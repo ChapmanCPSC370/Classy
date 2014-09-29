@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-6">
-<%= image_tag @user.imageurl, width: 100 %> <%= link_to "Edit Profile", edit_user_registration_path(@user), class: "pull-right btn btn-default" %>
+<%= image_tag @user.imageurl, width: 100 %> 
+  
+ 
+  <%= link_to "Friend", edit_user_registration_path(@user), class: "pull-right btn btn-primary" %> 
+  <%= link_to "Edit Profile", edit_user_registration_path(@user), class: "pull-right btn btn-default" %>
 <h1><%= @user.first_name %> <%= @user.last_name %></h1>
 <h3><%= @user.major %>, <% if @user.minor.presence %> Minor in <%= @user.minor %><% end %></h3>
 </div>

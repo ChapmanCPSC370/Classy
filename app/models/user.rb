@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :posts
   has_many :enrollments
+  
+  def enrolled?(section)
+    enrollments.find_by(section_id: section.id)
+  end
 end
