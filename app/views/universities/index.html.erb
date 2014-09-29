@@ -3,13 +3,16 @@
       <tr>
         <h3><i class="fa fa-university"></i> <%= university.name %></h3>
         <%= link_to 'See All Courses', university_courses_path(university), class: "btn btn-block pull-right btn-sm btn-primary" %>
+        <% if current_user.badmin %>
         <%= link_to 'Show', university %> | 
         <%= link_to 'Edit', edit_university_path(university) %> | 
         <%= link_to 'Destroy', university, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
         <br>
         <td><%= university.description %></td>
 </tr>
     <% end %>
 <br>
-
+<% if current_user.badmin %>
 <%= link_to 'New University', new_university_path %>
+<% end %>

@@ -2,7 +2,12 @@
 
     <% @courses.each do |course| %><div class="well">
 <h4>
-  <%= link_to course.name, course %> <span class="label label-default"><%= course.credits %> Credits</span>
+  <% if current_user.badmin %>
+  <%= link_to course.name, course_sections_path(course) %> <span class="label label-default"><%= course.credits %> Credits</span>
+  <% else %>
+  <%= course.name %>
+  <% end %>
+  <% if current_user.badmin %>
   <div class="pull-right dropdown">
     <button class=" pull-right: btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
       <span class="caret"></span>
@@ -13,6 +18,8 @@
       <li><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></li>
     </ul>
   </div>
+  
+  <% end %>
   <%= course.description %>
 </h4>
         <% course.sections.each do |f| %>
@@ -23,7 +30,7 @@
   <span class="label label-success">Professor <%= f.teacher %></span>
   <span class="label label-success"><%= f.schedule %></span>
   <span class="label label-success"><%= f.room %></span>
-  <span class="label label-primary"><%= f.enrollments.count %></span>
+  <span class="label label-primary">Students: <%= f.enrollments.count %></span>
   <% end %>
 </h4>
 
@@ -31,7 +38,7 @@
 </div>
     <% end %>
 <div class="well">
-<br>
+<br><% if current_user.badmin %>
 <%= form_for Course.new, url: {university_id: @university.id}  do |f| %>
   <% if @course.errors.any? %>
     <div id="error_explanation">
@@ -62,3 +69,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+  <% end %>

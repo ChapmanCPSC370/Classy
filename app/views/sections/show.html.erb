@@ -1,22 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @section.course.name %></h1>
+<% if current_user.badmin %>
 <%= link_to 'Edit', edit_section_path(@section) %>
+<% end %>
 <h4>
   <span class="label label-primary"><%= @section.course.credits %> Credits</span>
   <span class="label label-success"><%= @section.term %></span>
   <span class="label label-success">Professor <%= @section.teacher %></span>
   <span class="label label-success"><%= @section.schedule %></span>
   <span class="label label-success"><%= @section.room %></span>
+  <span class="label label-default"><%= link_to section_enrollments_path(@section) do %>Students: <%= @section.enrollments.count %><% end %></span>
 </h4>
   <% if current_user.enrolled?(@section) %>
-    <%= form_for [current_user, Enrollment.new] do |f| %>
+<%= form_for [current_user, Enrollment.new], html: { method: :delete } do |f| %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :section_id, value: @section.id %>
 <%= f.submit "Drop!", class: "btn btn-default" %>
 <% end %>
   <% else %>
-    <%= form_for [current_user, Enrollment.new], html: { method: :delete } do |f| %>
+    <%= form_for [current_user, Enrollment.new] do |f| %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :section_id, value: @section.id %>
 <%= f.submit "Enroll!", class: "btn btn-default" %>
