@@ -1,24 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>University:</strong>
-  <%= @major.university_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @major.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @major.description %>
-</p>
-
-<p>
-  <strong>Department:</strong>
-  <%= @major.department_id %>
-</p>
+<h1>
+  <%= @major.name %> - <%= @major.total_credits %> units
+</h1>
+<%= link_to @major.university.name, @major.university %> / Department of <%= link_to @major.department.name, @major.department %>
+<hr>
 
 <%= link_to 'Edit', edit_major_path(@major) %> |
 <%= link_to 'Back', majors_path %>
+
+<h3><%= link_to "Requirements", degree_requirements_path %> (<%= @major.total_credits %> credits ) </h3>
+<% total_credits = 0 %>
+<% @major.degree_requirements.each do |f| %>
+<% total_credits += 3 %>
+<p>
+  <%= link_to f.course.name, f.course %> | <%= f.course.credits %> Credits
+</p>
+<% end %>
+<h4><%= total_credits %> Total Credits Required</h4>

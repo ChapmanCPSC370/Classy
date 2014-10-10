@@ -28,11 +28,20 @@
                 <%= link_to "Profile", current_user %>
               </li>
                 <li>
-                <%= link_to "Universities", universities_path %>
+                <%= link_to "Schools", universities_path %>
               </li>
+              <li>
+                <%= link_to "Departments", departments_path %>
+            </li>
+              <li>
+                <%= link_to "Majors", majors_path %>
+            </li>
               <li>
                 <%= link_to "Courses", courses_all_courses_path %>
               </li>
+              <li>
+                <%= link_to "Sections", sections_all_sections_path %>
+            </li>
               <li>
                 <%= link_to "Friends", users_path %>
               </li>
@@ -51,6 +60,22 @@
             <li>
               <%= link_to "About", static_pages_about_path, class: "" %>
             </li>
+            <li>
+              <%= link_to "Schools", universities_path, class: "" %>
+            </li>
+            <li>
+                <%= link_to "Departments", departments_path %>
+            </li>
+              <li>
+                <%= link_to "Majors", majors_path %>
+            </li>
+            <li>
+              <%= link_to "Courses", courses_all_courses_path, class: "" %>
+            </li>
+            <li>
+              <%= link_to "Sections", sections_all_sections_path %>
+            </li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-right">

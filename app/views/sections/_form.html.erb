@@ -20,11 +20,11 @@
   </div>
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.number_field :course_id %>
+    <%= f.collection_select :course_id, Course.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :term %><br>
-    <%= f.text_field :term %>
+    <%= f.select :term, ['Fall 2014', 'Interim 2015', 'Spring 2015'] %>
   </div>
   <div class="field">
     <%= f.label :teacher %><br>

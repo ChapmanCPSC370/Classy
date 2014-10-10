@@ -6,7 +6,7 @@
   <%= link_to "Friend", edit_user_registration_path(@user), class: "pull-right btn btn-primary" %> 
   <%= link_to "Edit Profile", edit_user_registration_path(@user), class: "pull-right btn btn-default" %>
 <h1><%= @user.first_name %> <%= @user.last_name %></h1>
-<h3><%= @user.major %>, <% if @user.minor.presence %> Minor in <%= @user.minor %><% end %></h3>
+  <h3><%= @user.major.name %> (<%= @user.major.total_credits %> credits), <% if @user.minor.presence %> Minor in <%= @user.minor %><% end %></h3>
 </div>
 <div class="col-md-6 panel panel-primary">
   <div class="panel-heading">
@@ -14,7 +14,9 @@
   </div>
   <div class="panel-body">
 <% @user.enrollments.each do |f| %><p>
+    <% if Section.exists?(f.section_id) %>
     <%= link_to f.section.course.name, f.section %>
+    <% end %>
     </p>
 <% end %>
   </div>

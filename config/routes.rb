@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :degree_requirements
+
   resources :majors
 
   resources :enrollments
@@ -6,17 +8,31 @@ Rails.application.routes.draw do
   resources :announcements
 
   resources :assignments
+  resources :departments do
+    resources :majors
+  end
+  resources :reviews
 
   resources :colusseums
+  get 'sections/all_sections'
+  get 'sections/edit_all'
+  
+  delete 'sections/destroy_multiple'
+
   resources :sections do
+    resources :reviews
     resources :enrollments
     resources :assignments
     resources :announcements
     resources :users
+    get 'students'
   end
   
 
-  resources :universities
+  resources :universities do
+    resources :departments
+    resources :majors
+  end
 
    as :user do
     get '/register', to: 'devise/registrations#new', as: :register
@@ -40,6 +56,9 @@ Rails.application.routes.draw do
   
   get 'static_pages/home'
   get 'courses/all_courses'
+  get 'courses/edit_all'
+  
+  delete 'courses/destroy_multiple'
   get 'static_pages/about'
   root 'static_pages#home'
   
@@ -61,10 +80,10 @@ Rails.application.routes.draw do
     resources :posts do
       resources :users
     end
-    post "course/new"
+   # post "course/new"
   end
   
-  post "course/create"
+ # post "course/create"
   
   resources :users do
     resources :enrollments

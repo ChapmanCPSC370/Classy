@@ -4,8 +4,35 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    @course = Course.find(5)
+   # @course = Course.find(5)
     @sections = Section.all
+  end
+  
+  def all_sections
+    @sections = Section.all
+  end
+  
+  def students
+    @section = Section.find(params[:section_id])
+    @students = @section.enrollments
+  end
+  
+  def destroy_multiple
+    Section.destroy(params[:sections])
+
+    respond_to do |format|
+      format.html { redirect_to sections_edit_all_path }
+      format.json { head :no_content }
+    end
+  end
+  
+  def edit_all
+    @sections = Section.all
+  end
+  
+  def show_sections
+    @course = Course.find(params[:course_id])
+    @sections = @course.sections
   end
 
   # GET /sections/1
@@ -15,8 +42,8 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
-    @course = Course.find(params[:course_id])
-    @section = @course.ection.new
+   #@course = Course.find(params[:course_id])
+    @section = Section.new
   end
 
   # GET /sections/1/edit
@@ -26,12 +53,12 @@ class SectionsController < ApplicationController
   # POST /sections
   # POST /sections.json
   def create   
-    @course = Course.find(params[:course_id])
-    @section = @course.sections.new(section_params)
+   # @course = Course.find(params[:course_id])
+    @section = Section.new(section_params)
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to @course, notice: 'Section was successfully created.' }
+        format.html { redirect_to sections_path, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }

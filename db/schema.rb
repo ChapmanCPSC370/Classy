@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929193909) do
+ActiveRecord::Schema.define(version: 20141010221327) do
 
   create_table "announcements", force: true do |t|
     t.integer  "section_id"
@@ -44,6 +44,20 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.float    "credits"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "department_id"
+  end
+
+  create_table "courses_majors", id: false, force: true do |t|
+    t.integer "major_id"
+    t.integer "course_id"
+  end
+
+  create_table "degree_requirements", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "major_id"
+    t.integer  "minor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments", force: true do |t|
@@ -52,6 +66,8 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.integer  "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "department_tag"
+    t.integer  "university_id"
   end
 
   create_table "enrollments", force: true do |t|
@@ -69,6 +85,12 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.integer  "units_required"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "credits"
+  end
+
+  create_table "majors_courses", id: false, force: true do |t|
+    t.integer "major_id"
+    t.integer "course_id"
   end
 
   create_table "posts", force: true do |t|
@@ -77,6 +99,16 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "course_id"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "section_id"
+    t.integer  "rating"
+    t.text     "description"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "schools", force: true do |t|
@@ -96,6 +128,16 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.datetime "updated_at"
     t.datetime "start_time"
     t.datetime "end_time"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.string   "name"
+    t.integer  "department_id"
+    t.string   "degree"
+    t.string   "alma_mater"
+    t.integer  "university_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "universities", force: true do |t|
@@ -125,6 +167,7 @@ ActiveRecord::Schema.define(version: 20140929193909) do
     t.string   "minor"
     t.text     "bio"
     t.boolean  "badmin",                 default: false
+    t.integer  "major_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

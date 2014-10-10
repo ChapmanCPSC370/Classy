@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  Department of <%= @department.name %> at <%= link_to University.find(@department.university_id).name, @department.university %>
+</h1>
+<hr>
+<p>
+  <strong>Description:</strong>
+  <%= @department.description %>
+</p>
+
+<p>
+  <strong>University:</strong>
+  <%= @department.university_id %>
+</p>
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>
+<h3>Majors</h3>
+<% @department.majors.each do |f| %>
+<h4><%= link_to f.name, f %></h4>
+<% end %>
+<h3>Courses</h3>
+<% @department.courses.each do |f| %>
+<h4><%= link_to f.name, f %></h4>
+<% end %>

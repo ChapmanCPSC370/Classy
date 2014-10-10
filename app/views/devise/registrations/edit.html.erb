@@ -15,8 +15,9 @@
   <div><%= f.label :profile_image_url %>
     <%= f.text_field :imageurl %></div>
 
-  <div><%= f.label :major %>
-    <%= f.text_field :major %></div>
+
+<div><%= f.label :major %>
+  <%= f.collection_select :major_id, Major.all, :id, :name %></div>
 
   <div><%= f.label :minor %>
     <%= f.text_field :minor %></div>

@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @section.course.name %></h1>
-<% if current_user.badmin %>
+<hr>
+
+
+<% if user_signed_in? && current_user.badmin %>
 <%= link_to 'Edit', edit_section_path(@section) %>
 <% end %>
 <h4>
@@ -10,28 +13,33 @@
   <span class="label label-success">Professor <%= @section.teacher %></span>
   <span class="label label-success"><%= @section.schedule %></span>
   <span class="label label-success"><%= @section.room %></span>
-  <span class="label label-default"><%= link_to section_enrollments_path(@section) do %>Students: <%= @section.enrollments.count %><% end %></span>
+  <span class="label label-default"><%= link_to section_students_path(@section) do %>Students: <%= @section.enrollments.count %><% end %></span>
 </h4>
-  <% if current_user.enrolled?(@section) %>
+<hr>
+<ul class="nav nav-pills nav-justified">
+  <li><%= link_to @section do %><h4><i class="fa fa-building fa-2x"></i><br>Assignments</h4><% end %></li>
+  <li><%= link_to @section do %><h4><i class="fa fa-flask fa-2x"></i><br>Materials &amp; Minors</h4><% end %></li>
+  <li><%= link_to @section do %><h4><i class="fa fa-list fa-2x"></i><br>Courses</h4><% end %></li>
+  <li><%= link_to @section do %><h4><i class="fa fa-group fa-2x"></i><br>Students</h4><% end %></li>
+</ul>
+<div class="row">
+  <div class="col-md-6">
+  <% if user_signed_in? && current_user.enrolled?(@section) %>
 <%= form_for [current_user, Enrollment.new], html: { method: :delete } do |f| %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :section_id, value: @section.id %>
 <%= f.submit "Drop!", class: "btn btn-default" %>
 <% end %>
   <% else %>
+<% if user_signed_in? &&  %>
     <%= form_for [current_user, Enrollment.new] do |f| %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :section_id, value: @section.id %>
 <%= f.submit "Enroll!", class: "btn btn-default" %>
 <% end %>
-  <% end %> | 
+<% end %>
+  <% end %> 
 
-<%= link_to "Enroll", @section, class: "btn btn-default" %> | 
-<%= link_to "+Wishlist", @section, class: "btn btn-default" %> |  
-<%= link_to "Courses", university_courses_path(@section.course.university), class: "btn btn-default" %> | 
-<%= link_to "Students", section_users_path(@section), class: "btn btn-default" %> |  
-<%= link_to "Sections", course_sections_path(@section.course), class: "btn btn-default" %> <br>
-<% @section.enrollments.each do |f| %><%= f.user.email %><% end %>
 <div class="">
   <h2>Assignments</h2>
   <% @section.assignments.order("duedate desc").each do |f| %><div class="well"><h4>

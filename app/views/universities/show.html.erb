@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @university.name %><%= @university.id %>
-</p>
+<h1>
+  <%= @university.name %>
+</h1>
+<ul class="nav nav-pills nav-justified">
+  <li><%= link_to university_departments_path(@university) do %><h4><i class="fa fa-building fa-2x"></i><br>Departments</h4><% end %></li>
+  <li><%= link_to university_majors_path(@university) do %><h4><i class="fa fa-flask fa-2x"></i><br>Majors &amp; Minors</h4><% end %></li>
+  <li><%= link_to university_courses_path(@university) do %><h4><i class="fa fa-list fa-2x"></i><br>Courses</h4><% end %></li>
+  <li><%= link_to @university do %><h4><i class="fa fa-group fa-2x"></i><br>Teachers</h4><% end %></li>
+</ul>
 
 <p>
   <strong>Description:</strong>
@@ -12,23 +17,15 @@
 
 <%= link_to 'Edit', edit_university_path(@university) %> |
 <%= link_to 'Back', universities_path %>
-<%= link_to 'Courses', university_courses_path(@university) %>
 
 <hr>
 
-<%= form_for [@universty, Course.new], url: {university_id: @university.id} do |f| %>
-<%= f.hidden_field :university_id %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </p>
-<p>
-  <%= f.label :credits %>
-  <%= f.text_field :credits %>
-  </p>
-  <%= f.submit "Save New Course", class: "btn btn-primary" %>
+<% @university.departments.order("name asc").each do |f| %>
+<div class="col-md-4">
+<h3><%= f.name %></h3>
+<% f.majors.each do |g| %>
+<h4><%= link_to g.name, g %></h4>
+<% end %>
+<hr>
+</div>
 <% end %>

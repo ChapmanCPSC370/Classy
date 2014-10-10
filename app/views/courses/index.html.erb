@@ -2,12 +2,12 @@
 
     <% @courses.each do |course| %><div class="well">
 <h4>
-  <% if current_user.badmin %>
+  <% if user_signed_in? && current_user.badmin %>
   <%= link_to course.name, course_sections_path(course) %> <span class="label label-default"><%= course.credits %> Credits</span>
   <% else %>
   <%= course.name %>
   <% end %>
-  <% if current_user.badmin %>
+  <% if user_signed_in? && current_user.badmin %>
   <div class="pull-right dropdown">
     <button class=" pull-right: btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
       <span class="caret"></span>
@@ -38,7 +38,7 @@
 </div>
     <% end %>
 <div class="well">
-<br><% if current_user.badmin %>
+  <br><% if user_signed_in? && current_user.badmin %>
 <%= form_for Course.new, url: {university_id: @university.id}  do |f| %>
   <% if @course.errors.any? %>
     <div id="error_explanation">
