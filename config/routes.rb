@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :completed_courses
+
   resources :degree_requirements
 
   resources :majors

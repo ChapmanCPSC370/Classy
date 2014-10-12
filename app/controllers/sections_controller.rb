@@ -58,7 +58,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to sections_path, notice: 'Section was successfully created.' }
+        format.html { redirect_to sections_all_sections_path, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -86,7 +86,7 @@ class SectionsController < ApplicationController
   def destroy
     @section.destroy
     respond_to do |format|
-      format.html { redirect_to sections_url, notice: 'Section was successfully destroyed.' }
+      format.html { redirect_to sections_all_sections_path, notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

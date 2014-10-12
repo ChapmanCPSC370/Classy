@@ -14,7 +14,7 @@
 <% @major.degree_requirements.each do |f| %>
 <% total_credits += 3 %>
 <p>
-  <%= link_to f.course.name, f.course %> | <%= f.course.credits %> Credits
+  <% if f.course.presence %><%= link_to f.course.name, f.course %> | <%= f.course.credits %> Credits <% end %>
 </p>
 <% end %>
 <h4><%= total_credits %> Total Credits Required</h4>

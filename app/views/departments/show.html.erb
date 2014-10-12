@@ -4,14 +4,9 @@
   Department of <%= @department.name %> at <%= link_to University.find(@department.university_id).name, @department.university %>
 </h1>
 <hr>
-<p>
-  <strong>Description:</strong>
-  <%= @department.description %>
-</p>
-
-<p>
-  <strong>University:</strong>
-  <%= @department.university_id %>
+<p class="lead"><i>
+  "<%= @department.description %>"
+  </i>
 </p>
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
@@ -22,5 +17,5 @@
 <% end %>
 <h3>Courses</h3>
 <% @department.courses.each do |f| %>
-<h4><%= link_to f.name, f %></h4>
+<h4><%= link_to f do %> <%= f.course_number %> <%= f.department.department_tag %> <%= f.name %> <% end %></h4>
 <% end %>

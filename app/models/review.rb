@@ -1,3 +1,4 @@
 class Review < ActiveRecord::Base
-  belongs_to :section, dependent: :destroy
+  belongs_to :section
+  belongs_to :user
 end

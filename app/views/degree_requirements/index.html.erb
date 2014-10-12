@@ -13,8 +13,8 @@
   <tbody>
     <% @degree_requirements.each do |degree_requirement| %>
       <tr>
-        <td><%= degree_requirement.course_id %></td>
-        <td><%= degree_requirement.major_id %></td>
+        <td><% if degree_requirement.course.presence %><%= degree_requirement.course.name %><% end %></td>
+        <td><%= degree_requirement.major.name %></td>
         <td><%= degree_requirement.minor_id %></td>
         <td><%= link_to 'Show', degree_requirement %></td>
         <td><%= link_to 'Edit', edit_degree_requirement_path(degree_requirement) %></td>

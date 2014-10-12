@@ -17,3 +17,10 @@
 <%= f.teacher %>
 </div>
 <% end %>
+
+<h4><%= link_to "Reviews", reviews_path %> - <%= @course.average_rating %></h4>
+<% @course.sections.each do |f| %>
+<% f.reviews.each do |r| %>
+<strong><%= r.rating %> / 5</strong> from <%= r.user.full_name %>
+<% end %>
+<% end %>
