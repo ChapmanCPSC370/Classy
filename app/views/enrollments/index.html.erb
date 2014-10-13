@@ -1,6 +1,6 @@
 <h1>Listing enrollments</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>User</th>
@@ -12,8 +12,8 @@
   <tbody>
     <% @enrollments.each do |enrollment| %>
       <tr>
-        <td><%= enrollment.user_id %></td>
-        <td><%= enrollment.section_id %></td>
+        <td><%= enrollment.user.full_name %> </td>
+        <td><%= enrollment.section.name %> with Professor <%= enrollment.section.teacher %></td>
         <td><%= link_to 'Show', enrollment %></td>
         <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
         <td><%= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>

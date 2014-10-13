@@ -24,18 +24,19 @@
 </ul>
 <div class="row">
   <div class="col-md-6">
+    
   <% if user_signed_in? && current_user.enrolled?(@section) %>
-    <%= link_to user_enrollment_path(current_user.id, @section.id), method: :delete, data: { confirm: "Are you sure?" } do |f| %>
-Drop!
-<% end %>
+    <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => @section.id).first, class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
+       Drop
+    <% end %>
   <% else %>
-<% if user_signed_in? &&  %>
-    <%= form_for [current_user, Enrollment.new] do |f| %>
-<%= f.hidden_field :user_id, value: current_user.id %>
-<%= f.hidden_field :section_id, value: @section.id %>
-<%= f.submit "Enroll!", class: "btn btn-default" %>
-<% end %>
-<% end %>
+    <% if user_signed_in? &&  %>
+      <%= form_for [current_user, Enrollment.new] do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :section_id, value: @section.id %>
+        <%= f.submit "Enroll!", class: "btn btn-default" %>
+      <% end %>
+    <% end %>
   <% end %> 
 
 <div class="">

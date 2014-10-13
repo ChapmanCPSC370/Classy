@@ -1,4 +1,8 @@
 <h1>Courses</h1>
+<%= form_tag(courses_all_courses_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search Courses..." %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
 <hr>
 <%= link_to "Edit All", courses_edit_all_path %>
 

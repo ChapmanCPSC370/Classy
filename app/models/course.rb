@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
+  
   belongs_to :university
   has_and_belongs_to_many :major
   has_many :posts, dependent: :destroy
@@ -20,6 +21,14 @@ class Course < ActiveRecord::Base
     if num_ratings == 0
       num_ratings = 1
     end
-    return (ave_rating/num_ratings).to_s
+    return (ave_rating / num_ratings).to_s
+  end
+  
+  def full_name
+    return "" + department.department_tag + " " + course_number.to_s + " " + name 
+  end
+
+  def self.search(query)
+    where("name like ?", "%#{query}%") 
   end
 end

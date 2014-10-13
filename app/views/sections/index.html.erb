@@ -4,6 +4,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Course</th>
       <th>Term</th>
       <th>Teacher</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
+        <td></td>
         <td><% if Course.exists?(section.course_id) %><%= Course.find(section.course_id).name %><% end %></td>
         <td><%= section.term %></td>
         <td><%= section.teacher %></td>

@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     end
   end
   resources :courses do
+    
     get 'alli'
     resources :sections do
       resources :enrollments

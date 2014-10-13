@@ -14,9 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require jquery
 //= require bootstrap-sprockets
-//= require jquery/jquery-1.8.3.min
 //= require ace/ace
 //= require ace/theme-twilight
 //= require ace/mode-ruby

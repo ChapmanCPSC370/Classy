@@ -4,6 +4,7 @@
 <table  class="table table-striped table-hover">
   <thead>
     <tr>
+      <th></th>
       <th>Course</th>
       <th>Term</th>
       <th>Teacher</th>
@@ -16,14 +17,33 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
+        <td>
+          
+          
+          <%= link_to section do %><i class="fa fa-star-o"></i><% end %></td>
         <td><% if Course.exists?(section.course_id) %>
-          <%= link_to Course.find(section.course_id).name, section.course %>
+          <%= link_to Course.find(section.course_id).name, section %>
           <% end %></td>
         <td><%= section.term %></td>
         <td><%= section.teacher %></td>
         <td><%= section.schedule %></td>
         <td><%= section.room %></td>
         <td><%= link_to section_reviews_path(section) do %>Reviews<% end %></td>
+        <td><% if user_signed_in? && current_user.enrolled?(section) %>
+          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
+       Drop
+    <% end %>
+  <% else %>
+    <% if user_signed_in? &&  %>
+      <%= form_for [current_user, Enrollment.new], remote: true do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :section_id, value: section.id %>
+         <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %>
+            <i class="fa fa-plus"></i> Enroll
+        <% end %>
+      <% end %>
+    <% end %>
+          <% end %> </td>
         <td><%= link_to 'Edit', edit_section_path(section) %></td>
         <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

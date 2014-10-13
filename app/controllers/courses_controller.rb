@@ -6,7 +6,11 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def all_courses
-    @courses = Course.all
+    if params[:search]
+      @courses = Course.search(params[:search]).order("created_at DESC")
+    else
+      @courses = Course.all.order('created_at DESC')
+    end
   end
   
   def edit_all
@@ -23,7 +27,9 @@ class CoursesController < ApplicationController
   end
   
   def index
-    @courses = Course.all
+
+    @courses = Course.all.order('created_at DESC')
+
     @university = University.find(params[:university_id])
     @course = @university.courses.new
   end
