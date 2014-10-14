@@ -12,11 +12,22 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require bootstrap/collapse
+//= require bootstrap/transition
+//= require bootstrap/dropdown
+//= require bootstrap/tab
+//= require bootstrap/modal
+//= require bootstrap/tooltip
+//= require bootstrap/alert
+//= require bootstrap/button
+//= require bootstrap/popover
+//= require bootstrap/scrollspy
+//= require bootstrap/affix
+ require turbolinks
+ require_tree .
 //= require bootstrap-sprockets
 //= require ace/ace
 //= require ace/theme-twilight
 //= require ace/mode-ruby
-//= require jquery-ace.min
+ require jquery-ace.min
 //= require fullcalendar

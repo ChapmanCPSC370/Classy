@@ -23,7 +23,7 @@
   <div class="panel-body">
 <% @user.enrollments.each do |f| %><p>
     <% if Section.exists?(f.section_id) %>
-    <%= link_to f.section.course.name, f.section %>
+    <%= link_to f.section.course.full_name, f.section %>
     <% end %>
     </p>
 <% end %>
