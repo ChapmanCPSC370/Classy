@@ -8,6 +8,7 @@ gem 'devise'
 gem 'jquery-ace-rails'
 gem 'rails4-autocomplete'
 gem 'animate-rails'
+
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
@@ -16,6 +17,7 @@ end
 gem 'fullcalendar-rails'
 
 group :production do
+  gem 'rails_12factor'
   gem 'pg'
 end
 # Use SCSS for stylesheets
