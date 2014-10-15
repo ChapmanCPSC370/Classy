@@ -12,4 +12,5 @@ class Major < ActiveRecord::Base
     end
     return counted_credits
   end
+  
 end

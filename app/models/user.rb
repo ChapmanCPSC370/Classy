@@ -11,6 +11,14 @@ class User < ActiveRecord::Base
     enrollments.find_by(section_id: section.id)
   end
   
+  def enrolled_major?(major)
+    if self.major == major
+      return true
+    else
+      return false
+    end
+  end
+  
   def full_name 
     return first_name + " " + last_name
   end

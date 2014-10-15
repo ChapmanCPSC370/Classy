@@ -3,11 +3,23 @@
 <h1>
   <%= @major.name %>
 </h1>
-<%= link_to @major.university.name, @major.university %> / <%= link_to "Department of " + @major.department.name, @major.department %>
+Of <%= link_to @major.university.name, @major.university %> within the <%= link_to "Department of " + @major.department.name, @major.department %><br>
+<%= link_to 'Edit', edit_major_path(@major) %> | <%= link_to 'Back', majors_path %>
 <hr>
 
-<%= link_to 'Edit', edit_major_path(@major) %> |
-<%= link_to 'Back', majors_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="well">
+    <h4>Enrolled Students (<%= @users.count %>)</h4>
+    <% @users.each do |f| %>
+    <p><%= link_to f.full_name, f %></p>
+    <% end %>
+  </div>
+  </div>
+  <div class="col-md-9">
+    <div class="well">
+
+
 
 <h3><%= link_to "Requirements", degree_requirements_path %> (<%= @major.total_credits %> credits ) </h3>
 

@@ -10,6 +10,7 @@ class MajorsController < ApplicationController
   # GET /majors/1
   # GET /majors/1.json
   def show
+    @users = User.where(:major_id => @major.id)
   end
 
   # GET /majors/new

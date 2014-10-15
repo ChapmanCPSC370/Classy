@@ -1,6 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @section.course.name %></h1>
+<div class="row">
+  <h1><%= @section.course.full_name %>
+    <div class="dropdown pull-right">
+      <button class="btn btn-default dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown">
+        
+        <i class="fa fa-pencil"></i>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><%= link_to "Edit", edit_section_path(@section) %></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Flag</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Write a Review</a></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><% if user_signed_in? && current_user.enrolled?(@section) %>
+          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => @section.id).first, class: "", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
+       Drop<% end %>
+          <% else %>
+          <% if user_signed_in? &&  %>
+      <%= form_for [current_user, Enrollment.new] do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :section_id, value: @section.id %>
+          <%= f.submit "Enroll", class: 'btn btn-default btn-block', style: "padding: 5px" %>
+      <% end %>
+    <% end %>
+          <% end %> </li>
+      </ul>
+    </div>
+   </h1>
 <hr>
 
 
@@ -13,7 +39,6 @@
   <span class="label label-success">Professor <%= @section.teacher %></span>
   <span class="label label-success"><%= @section.schedule %></span>
   <span class="label label-success"><%= @section.room %></span>
-  <span class="label label-default"><%= link_to section_students_path(@section) do %>Students: <%= @section.enrollments.count %><% end %></span>
 </h4>
 <hr>
 <ul class="nav nav-pills nav-justified">
@@ -25,19 +50,6 @@
 <div class="row">
   <div class="col-md-6">
     
-  <% if user_signed_in? && current_user.enrolled?(@section) %>
-    <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => @section.id).first, class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
-       Drop
-    <% end %>
-  <% else %>
-    <% if user_signed_in? &&  %>
-      <%= form_for [current_user, Enrollment.new] do |f| %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :section_id, value: @section.id %>
-        <%= f.submit "Enroll!", class: "btn btn-default" %>
-      <% end %>
-    <% end %>
-  <% end %> 
 
 <div class="">
   <h2>Assignments</h2>

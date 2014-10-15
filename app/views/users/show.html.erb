@@ -18,12 +18,13 @@
   <% end %>
   <div class="panel-heading">
     
-<h5>Current schedule</h5>
+<h5>Fall 2014 Schedule</h5>
   </div>
   <div class="panel-body">
-<% @user.enrollments.each do |f| %><p>
+<% @user.enrollments.each do |f| %>
+    <p>
     <% if Section.exists?(f.section_id) %>
-    <%= link_to f.section.course.full_name, f.section %>
+      <%= link_to f.section.course.full_name, f.section %> with <%= f.section.teacher %> at <%= f.section.schedule %>
     <% end %>
     </p>
 <% end %>
@@ -31,8 +32,9 @@
 </div>
 
 <div class="col-md-6">
+  <div class="well">
 
-  <h3><% if @user.major.presence %><%= link_to @user.major.name, @user.major %> (<%= @user.major.total_credits %> credits), <% if @user.minor.presence %> Minor in <%= @user.minor %><% end %></h3>
+  <h3><% if @user.major.presence %>Pursuing <%= link_to @user.major.name, @user.major %> (<%= @user.major.total_credits %> credits) <% if @user.minor.presence %>, Minor in <%= @user.minor %><% end %></h3>
   <% end %>
   
   <% @user.major.degree_requirements.each do |f| %>

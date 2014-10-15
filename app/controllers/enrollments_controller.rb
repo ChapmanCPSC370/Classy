@@ -28,7 +28,8 @@ class EnrollmentsController < ApplicationController
 
     respond_to do |format|
       if @enrollment.save
-        format.js
+        format.html { render :new }
+        format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       else
         format.html { render :new }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }

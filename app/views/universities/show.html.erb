@@ -23,7 +23,7 @@
 <div class="col-md-4">
 <h3><%= f.name %></h3>
 <% f.majors.each do |g| %>
-<h4><%= link_to g.name, g %></h4>
+  <h4><%= link_to g.name, g %> <% if current_user.enrolled_major?(g) %><span class="label label-success">Enrolled</span><% end %></h4>
 <% end %>
 <hr>
 </div>
