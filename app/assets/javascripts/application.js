@@ -13,10 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
- require turbolinks
- require_tree .
-//= require ace/ace
-//= require ace/theme-twilight
-//= require ace/mode-ruby
- require jquery-ace.min
-//= require fullcalendar
