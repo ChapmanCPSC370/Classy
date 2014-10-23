@@ -29,29 +29,44 @@
    </h1>
 <hr>
 
+<div class="row">
+  <div class="col-md-9">
+    
+<div class="well">
+  <h2>Learning Materials</h2>
+  <%= form_for [@section, LearningResource.new] do |f| %>
+  <%= f.hidden_field :section_id, value: @section.id %>URL: 
+  <%= f.text_field :resourceurl %> Name: <%= f.text_field :name %>
+  <%= f.submit "Add", class: "btn btn-default" %>
+  <% end %>
+  <hr>
+  <% @section.learning_resources.each do |f| %>
+  <h4><%= f.name %></h4>
+  <h4><%= link_to f.resourceurl, f.resourceurl %></h4>
+  <% end %>
+</div>
+  </div>
+  <div class="col-md-3">
+    <div class="well">
+      Teacher: <%= @section.teacher %> <br><%= @section.course.credits %> Credits<br>
+      <%= @section.term %><br>
+      <%= @section.schedule %><br><p>
+      Hour:<%= @section.time_start.hour %> Min:<%= @section.time_start.min %>
+      Total (out of 1440): <%= (@section.time_start.hour * 60) + (@section.time_start.min) %>
+      </p>
+      <%= @section.room %>
+    </div>
+  </div>
+</div>
 
 <% if user_signed_in? && current_user.badmin %>
 <%= link_to 'Edit', edit_section_path(@section) %>
 <% end %>
-<h4>
-  <span class="label label-primary"><%= @section.course.credits %> Credits</span>
-  <span class="label label-success"><%= @section.term %></span>
-  <span class="label label-success">Professor <%= @section.teacher %></span>
-  <span class="label label-success"><%= @section.schedule %></span>
-  <span class="label label-success"><%= @section.room %></span>
-</h4>
-<hr>
-<ul class="nav nav-pills nav-justified">
-  <li><%= link_to @section do %><h4><i class="fa fa-building fa-2x"></i><br>Assignments</h4><% end %></li>
-  <li><%= link_to @section do %><h4><i class="fa fa-flask fa-2x"></i><br>Materials &amp; Minors</h4><% end %></li>
-  <li><%= link_to @section do %><h4><i class="fa fa-list fa-2x"></i><br>Courses</h4><% end %></li>
-  <li><%= link_to @section do %><h4><i class="fa fa-group fa-2x"></i><br>Students: <%= @section.enrollments.count %></h4><% end %></li>
-</ul>
 <div class="row">
   <div class="col-md-6">
     
 
-<div class="">
+<div class="well">
   <h2>Assignments</h2>
   <% @section.assignments.order("duedate desc").each do |f| %><div class="well"><h4>
     <%= link_to f.name, f %>
@@ -72,7 +87,4 @@
   <%= f.text_area :description %>
   <%= f.submit %>
   <% end %>
-</div>
-<div class="well">
-  <h2>Learning Materials</h2>
 </div>

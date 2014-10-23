@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012102834) do
+ActiveRecord::Schema.define(version: 20141023191750) do
 
   create_table "announcements", force: true do |t|
     t.integer  "section_id"
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 20141012102834) do
     t.datetime "updated_at"
   end
 
+  create_table "learning_resources", force: true do |t|
+    t.string   "name"
+    t.string   "resourceurl"
+    t.text     "description"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "majors", force: true do |t|
     t.integer  "university_id"
     t.string   "name"
@@ -140,6 +149,9 @@ ActiveRecord::Schema.define(version: 20141012102834) do
     t.datetime "updated_at"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.time     "time_start"
+    t.time     "time_end"
+    t.time     "days_of_class"
   end
 
   create_table "teachers", force: true do |t|

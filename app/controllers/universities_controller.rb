@@ -1,6 +1,8 @@
 class UniversitiesController < ApplicationController
   before_action :set_university, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :xml, :json
+  
+  autocomplete :course, :name, full: true
   # GET /universities
   # GET /universities.json
   def index
@@ -10,6 +12,9 @@ class UniversitiesController < ApplicationController
   # GET /universities/1
   # GET /universities/1.json
   def show
+    @university = University.find(params[:id])
+    @autocomplete_items = Course.all
+    respond_with json: @autocomplete_items
   end
 
   # GET /universities/new

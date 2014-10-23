@@ -7,9 +7,12 @@ class CoursesController < ApplicationController
   # GET /courses.json
   def all_courses
     if params[:search]
-      @courses = Course.search(params[:search]).order("created_at DESC")
+      @courses = Course.search(params[:search]).order("name ASC")
+      @autocomplete_items = Course.all
     else
-      @courses = Course.all.order('created_at DESC')
+      @courses = Course.all.order('name ASC')
+      @autocomplete_items = Course.all
+      respond_with json: @courses
     end
   end
   

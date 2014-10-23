@@ -8,6 +8,8 @@ gem 'devise'
 gem 'jquery-ace-rails'
 gem 'rails4-autocomplete'
 gem 'animate-rails'
+gem 'bootstrap-typeahead-rails'
+gem 'bootstrap-slider-rails'
 
 group :development do
   # Use sqlite3 as the database for Active Record

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :learning_resources
+
   resources :completed_courses
 
   resources :degree_requirements
@@ -15,13 +17,15 @@ Rails.application.routes.draw do
   end
   resources :reviews
 
-  resources :colusseums
   get 'sections/all_sections'
   get 'sections/edit_all'
+  get 'sections/all_sections2'
+  get 'sections/search_sections'
   
   delete 'sections/destroy_multiple'
 
   resources :sections do
+    resources :learning_resources
     resources :reviews
     resources :enrollments
     resources :assignments
@@ -32,6 +36,7 @@ Rails.application.routes.draw do
   
 
   resources :universities do
+    get :autocomplete_course_name, on: :collection
     resources :departments
     resources :majors
   end
@@ -70,12 +75,13 @@ Rails.application.routes.draw do
   end
   resources :universities do
     resources :courses do
+      get :autocomplete_section_teacher, on: :collection
       resources :posts
       post "course/new"
     end
   end
   resources :courses do
-    
+    get :autocomplete_section_teacher, on: :collection
     get 'alli'
     resources :sections do
       resources :enrollments

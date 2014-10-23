@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :xml, :json
 
   # GET /sections
   # GET /sections.json
@@ -9,6 +10,21 @@ class SectionsController < ApplicationController
   end
   
   def all_sections
+    @sections = Section.all
+  end
+  
+  def search_sections
+    if params[:search]
+      @sections = Section.search(params[:search]).order("teacher ASC")
+      @autocomplete_items = Section.all
+    else
+      @sections = Section.all.order('teacher ASC')
+      @autocomplete_items = Section.all
+      respond_with json: @sections
+    end
+  end
+  
+  def all_sections2
     @sections = Section.all
   end
   
@@ -99,6 +115,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
+      params.require(:section).permit(:time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
     end
 end

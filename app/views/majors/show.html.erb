@@ -26,9 +26,9 @@ Of <%= link_to @major.university.name, @major.university %> within the <%= link_
 <% @major.degree_requirements.each do |f| %>
 
 <p>
-  <% if f.course.presence %><%= link_to f.course.full_name, f.course %> - <%= f.course.credits %> Credits <% current_user.enrollments.each do |g| %> 
+  <% if f.course.presence %><%= link_to f.course.full_name, f.course %> - <%= f.course.credits %> Credits <% if user_signed_in? %><% current_user.enrollments.each do |g| %> 
           <% if g.section.course.id == f.course.id %>
             <span class="label label-success">Currently Enrolled</span>
-  <% end %><% end %><% end %>
+  <% end %><% end %><% end %><% end %>
 </p>
 <% end %>

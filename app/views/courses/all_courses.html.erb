@@ -1,9 +1,17 @@
 <h1>Courses</h1>
-<%= form_tag(courses_all_courses_path, :method => "get", id: "search-form") do %>
-<%= text_field_tag :search, params[:search], placeholder: "Search Courses..." %>
-  <%= submit_tag "Search", :name => nil %>
+<div id="the-basics2">
+<%= form_tag(courses_all_courses_path, :method => "get", id: "the-basics2 search-form") do %>
+  <%= text_field_tag :search, params[:search], class: "form-control typeahead", id: "auto_complete", placeholder: "Search Courses..." %>
+  <%= submit_tag "Search", class: "btn btn-default", :name => nil %>
 <% end %>
-<hr>
+<hr></div>
+<%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:name).to_json };" %>
+<script type="text/javascript">
+  $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 1
+},
+{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_items)
+});
+</script>
 <%= link_to "Edit All", courses_edit_all_path %>
 
 <table class="table table-striped table-hover">

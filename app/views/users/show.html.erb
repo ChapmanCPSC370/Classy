@@ -37,9 +37,9 @@
   <h3><% if @user.major.presence %>Pursuing <%= link_to @user.major.name, @user.major %> (<%= @user.major.total_credits %> credits) <% if @user.minor.presence %>, Minor in <%= @user.minor %><% end %></h3>
   <% end %>
   
-  <% @user.major.degree_requirements.each do |f| %>
+    <% @user.major.degree_requirements.each do |f| %>
     <p>
-      <%= f.course.department.department_tag %> <%= f.course.course_number %> <%= f.course.name %>
+      <%= link_to f.course.full_name, f.course %>
         <% @user.enrollments.each do |g| %> 
           <% if g.section.course.id == f.course.id %>
             <span class="label label-success">Currently Enrolled</span>

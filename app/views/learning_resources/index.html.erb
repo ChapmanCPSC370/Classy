@@ -1,0 +1,31 @@
+<h1>Listing learning_resources</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Resourceurl</th>
+      <th>Description</th>
+      <th>Section</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @learning_resources.each do |learning_resource| %>
+      <tr>
+        <td><%= learning_resource.name %></td>
+        <td><%= learning_resource.resourceurl %></td>
+        <td><%= learning_resource.description %></td>
+        <td><%= learning_resource.section_id %></td>
+        <td><%= link_to 'Show', learning_resource %></td>
+        <td><%= link_to 'Edit', edit_learning_resource_path(learning_resource) %></td>
+        <td><%= link_to 'Destroy', learning_resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Learning resource', new_learning_resource_path %>
