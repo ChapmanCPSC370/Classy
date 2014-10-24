@@ -17,9 +17,13 @@ class SectionsController < ApplicationController
     if params[:search]
       @sections = Section.search(params[:search]).order("teacher ASC")
       @autocomplete_items = Section.all
+      @autocomplete_majors = Major.all
+      @autocomplete_courses = Course.all
     else
       @sections = Section.all.order('teacher ASC')
       @autocomplete_items = Section.all
+      @autocomplete_majors = Major.all
+      @autocomplete_courses = Course.all
       respond_with json: @sections
     end
   end

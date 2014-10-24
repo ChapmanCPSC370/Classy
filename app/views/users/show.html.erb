@@ -1,12 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 
-<div class="col-md-6 panel panel-primary">
-  <%= image_tag @user.imageurl, width: 100 %> 
+<div class="col-md-6 panel panel-primary"><div class="panel-body">
+  <center><p>
+  <%= image_tag @user.imageurl, width: 240 %><br>
+    <br>
   
- 
-  <%= link_to "Friend", edit_user_registration_path(@user), class: "pull-right btn btn-primary" %> 
-  <%= link_to "Edit Profile", edit_user_registration_path(@user), class: "pull-right btn btn-default" %>
+    <% if @user == current_user %>
+    <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
+    <% else %>
+    <%= link_to "Add Friend", edit_user_registration_path(@user) %>
+    <% end %>
   <% if  @user.first_name.presence %>
 <h1><%= @user.first_name %> <%= @user.last_name %></h1>
   <% if  @user.major.presence %>
@@ -16,11 +20,9 @@
       </div>
     </div>
   <% end %>
-  <div class="panel-heading">
-    
-<h5>Fall 2014 Schedule</h5>
-  </div>
-  <div class="panel-body">
+    </p>
+<h3>Fall 2014 Schedule</h3>
+  </center>
 <% @user.enrollments.each do |f| %>
     <p>
     <% if Section.exists?(f.section_id) %>

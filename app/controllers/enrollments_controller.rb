@@ -28,7 +28,7 @@ class EnrollmentsController < ApplicationController
 
     respond_to do |format|
       if @enrollment.save
-        format.html { render :new }
+        format.html { render sections_search_sections_path }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to sections_all_sections_path, notice: 'Enrollment was successfully destroyed.' }
+      format.html { redirect_to sections_search_sections_path, notice: 'Enrollment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
