@@ -14,7 +14,7 @@ class EnrollmentsController < ApplicationController
 
   # GET /enrollments/new
   def new
-    @enrollment = Enrollment.new
+   # @enrollment = Enrollment.new
   end
 
   # GET /enrollments/1/edit
@@ -24,11 +24,12 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments
   # POST /enrollments.json
   def create
-    @enrollment = Enrollment.new(enrollment_params)
+    @user = User.find(params[:user_id])
+    @enrollment = @user.enrollments.new(enrollment_params)
 
     respond_to do |format|
       if @enrollment.save
-        format.html { render sections_search_sections_path }
+        format.html { redirect_to sections_search_sections_path }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to sections_search_sections_path, notice: 'Enrollment was successfully updated.' }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }

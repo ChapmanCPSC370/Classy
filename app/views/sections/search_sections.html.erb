@@ -88,15 +88,15 @@ Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="3
         <td><div class="btn-group"><%= link_to section.average_rating, section_reviews_path(section), class: "btn btn-sm btn-primary" %>
 </div> </td>
         <td><% if user_signed_in? && current_user.enrolled?(section) %>
-          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
+          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", method: :delete do |f| %>
        <i class="fa fa-star"></i> Favored
           <% end %>
           <% else %>
           <% if user_signed_in? &&  %>
-      <%= form_for [current_user, Enrollment.new] do |f| %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :section_id, value: section.id %>
-         <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %>
+          <%= form_for [current_user, Enrollment.new], html: { id: 'form_id' }, url: { controller: :enrollments, user_id: current_user.id } do |f| %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :section_id, value: section.id %>
+             <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %>
             <i class="fa fa-star-o"></i> Favorite?
         <% end %>
       <% end %>
@@ -123,14 +123,17 @@ Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="3
     <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-body">
-          Spring 2015 Wishlist<br><% if user_signed_in? %>
-          <% current_user.enrollments.each do |f| %>
-    <p>
-    <% if Section.exists?(f.section_id) %>
-      <%= link_to f.section.course.full_name, f.section %>
-    <% end %>
-    </p>
-<% end %>
+          Spring 2015 Wishlist<br>
+          <% if user_signed_in? %>
+            <% current_user.enrollments.each do |f| %>
+              <p>
+              <% if Section.exists?(f.section_id) %>
+                <%= link_to f.section.course.full_name, f.section %>
+              <% end %>
+              </p>
+          
+          <% end %>
+          <% else %> <%= link_to "Log in to save your schedule", new_user_session_path %>
           <% end %>
         </div>
       </div>
