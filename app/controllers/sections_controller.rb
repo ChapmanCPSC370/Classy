@@ -15,7 +15,8 @@ class SectionsController < ApplicationController
   
   def search_sections
     if params[:search]
-      @sections = Section.search(params[:search]).order("teacher ASC")
+      #@sections = Section.where(['teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
+      @sections = Section.joins(:course).where(['name LIKE ? or teacher LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
       @autocomplete_items = Section.all
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all

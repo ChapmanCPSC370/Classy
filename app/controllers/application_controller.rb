@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
   	devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:bio, :imageurl, :major, :major_id, :minor, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+      u.permit(:bAdmin, :bAmbassador, :bio, :imageurl, :major, :major_id, :minor, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
   	end
   	devise_parameter_sanitizer.for(:account_update) do |u|
-      u.permit(:bio, :imageurl, :major, :major_id, :minor, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+      u.permit(:bAdmin, :bAmbassador, :bio, :imageurl, :major, :major_id, :minor, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
   	end
   end
 end

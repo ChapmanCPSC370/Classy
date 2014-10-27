@@ -1,12 +1,67 @@
-<h1>Classy: The open education platform</h1>
-<h3>What is Classy?</h3>
-<h4>Classy is an open education platform. Classy can help you find information about courses, plan which courses you want to take, find ratings on courses and professors, and collaborate with students.</h4>
-<%= link_to "Sign Up Today!", new_user_registration_path, id: "testtt", class: "btn btn-success" %> 
-<%= link_to "Find Your School!", universities_path, class: "btn btn-info" %> 
-<%= link_to "Find Course Information Now!", courses_all_courses_path, class: "btn btn-primary" %>
+<center><i style="text-shadow: 3px 3px 0px #fff, 7px 7px 0px rgba(0, 0, 0, 0.15);" class="text-primary fa fa-graduation-cap fa-5x"></i><br><h1>Classy</h1><h3>The open education platform</h3></center>
+
+<div class="col-md-6 col-md-offset-3"><hr><h4>Classy is an open education platform. Classy can help you find information about courses, plan which courses you want to take, find ratings on courses and professors, and collaborate with students.</h4>
+
 
 <script>
   $(function() {
    $('#test').addClass('animated fadeInUp');
 });
 </script>
+  </center><br>
+
+<div id="the-basics2">
+<%= form_tag(sections_search_sections_path, :method => "get", id: "the-basics2  form-", class: 'for') do  %>
+ 
+<div class="form-group col-md-">
+  <%= text_field_tag :search, params[:search], style: "width: 100%",  class: "form-control ", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
+    </div>
+  <%= submit_tag "Search", class: "btn btn-primary btn-lg btn-block", :name => nil %>
+
+<% end %>
+</div>
+  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:teacher).to_json };" %>
+      <%= javascript_tag "var autocomplete_majors = #{ @autocomplete_majors.pluck(:name).to_json };" %>
+      <%= javascript_tag "var autocomplete_courses = #{ @autocomplete_courses.pluck(:name).to_json };" %>
+<script type="text/javascript">
+  $('#auto_complete').typeahead({ 
+    hint: true, highlight: true, minLength: 1 },
+{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_items), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">Teachers</h3>'
+}
+},
+{
+  name: 'nba-teams',
+  displayKey: 'value',
+  source: substringMatcher(autocomplete_majors),
+  templates: {
+    header: '<h3 style="padding-left: 10px;" class="league-name">Majors</h3>'
+  }
+},
+{
+  name: 'nba-teams',
+  displayKey: 'value',
+  source: substringMatcher(autocomplete_courses),
+  templates: {
+    header: '<h3 style="padding-left: 10px;" class="league-name">Class</h3>'
+  }
+});
+</script>
+<script>
+  $('#hours').slider({ 
+        formater: function(value) {
+            return formatTime(minutesToTime(value));
+        },
+        
+        tooltip_separator: " to ", 
+    }).on("slideStop", drawTables);
+  
+  function drawTables() {
+      
+    }
+  
+</script>
+  <p><center>or</p>
+  <%= link_to "Start planning your Spring 2015 schedule!", sections_search_sections_path, class: "btn btn-lg btn-info btn-block" %>
+<%= link_to "Sign Up Today!", new_user_registration_path, id: "testtt", class: "btn btn-lg btn-success btn-block" %> 
+  </div>

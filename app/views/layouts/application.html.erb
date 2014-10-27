@@ -19,7 +19,8 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to root_path, class: "navbar-brand" do %>
-            <i class="fa fa-graduation-cap"></i>  Classy
+          <i style="text-shadow: 1px 1px 0px #fff, 2px 2px 0px rgba(0, 0, 0, 0.15);" class="text-primary fa fa-graduation-cap "></i>
+             Classy
           <% end %>
         </div>
         <div class="collapse navbar-collapse">
@@ -28,6 +29,7 @@
               <li>
                 <%= link_to "Profile", current_user %>
               </li>
+              <% if current_user.bAmbassador %>
                 <li>
                 <%= link_to "Schools", universities_path %>
               </li>
@@ -46,12 +48,18 @@
               <li>
                 <%= link_to "Friends", users_path %>
               </li>
+              <% end %>
           </ul>
             
             <ul class="nav navbar-nav navbar-right">
               <li>
 							<%= link_to  logout_path, :method => :delete do %>Log out <i class="fa fa-sign-out"></i> <% end %>
 						</li>
+              <% if current_user.bAmbassador %>
+              <form class="navbar-form navbar-left">
+                <%= link_to users_path, class: 'btn btn-primary navbar-' do %><i class="fa fa-key"></i> Ambassador Panel<% end %>
+              </form>
+              <% end %>
           </ul>
           <% else %>
           <ul class="nav navbar-nav">
@@ -62,21 +70,8 @@
               <%= link_to "About", static_pages_about_path, class: "" %>
             </li>
             <li>
-              <%= link_to "Schools", universities_path, class: "" %>
+              <%= link_to "Search", sections_search_sections_path %>
             </li>
-            <li>
-                <%= link_to "Departments", departments_path %>
-            </li>
-              <li>
-                <%= link_to "Majors", majors_path %>
-            </li>
-            <li>
-              <%= link_to "Courses", courses_all_courses_path, class: "" %>
-            </li>
-            <li>
-              <%= link_to "Sections", sections_search_sections_path %>
-            </li>
-            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-right">
