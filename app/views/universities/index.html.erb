@@ -1,4 +1,16 @@
 <h1>Schools</h1>
+<div id='calendar'></div>
+<script>$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},defaultDate: '2014-09-12',
+  defaultView: 'agendaWeek',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: '/sections.json'
+		});</script>
 <hr>
 <p class="lead">If you do not see your school here, <%= link_to "start the process for your school now!", new_university_path, class: "" %></p>
 <hr>    
