@@ -72,6 +72,11 @@
             <li>
               <%= link_to "Search", sections_search_sections_path %>
             </li>
+            <li> 
+              <%= link_to sections_search_sections_path, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Search", 'data-placement' => 'bottom' do %>
+                <i class="fa fa-search fa-x"></i>
+              <% end %>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-right">
@@ -89,7 +94,9 @@
     </div>
 
     <div class="container">
-      
+      <% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+<% end %>
   
 <%= yield %>
       </div>

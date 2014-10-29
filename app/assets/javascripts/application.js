@@ -16,7 +16,9 @@
 //= require fullcalendar
 //= require bootstrap-typeahead-rails
 //= require bootstrap-slider
-
+$(document).on("ready page:change", function() {
+    $('.tag-tooltip').tooltip();
+});
 var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substrRegex;
