@@ -17,10 +17,10 @@ class SectionsController < ApplicationController
     if params[:search]
       #@sections = Section.where(['teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
       @sections = Section.joins(:course).where(['name LIKE ? or teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
-@section_majors = Major.where(['name LIKE ?', "%#{params[:search]}%"])
-@major_sections = Section.joins(:majors).where(['majors.name LIKE ?', "%#{params[:search]}%"])
-@sections = @sections.merge(@major_sections)
-@autocomplete_items = Section.all
+      @section_majors = Major.where(['name LIKE ?', "%#{params[:search]}%"])
+      @major_sections = Section.joins(:majors).where(['majors.name LIKE ?', "%#{params[:search]}%"])
+      @sections = @sections + @major_sections
+      @autocomplete_items = Section.all
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all
     else
