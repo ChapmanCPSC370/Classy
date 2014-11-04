@@ -7,6 +7,8 @@ class Section < ActiveRecord::Base
   has_many :enrollments
   has_many :learning_resources, dependent: :destroy
   has_many :reviews
+  has_many :degree_requirements, through: :course
+  has_many :majors, through: :degree_requirements
   
   def average_rating
     ave_rating = 0.0
@@ -25,6 +27,10 @@ class Section < ActiveRecord::Base
     if Course.exists?(course_id)
       return Course.find(course_id).name
     end
+  end
+  
+  def major
+    dsdas
   end
   
   def self.search(query)

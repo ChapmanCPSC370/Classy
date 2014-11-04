@@ -32,6 +32,13 @@
       <h3>Rating: <span class="label label-success"><%= @course.average_rating %></span></h3><p>(Average rating from all sections)
       
     </div>
+     
+     <div class='well'>
+       <h3>Majors this class fulfills</h3>
+       <% @course.degree_requirements.each do |f| %>
+       <h4><%= f.major.name %></h4>
+       <% end %>
+     </div>
   </div>
 </div>
 

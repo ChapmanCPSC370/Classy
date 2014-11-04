@@ -1,7 +1,7 @@
 class Course < ActiveRecord::Base
   
   belongs_to :university
-  has_and_belongs_to_many :major
+  has_and_belongs_to_many :majors, through: :degree_requirements
   has_many :posts, dependent: :destroy
   has_many :degree_requirements, dependent: :destroy
   has_many :sections, dependent: :destroy

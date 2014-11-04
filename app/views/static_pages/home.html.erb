@@ -1,6 +1,6 @@
 <center><i style="text-shadow: 3px 3px 0px #fff, 7px 7px 0px rgba(0, 0, 0, 0.15);" class="text-primary fa fa-graduation-cap fa-5x"></i><br><h1>Classy</h1><h3>The open education platform</h3></center>
 
-<div class="col-md-6 col-md-offset-3"><hr><h4>Classy is an open education platform. Classy can help you find information about courses, plan which courses you want to take, find ratings on courses and professors, and collaborate with students.</h4>
+<div class="col-md-6 col-md-offset-3"><hr><h4>Classy helps you search course catalogs and plan the perfect semester. Save your favorites to a wishlist and then make the schedule that works for you on an interactive calendar. </h4>
 
 
 <script>
@@ -14,9 +14,9 @@
 <%= form_tag(sections_search_sections_path, :method => "get", id: "the-basics2  form-", class: 'for') do  %>
  
 <div class="form-group col-md-">
-  <%= text_field_tag :search, params[:search], style: "width: 100%",  class: "form-control ", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
-    </div>
-  <%= submit_tag "Search", class: "btn btn-primary btn-lg btn-block", :name => nil %>
+  <%= text_field_tag :search, params[:search], class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
+    </div><br>
+  <%= submit_tag "Search!", class: "btn btn-primary btn-lg btn-block", :name => nil %>
 
 <% end %>
 </div>
