@@ -32,7 +32,7 @@
                 <% end %>
               </li>
               <li> 
-              <%= link_to sections_search_sections_path, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Search", 'data-placement' => 'bottom' do %>
+              <%= link_to sections_wishlist_path, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Search", 'data-placement' => 'bottom' do %>
                   <i class="fa fa-search fa-x"></i>
                 <% end %>
               </li>
@@ -50,7 +50,7 @@
                 <%= link_to "Courses", courses_all_courses_path %>
               </li>
               <li>
-                <%= link_to "Sections", sections_search_sections_path %>
+                <%= link_to "Sections", sections_wishlist_path %>
             </li>
               <li>
                 <%= link_to "Friends", users_path %>
@@ -70,20 +70,17 @@
           </ul>
           <% else %>
           <ul class="nav navbar-nav">
-            <li>
-              <%= link_to "Home", root_path, class: "" %>
-            </li>
-            <li>
-              <%= link_to "About", static_pages_about_path, class: "" %>
-            </li>
-            <li>
-              <%= link_to "Search", sections_search_sections_path %>
-            </li>
-            <li> 
-              <%= link_to sections_search_sections_path, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Search", 'data-placement' => 'bottom' do %>
-                <i class="fa fa-search fa-x"></i>
-              <% end %>
-            </li>
+            <li><div id="the-basics2">
+<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-", class: 'navbar-form form-inline') do %>
+  <div class="form-group col-md-">
+    <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
+    </div>
+  <%= button_tag( :class => "btn btn-primary") do %>
+  <i class="fa fa-search"></i> Search
+<% end %>
+<% end %>
+              </div></li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-right">
@@ -99,13 +96,15 @@
 				 </div><!--/.nav-collapse -->
     </div>
     </div>
-
-    <div class="container">
-      <% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-<% end %>
-  
-<%= yield %>
+    <div class="container" >
+     <%= render 'layouts/messages' %>
+   
+      <%= yield %>
+  </div></div></div></div>
+<div class="container">
+      <hr>
+      <center>Copright &copy; Classy, 2014 <br>
+      <%= link_to "Blog & Updates", posts_path %> | <%= link_to "Feedback", new_feedback_path %> | <%= link_to "About", static_pages_about_path %> | <%= link_to "Contact", "http://www.jamessteininger.info/about/" %><br>Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %><br><br>
       </div>
 </body>
 </html>

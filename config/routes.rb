@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :feedbacks
+
   resources :learning_resources
 
   resources :completed_courses
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   get 'sections/all_sections2'
   get 'sections/search_sections'
   get 'sections/wishlist'
+  get 'sections/dedupe'
   
   delete 'sections/destroy_multiple'
 

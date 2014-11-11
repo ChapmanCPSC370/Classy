@@ -13,7 +13,7 @@ class Section < ActiveRecord::Base
   
   def self.dedupe
     # find all models and group them on keys which should be common
-    grouped = all.group_by{|section| [section.name,section.year,section.trim,section.make_id] }
+    grouped = all.group_by{|section| [section.section_name_and_title,section.schedule,section.teacher,section.term] }
     grouped.values.each do |duplicates|
       # the first one we want to keep right?
       first_one = duplicates.shift # or pop for last one

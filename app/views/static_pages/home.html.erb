@@ -11,7 +11,7 @@
   </center><br>
 
 <div id="the-basics2">
-<%= form_tag(sections_search_sections_path, :method => "get", id: "the-basics2  form-", class: 'for') do  %>
+<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-", class: 'for') do  %>
  
 <div class="form-group col-md-">
   <%= text_field_tag :search, params[:search], class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>

@@ -9,6 +9,11 @@ class SectionsController < ApplicationController
     @sections = Section.all
   end
   
+  def dedupe
+    Section.dedupe
+    redirect_to sections_wishlist_path, notice: 'Deleted duplicates'
+  end
+  
   def import
     Section.import(params[:file])
     redirect_to sections_search_sections_path, notice: "Sections imported."
@@ -147,6 +152,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:section_name_and_title, :time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
+      params.require(:section).permit(:ge, :units, :academic_level, :section_name_and_title, :time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
     end
 end
