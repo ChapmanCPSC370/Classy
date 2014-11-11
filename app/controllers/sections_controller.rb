@@ -9,8 +9,32 @@ class SectionsController < ApplicationController
     @sections = Section.all
   end
   
+  def import
+    Section.import(params[:file])
+    redirect_to sections_search_sections_path, notice: "Sections imported."
+  end
+  
   def all_sections
     @sections = Section.all
+  end
+  
+  def wishlist
+    if params[:search]
+      #@sections = Section.where(['teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
+      @sections = Section.where(['section_name_and_title LIKE ? or teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
+     # @section_majors = Major.where(['name LIKE ?', "%#{params[:search]}%"])
+    #  @major_sections = Section.joins(:majors).where(['majors.name LIKE ?', "%#{params[:search]}%"])
+    #  @sections = @sections + @major_sections
+      @autocomplete_items = Section.all
+      @autocomplete_majors = Major.all
+      @autocomplete_courses = Course.all
+    else
+      @sections = Section.paginate(:page => params[:page], :per_page => 30).order('teacher ASC')
+      @autocomplete_items = Section.all
+      @autocomplete_majors = Major.all
+      @autocomplete_courses = Course.all
+      respond_with json: @sections
+    end
   end
   
   def search_sections
@@ -24,7 +48,7 @@ class SectionsController < ApplicationController
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all
     else
-      @sections = Section.all.order('teacher ASC')
+      @sections = Section.paginate(:page => params[:page], :per_page => 30).order('teacher ASC')
       @autocomplete_items = Section.all
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all
@@ -82,7 +106,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to sections_all_sections_path, notice: 'Section was successfully created.' }
+        format.html { redirect_to sections_search_sections_path, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -123,6 +147,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
+      params.require(:section).permit(:section_name_and_title, :time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
     end
 end

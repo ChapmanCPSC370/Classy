@@ -13,7 +13,7 @@
 Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="360" data-slider-max="1440" data-slider-step="10" data-slider-value="[480,1380]"/>
 </div><br><br>
 <div id="the-basics2">
-<%= form_tag(sections_search_sections_path, :method => "get", id: "the-basics2  form-inline", class: 'form-inline') do %>
+<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-inline", class: 'form-inline') do %>
 
 <div class="form-group col-md-">
   <%= text_field_tag :search, params[:search], style: 'width: ;', width: '', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
@@ -73,7 +73,7 @@ Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="3
       <th>Term</th>
       <th>Teacher</th>
       <th>Schedule</th>
-      <th>Room</th>
+      <th>Capacity</th>
       <th>Wishlist</th>
       <th>Settings</th>
       <th colspan="3"></th>
@@ -83,18 +83,11 @@ Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="3
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td>
-          <% if section.course.presence %>
-          <%= link_to section.course.full_name, section %>
-          <% end %>
-          </td>
+        <td><%= section.section_name_and_title %></td>
         <td><%= section.term %></td>
         <td><%= section.teacher %></td>
-        <td><% if section.time_start.presence %>
-          <%= section.time_start.hour %> - <%= section.time_end.hour %>
-          <% end %>
-        </td>
-        <td><%= section.room %></td>
+        <td><%= section.schedule %></td>
+        <td><%= section.capacity %></td>
         
         <td><% if user_signed_in? && current_user.enrolled?(section) %>
           <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", method: :delete do |f| %>
@@ -138,7 +131,7 @@ Time <input id="hours" type="text" class="col-md-11" value="" data-slider-min="3
           <% if user_signed_in? %>
             <% current_user.enrollments.each do |f| %>
               <p>
-              <% if Section.exists?(f.section_id) %>
+                <% if Section.exists?(f.section_id) and f.section.course.presence %>
                 <%= link_to f.section.course.full_name, f.section %>
               <% end %>
               </p>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'sections/edit_all'
   get 'sections/all_sections2'
   get 'sections/search_sections'
+  get 'sections/wishlist'
   
   delete 'sections/destroy_multiple'
 
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
     resources :announcements
     resources :users
     get 'students'
+    collection { post :import }
   end
   
 
