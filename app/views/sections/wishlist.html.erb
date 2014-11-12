@@ -1,4 +1,4 @@
-<h1>Chapman Spring 2015</h1> </center><% if current_user.bAmbassador %>
+<h1>Chapman Spring 2015</h1> </center><% if user_signed_in? and current_user.bAmbassador %>
 <%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
   <hr>
   <div class="row">
