@@ -26,7 +26,8 @@ class SectionsController < ApplicationController
   def wishlist
     if params[:search]
       #@sections = Section.where(['teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
-      @sections = Section.where(['section_name_and_title LIKE ? or teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
+    #  @sections = Section.where(['section_name_and_title LIKE ? or teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
+@sections = Section.where(['section_name_and_title LIKE ?', "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
      # @section_majors = Major.where(['name LIKE ?', "%#{params[:search]}%"])
     #  @major_sections = Section.joins(:majors).where(['majors.name LIKE ?', "%#{params[:search]}%"])
     #  @sections = @sections + @major_sections
