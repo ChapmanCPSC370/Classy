@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-9">
       
-  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name_and_title).to_json(limit: 10) };" %>
+  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name_and_title).to_json };" %>
       <%= javascript_tag "var autocomplete_majors = #{ @autocomplete_majors.pluck(:name).to_json };" %>
       <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_items.pluck(:teacher).to_json };" %>
 <script type="text/javascript">
@@ -98,10 +98,12 @@
     </div>
     
     <div class="col-md-3">
-      <div class="panel panel-default">
+      <% if user_signed_in? %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <center><h4><strong>Wishlist</strong></h4></center>
+        </div>
         <div class="panel-body">
-          Spring 2015 Wishlist<br>
-          <% if user_signed_in? %>
             <% current_user.enrollments.each do |f| %>
               <p>
                 <% if Section.exists?(f.section_id) and f.section.course.presence %>
@@ -112,9 +114,21 @@
               </p>
           
           <% end %>
-          <% else %> <%= link_to "Log in to save your schedule", new_user_session_path %>
-          <% end %>
         </div>
       </div>
-      See incorrect or questionable information? Use the Flag button to mark it as bad information. If more than one person flags it, it will become automatically disabled and removed from search. The Ambassadors will then be notified and resolve the issue. 
+      <% else %> <p><%= link_to "Log in to save your schedule", new_user_session_path, class: 'btn-block btn btn-primary' %></p>
+          <% end %><p>
+      <% if user_signed_in? %>
+      <%= link_to current_user, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-calendar fa-2x"></i>
+      <% end %>
+      <%= link_to new_user_session_path, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Use the Flag to mark incorrect or questionable information", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-flag fa-2x"></i>
+      <% end %>
+      <% end %>
+      <%= link_to new_user_session_path, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-question fa-2x"></i>
+      <% end %>
+      <br>
+      </p>
     </div>
