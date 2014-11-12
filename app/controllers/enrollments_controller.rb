@@ -29,7 +29,7 @@ class EnrollmentsController < ApplicationController
 
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to sections_search_sections_path }
+        format.html { redirect_to sections_wishlist_path }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to sections_search_sections_path, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to sections_wishlist_path, notice: 'Added to wishlist.' }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to sections_search_sections_path, notice: 'Enrollment was successfully destroyed.' }
+      format.html { redirect_to sections_wishlist_path, notice: 'Removed from wishlist.' }
       format.json { head :no_content }
     end
   end

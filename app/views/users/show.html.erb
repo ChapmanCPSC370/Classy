@@ -57,7 +57,7 @@
     </center><br>
   <% end %>
   <% end %>
-  
+    <% if @user.major.presence %>
     <% @user.major.degree_requirements.each do |f| %>
     <p>
       <%= link_to f.course.full_name, f.course %>
@@ -65,6 +65,7 @@
           <% if g.section.course.id == f.course.id %>
             <span class="label label-warning">Currently Enrolled</span>
         <% end %>
+      <% end %>
       <% end %>
     </p>
   <% end %>

@@ -1,15 +1,15 @@
-<h1>Chapman Spring 2015</h1> </center>
-<%= link_to "Delete duplicates", sections_dedupe_path %>
+<h1>Chapman Spring 2015</h1> </center><% if current_user.bAmbassador %>
+<%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
   <hr>
   <div class="row">
     <div class="col-md-9">
       
-  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name_and_title).to_json };" %>
+  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name_and_title).to_json(limit: 10) };" %>
       <%= javascript_tag "var autocomplete_majors = #{ @autocomplete_majors.pluck(:name).to_json };" %>
       <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_items.pluck(:teacher).to_json };" %>
 <script type="text/javascript">
   $('#the-basics2 .typeahead').typeahead({ 
-    hint: true, highlight: true, minLength: 1 },
+    hint: true, highlight: true, minLength: 2 },
 { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_items), templates: {
   header: '<h3 style="padding-left: 10px;" class="league-name">Sections</h3>'
                                             }
@@ -46,7 +46,7 @@
     }
   
 </script>
-<table  class="table table-striped table-hover">
+<table  class="table table-responsive  table-hover">
   <thead>
     <tr>
       <th>Course</th>
@@ -57,8 +57,6 @@
       <th>GE</th>
       <th>Capacity</th>
       <th>Wishlist</th>
-      <th>Settings</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -90,16 +88,7 @@
           <h5 class="text-danger"><%= section.enrollments.count %> <i class="fa fa-heart"></i></h4>
           <% end %>
           <% end %> </td>
-       <td><div class="dropdown pull-right">
-      <button class="btn btn-default dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown">
-        
-        <i class="fa fa-gear"></i>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><%= link_to 'Edit', edit_section_path(section) %></li>
-        <li role="presentation"><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-      </ul>
-          </div></td>
+       
       </tr>
     <% end %>
   </tbody>
@@ -116,8 +105,10 @@
             <% current_user.enrollments.each do |f| %>
               <p>
                 <% if Section.exists?(f.section_id) and f.section.course.presence %>
-                <%= link_to f.section.course.full_name, f.section %>
-              <% end %>
+                  <%= link_to f.section.course.full_name, f.section %>
+                <% elsif Section.exists?(f.section_id) %>
+                  <%= link_to f.section.section_name_and_title, f.section %>
+                <% end %>
               </p>
           
           <% end %>
