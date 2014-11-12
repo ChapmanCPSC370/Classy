@@ -69,6 +69,8 @@
               </form>
               <% end %>
           </ul>
+          
+          <% else %>
           <ul class="nav navbar-nav">
             <% if current_page?(sections_wishlist_path) %>
             <li><div id="the-basics2">
@@ -83,8 +85,6 @@
               </div></li><% end %>
             
           </ul>
-          <% else %>
-          
           <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-right">
               <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %>
