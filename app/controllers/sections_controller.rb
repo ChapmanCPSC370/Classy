@@ -158,6 +158,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:name, :section_name, :section_number, :section_section, :start_date, :end_date, :subject, :ge, :units, :academic_level, :section_name_and_title, :time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time, :end_time)
+      params.require(:section).permit(:name, :section_name, :section_number, :section_section, :start_date, :end_date, :subject, :ge, :units, :academic_level, :section_name_and_title, :time_start, :time_end, :days_of_class, :course_id, :term, :teacher, :schedule, :room, :start_time_s, :end_time_s)
     end
 end
