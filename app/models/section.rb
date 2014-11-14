@@ -12,7 +12,9 @@ class Section < ActiveRecord::Base
   has_many :majors, through: :degree_requirements
   
   def subject_number_section
-    self.subject + " " + self.section_number + " - " + self.section_section
+    if self.subject.presence
+      self.subject + " " + self.section_number + " - " + self.section_section
+    end
   end
   
   def self.disperse
