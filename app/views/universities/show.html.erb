@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
 <h1>
   <%= @university.name %>
 </h1>
@@ -34,7 +36,7 @@
 
 <% @university.departments.order("name asc").each do |f| %>
 <div class="col-md-4">
-<h3><%= f.name %></h3>
+<h3><%= link_to f.name, f %></h3>
 <% f.majors.each do |g| %>
   <h4><%= link_to g.name, g %> <% if user_signed_in? && current_user.enrolled_major?(g) %><span class="label label-success">Enrolled</span><% end %></h4>
 <% end %>

@@ -1,5 +1,8 @@
-<h1>Chapman Spring 2015</h1> </center><% if user_signed_in? and current_user.bAmbassador %>
+<div class="bs-docs-headerrrrrrrr"><div class="container">
+  <%= render 'layouts/messages' %>
+  <h1><%= link_to "Chapman University", universities_path %> Spring 2015</h1> <%= link_to "parse data", sections_disperse_path %></center><% if user_signed_in? and current_user.bAmbassador %>
 <%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
+</div><div class="container ">
   <hr>
   <div class="row">
     <div class="col-md-9">
@@ -48,31 +51,32 @@
 </script>
 <table  class="table table-responsive  table-hover">
   <thead>
-    <tr>
+    <tr><th>Subject</th>
+      <th>Start/End</th>
       <th>Course</th>
-      <th>Term</th>
       <th>Teacher</th>
       <th>Schedule</th>
-      <th>Major</th>
       <th>GE</th>
       <th>Capacity</th>
       <th>Wishlist</th>
+      
+      <th>Info</th>
     </tr>
   </thead>
 
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.section_name_and_title %></td>
-        <td><%= section.term %></td>
+        <td><%= section.subject_number_section %></td>
+        <td><%= section.start_time_s %> - <%= section.end_time_s %></td>
+        <td><%= section.section_name %></td>
         <td><%= section.teacher %></td>
         <td><%= section.schedule %></td>
-        <td><%= section.academic_level %></td>
         <td><%= section.ge %></td>
         <td><%= section.capacity %></td>
         
         <td><% if user_signed_in? && current_user.enrolled?(section) %>
-          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", method: :delete do |f| %>
+          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: true, method: :delete do |f| %>
        <%= section.enrollments.count %> <i class="fa fa-star"></i> On Wishlist
           <% end %>    
           <% else %>
@@ -87,7 +91,9 @@
           <% else %>
           <h5 class="text-danger"><%= section.enrollments.count %> <i class="fa fa-heart"></i></h4>
           <% end %>
-          <% end %> </td>
+          <% end %>
+        </td>
+        <td><%= link_to 'i', '#', class: 'btn btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "More information Is here", 'data-placement' => 'left' %></td>
        
       </tr>
     <% end %>

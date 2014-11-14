@@ -31,9 +31,11 @@ class EnrollmentsController < ApplicationController
       if @enrollment.save
         format.html { redirect_to sections_wishlist_path }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -59,6 +61,7 @@ class EnrollmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to sections_wishlist_path, notice: 'Removed from wishlist.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

@@ -11,6 +11,33 @@ class Section < ActiveRecord::Base
   has_many :degree_requirements, through: :course
   has_many :majors, through: :degree_requirements
   
+  def subject_number_section
+    self.subject + " " + self.section_number + " - " + self.section_section
+  end
+  
+  def self.disperse
+    Section.all.each do |f|
+      subject_regex = /\A[a-zA-Z]{2,4}/
+      number_regex = /(\d{3}[A-Z]{0,1})/ 
+      section_regex = /(?<=-)(\d{2})(?=\s)/
+      name_regex = /(?<=\s)[a-zA-Z( ) &]{3,99}/
+      start_time_regex = /(0?[1-9]|1[012])(:[0-5]\d)[APap][mM](?=\s)/
+      end_time_regex = /(?<=-\s)(0?[1-9]|1[012])(:[0-5]\d)[APap][mM]/
+      room_regex = /(?<=Announced|[APap][mM],\s)[a-zA-Z( )\d, &]{3,99}\z/
+      days_regex = /(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|, ){1,7}/
+      if (f.section_name_and_title.presence)
+        f.update_attribute(:subject, subject_regex.match(f.section_name_and_title).to_s)
+        f.update_attribute(:section_number, number_regex.match(f.section_name_and_title).to_s)
+        f.update_attribute(:section_section, section_regex.match(f.section_name_and_title).to_s)
+        f.update_attribute(:section_name, name_regex.match(f.section_name_and_title).to_s)
+        f.update_attribute(:start_time_s, start_time_regex.match(f.schedule).to_s)
+        f.update_attribute(:end_time_s, end_time_regex.match(f.schedule).to_s)
+        f.update_attribute(:room, room_regex.match(f.schedule).to_s)
+        f.update_attribute(:days_of_class, days_regex.match(f.schedule).to_s)
+      end
+    end
+  end
+  
   def self.dedupe
     # find all models and group them on keys which should be common
     grouped = all.group_by{|section| [section.section_name_and_title,section.schedule,section.teacher,section.term] }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111193627) do
+ActiveRecord::Schema.define(version: 20141114085710) do
 
   create_table "announcements", force: true do |t|
     t.integer  "section_id"
@@ -167,6 +167,16 @@ ActiveRecord::Schema.define(version: 20141111193627) do
     t.string   "section_name_and_title"
     t.string   "status"
     t.integer  "capacity"
+    t.string   "subject"
+    t.string   "section_number"
+    t.string   "section_section"
+    t.string   "section_datatel_number"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "name"
+    t.string   "start_time_s"
+    t.string   "end_time_s"
+    t.string   "section_name"
   end
 
   create_table "teachers", force: true do |t|

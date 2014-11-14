@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'sections/search_sections'
   get 'sections/wishlist'
   get 'sections/dedupe'
+  get 'sections/disperse'
   
   delete 'sections/destroy_multiple'
 

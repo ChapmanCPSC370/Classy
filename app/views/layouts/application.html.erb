@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar- navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,7 +19,7 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="text-primary fa fa-graduation-cap "></i>
+          <i class="text- fa fa-graduation-cap "></i>
              Classy
           <% end %>
         </div>
@@ -100,6 +100,11 @@
             
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li> 
+              <%= link_to current_user, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Profile", 'data-placement' => 'bottom' do %>
+                <i class="fa fa-user"></i>
+              <% end %>
+            </li>
             <form class="navbar-form navbar-right">
               <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %>
             </form>
@@ -113,9 +118,6 @@
 				 </div><!--/.nav-collapse -->
     </div>
     </div>
-    <div class="container" >
-     <%= render 'layouts/messages' %>
-   
       <%= yield %>
   </div>
   </div>
