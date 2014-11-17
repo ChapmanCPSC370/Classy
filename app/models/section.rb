@@ -1,5 +1,8 @@
 class Section < ActiveRecord::Base
   require 'csv'
+  
+  scope :uniquely_named, group(:section_name)
+  
  # validates :course_id, presence: true
   has_many :users
   belongs_to :course
@@ -13,7 +16,7 @@ class Section < ActiveRecord::Base
   
   def subject_number_section
     if self.subject.presence
-      self.subject + " " + self.section_number + " - " + self.section_section
+      self.subject + " - " + self.section_number + " - " + self.section_section
     end
   end
   
@@ -22,7 +25,7 @@ class Section < ActiveRecord::Base
       subject_regex = /\A[a-zA-Z]{2,4}/
       number_regex = /(\d{3}[A-Z]{0,1})/ 
       section_regex = /(?<=-)(\d{2})(?=\s)/
-      name_regex = /(?<=\s)[a-zA-Z( ) &]{3,99}/
+      name_regex = /(?<=\s)[a-zA-Z( ) -&]{3,99}/
       start_time_regex = /(0?[1-9]|1[012])(:[0-5]\d)[APap][mM](?=\s)/
       end_time_regex = /(?<=-\s)(0?[1-9]|1[012])(:[0-5]\d)[APap][mM]/
       start_date_regex = /(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/

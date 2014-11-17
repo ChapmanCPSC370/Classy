@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :school_requests
+
   resources :feedbacks
 
   resources :learning_resources
@@ -68,6 +70,7 @@ Rails.application.routes.draw do
   end
   
   get 'static_pages/home'
+  get 'static_pages/company'
   get 'courses/all_courses'
   get 'courses/edit_all'
   

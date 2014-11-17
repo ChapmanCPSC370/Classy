@@ -1,39 +1,26 @@
+
 <div class="bs-docs-headerrrrrrrr"><div class="container">
   <%= render 'layouts/messages' %>
-  <h1><%= link_to "Chapman University", universities_path %> Spring 2015</h1> <%= link_to "parse data", sections_disperse_path %></center><% if user_signed_in? and current_user.bAmbassador %>
+</center><% if user_signed_in? and current_user.bAmbassador %> <% link_to "parse data", sections_disperse_path %>
 <%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
 </div><div class="container ">
-  <hr>
+<br>
   <div class="row">
     <div class="col-md-9">
       
-  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name_and_title).to_json };" %>
-      <%= javascript_tag "var autocomplete_majors = #{ @autocomplete_majors.pluck(:name).to_json };" %>
-      <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_items.pluck(:teacher).to_json };" %>
+      <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name).to_json };" %>
+      <%= javascript_tag "var autocomplete_subjects = #{ @autocomplete_subjects.pluck(:subject).to_json };" %>
+      <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_teachers.pluck(:teacher).to_json };" %>
 <script type="text/javascript">
-  $('#the-basics2 .typeahead').typeahead({ 
-    hint: true, highlight: true, minLength: 2 },
-{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_items), templates: {
-  header: '<h3 style="padding-left: 10px;" class="league-name">Sections</h3>'
-                                            }
+$('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 2 },
+{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_subjects), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">Department</h3>'}
 },
-                                         {
-                                            name: 'nba-teams',
-                                            displayKey: 'value',
-                                            source: substringMatcher(autocomplete_majors),
-                                            templates: {
-                                              header: '<h3 style="padding-left: 10px;" class="league-name">Majors</h3>'
-                                            }
-                                          },
-                                         {
-                                            name: 'nba-teams',
-                                            displayKey: 'value',
-                                            source: substringMatcher(autocomplete_teachers),
-                                            templates: {
-                                              header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'
-                                            }
-                                          }
-                                        ).css('width','400px');
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_items),templates: {header: '<h3 style="padding-left: 10px;" class="league-name">Name</h3>'}
+},
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_teachers),templates: {
+header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
+}).css('width','400px');
 </script>
 <script>
   $('#hours').slider({ 
@@ -49,13 +36,13 @@
     }
   
 </script>
-<table  class="table table-responsive table-striped table-hover">
+      <div class="panel panel-default">
+<table  class="table table-responsive table- table-hover">
   <thead>
-    <tr><th>Subject</th>
-      <th>Start/End</th>
-      <th>Course</th>
-      <th>Teacher</th>
-      <th>Schedule</th>
+    <tr>
+      <th>COURSE</th>
+      <th>TIME</th>
+      <th>TEACHER</th>
       <th>GE</th>
       <th>Capacity</th>
       <th>Wishlist</th>
@@ -67,16 +54,15 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.subject_number_section %></td>
-        <td><%= section.start_time_s %> - <%= section.end_time_s %></td>
-        <td><%= link_to section.subject_number_section, section %></td>
+        <td><b><% if section.section_name.presence %><%= link_to section.section_name, section %></b><br><%= section.subject_number_section %><% end %></td>
+        <td><%= section.start_time_s %> - <%= section.end_time_s %><br>
+          <%= section.days %></td>
         <td><%= section.teacher %></td>
-        <td><%= section.start_date %> - <%= section.end_date %> Days: <%= section.days %> Room: <%= section.room %></td>
         <td><%= section.ge %></td>
         <td><%= section.capacity %></td>
         
         <td><% if user_signed_in? && current_user.enrolled?(section) %>
-          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: true, method: :delete do |f| %>
+          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: false, method: :delete do |f| %>
        <%= section.enrollments.count %> <i class="fa fa-star"></i> On Wishlist
           <% end %>    
           <% else %>
@@ -93,12 +79,14 @@
           <% end %>
           <% end %>
         </td>
-        <td><%= link_to 'i', '#', class: 'btn btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "More information Is here" + section.schedule, 'data-placement' => 'left' %></td>
+        <td><% if section.section_name.presence %><%= link_to 'i', '#', class: 'btn btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' %><% end %></td>
        
       </tr>
     <% end %>
   </tbody>
 </table>
+      </div>
+        
  <%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
 <br>
     </div>
@@ -116,6 +104,9 @@
                   <%= link_to f.section.course.full_name, f.section %>
                 <% elsif Section.exists?(f.section_id) %>
                   <%= link_to f.section.section_name_and_title, f.section %>
+                <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => f.section.id).first, class: 'text-danger', method: :delete do %>
+       (remove)
+          <% end %>    
                 <% end %>
               </p>
           
@@ -137,4 +128,6 @@
       <% end %>
       <br>
       </p>
+      <hr>
+      
     </div>

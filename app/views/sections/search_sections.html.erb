@@ -1,3 +1,46 @@
+<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Filters
+                    </a>
+                </li>
+              <li>
+              </li>
+                <li>
+                    <a href="#">DAYS</a>
+              </li>
+              <li><%= label :dsad, :class => "checkbox" do %>
+              <%= check_box_tag :remember_me %> All <%= check_box_tag :remember_me %> Mon <%= check_box_tag :remember_me %> Tues <%= check_box_tag :remember_me %> Wed<br> <%= check_box_tag :remember_me %> Thu <%= check_box_tag :remember_me %> Fri <%= check_box_tag :remember_me %> Sat <%= check_box_tag :remember_me %> Sun 
+              <% end %></li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 <h1>Start Planning Your Spring 2015 Schedule</h1>
   <div class="row">
     <div class="col-md-9">

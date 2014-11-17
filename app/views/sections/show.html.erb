@@ -1,5 +1,20 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
+<% if @section.section_name.presence %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h1><center>
+      <%= @section.section_name %></center></h1>
+    <p class="lead"><b><%= @section.subject_number_section %></b><br>
+      <%= @section.schedule %>
+      </p>
+  </div>
+</div>
+<% end %>
+
+<!-- OLD OLD OLD OLD OLD -->
+<% if @section.course.presence %>
 <div class="row">
   <h1><%= @section.course.full_name %>
     <div class="dropdown pull-right">
@@ -93,3 +108,5 @@
   <%= f.submit %>
   <% end %>
 </div>
+    <% end %>
+  </div>

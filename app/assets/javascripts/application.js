@@ -16,6 +16,9 @@
 //= require fullcalendar
 //= require bootstrap-typeahead-rails
 //= require bootstrap-slider
+
+
+
 $(document).on("ready page:change", function() {
     $('.tag-tooltip').tooltip();
 });

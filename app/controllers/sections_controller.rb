@@ -32,16 +32,20 @@ class SectionsController < ApplicationController
     if params[:search]
       #@sections = Section.where(['teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"])
     #  @sections = Section.where(['section_name_and_title LIKE ? or teacher LIKE ? or room LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
-@sections = Section.where(['section_name_and_title LIKE ?', "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
+      @sections = Section.where(['section_name LIKE ? or teacher LIKE ? or subject LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"]).paginate(:page => params[:page], :per_page => 30)
      # @section_majors = Major.where(['name LIKE ?', "%#{params[:search]}%"])
     #  @major_sections = Section.joins(:majors).where(['majors.name LIKE ?', "%#{params[:search]}%"])
     #  @sections = @sections + @major_sections
-      @autocomplete_items = Section.all
+      @autocomplete_items = Section.select(:section_name).distinct
+      @autocomplete_subjects = Section.select(:subject).distinct
+      @autocomplete_teachers = Section.select(:teacher).distinct
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all
     else
-    @sections = Section.where(['section_name_and_title LIKE ?', "%#{}%"]).paginate(:page => params[:page], :per_page => 30)
-      @autocomplete_items = Section.all
+      @sections = Section.where(['section_name_and_title LIKE ?', "%#{}%"]).paginate(:page => params[:page], :per_page => 30)
+      @autocomplete_items = Section.select(:section_name).distinct
+      @autocomplete_subjects = Section.select(:subject).distinct
+      @autocomplete_teachers = Section.select(:teacher).distinct
       @autocomplete_majors = Major.all
       @autocomplete_courses = Course.all
       respond_with json: @sections

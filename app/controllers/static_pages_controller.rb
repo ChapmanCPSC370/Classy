@@ -7,6 +7,10 @@ class StaticPagesController < ApplicationController
     @autocomplete_majors = Major.all
     @autocomplete_courses = Course.all
   end
+  
+  def company
+    
+  end
 
   def about
      @universities = University.all
