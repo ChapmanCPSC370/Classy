@@ -20,6 +20,8 @@ $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength:
 },
 {name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_teachers),templates: {
 header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
+}).on('typeahead:selected', function(e, data) {
+$("#the-basics2 form").submit();
 }).css('width','400px');
 </script>
 <script>

@@ -28,11 +28,11 @@
           <ul class="nav navbar-nav">
             <% if current_page?(sections_wishlist_path) or current_page?(current_user) %>
             <li><div id="the-basics2">
-<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-", class: 'navbar-form form-inline') do %>
-  <div class="form-group col-md-">
+<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", class: 'navbar-form form-inline') do %>
+  <div class="form-group col-md-" id="section-search-form">
     <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
     </div>
-  <%= button_tag( :class => "btn btn-primary") do %>
+              <%= button_tag( :class => "btn btn-primary")  do %>
   <i class="fa fa-search"></i> Search
 <% end %>
 <% end %>
@@ -48,7 +48,7 @@
           <ul class="nav navbar-nav">
             <% if current_page?(sections_wishlist_path) %>
             <li><div id="the-basics2">
-<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-", class: 'navbar-form form-inline') do %>
+              <%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", class: 'navbar-form form-inline') do %>
   <div class="form-group col-md-">
     <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
     </div>
