@@ -61,22 +61,17 @@ header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
         <td><%= section.ge %></td>
         <td><%= section.capacity %></td>
         
-        <td><% if user_signed_in? && current_user.enrolled?(section) %>
-          <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: false, method: :delete do |f| %>
-       <%= section.enrollments.count %> <i class="fa fa-star"></i> On Wishlist
-          <% end %>    
-          <% else %>
-          <% if user_signed_in? &&  %>
-          <%= form_for [current_user, Enrollment.new], html: { id: 'form_id' }, url: { controller: :enrollments, user_id: current_user.id } do |f| %>
-            <%= f.hidden_field :user_id, value: current_user.id %>
-            <%= f.hidden_field :section_id, value: section.id %>
-             <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %>
-            <%= section.enrollments.count %> <i class="fa fa-star-o"></i> Wishlist?
-        <% end %>
-      <% end %>
+        <td>
+          <% if user_signed_in? %>
+          <div id="<%= section.id %>enroll_form">
+            <% if current_user.enrolled?(section) %>
+            <%= render partial: 'sections/unenroll', locals: {section: section} %>
+            <% else %>
+              <%= render partial: 'sections/enroll', locals: {section: section} %>
+            <% end %>
+            </div>
           <% else %>
           <h5 class="text-danger"><%= section.enrollments.count %> <i class="fa fa-heart"></i></h4>
-          <% end %>
           <% end %>
         </td>
         <td><% if section.section_name.presence %><%= link_to 'i', '#', class: 'btn btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' %><% end %></td>
@@ -97,20 +92,8 @@ header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
         <div class="panel-heading">
           <center><h4><strong>Wishlist</strong></h4></center>
         </div>
-        <div class="panel-body">
-            <% current_user.enrollments.each do |f| %>
-              <p>
-                <% if Section.exists?(f.section_id) and f.section.course.presence %>
-                  <%= link_to f.section.course.full_name, f.section %>
-                <% elsif Section.exists?(f.section_id) %>
-                  <%= link_to f.section.section_name_and_title, f.section %>
-                <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => f.section.id).first, class: 'text-danger', method: :delete do %>
-       (remove)
-          <% end %>    
-                <% end %>
-              </p>
-          
-          <% end %>
+        <div class="panel-body" id="wishlist">
+          <%= render 'sections/wishlist' %>
         </div>
       </div>
       <% else %> <p><%= link_to "Log in to save your schedule", new_user_session_path, class: 'btn-block btn btn-primary' %></p>

@@ -1,0 +1,2 @@
+$("#<%= @section.id =%>enroll_form").html("<%= escape_javascript(render(:partial => 'sections/enroll', locals: {section: @section})) %> ")
+$("#wishlist").html("<%= escape_javascript(render(:partial => 'sections/wishlist')) %>")

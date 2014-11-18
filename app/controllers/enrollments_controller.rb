@@ -26,16 +26,17 @@ class EnrollmentsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @enrollment = @user.enrollments.new(enrollment_params)
+    @section = @enrollment.section
 
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to sections_wishlist_path }
-        format.json { render json: @enrollment.errors, status: :unprocessable_entity }
         format.js
+        format.html { redirect_to sections_wishlist_path, notice: 'Added to wishlist.' }
+        format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       else
+        format.js
         format.html { render :new }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
-        format.js
       end
     end
   end
@@ -45,7 +46,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to sections_wishlist_path, notice: 'Added to wishlist.' }
+        format.html { redirect_to sections_wishlist_path }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
@@ -57,11 +58,12 @@ class EnrollmentsController < ApplicationController
   # DELETE /enrollments/1
   # DELETE /enrollments/1.json
   def destroy
+    @section = @enrollment.section
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to sections_wishlist_path, notice: 'Removed from wishlist.' }
-      format.json { head :no_content }
       format.js
+      format.html { redirect_to sections_wishlist_path }
+      format.json { head :no_content }
     end
   end
 

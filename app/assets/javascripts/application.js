@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require turbolinks
 //= require fullcalendar
 //= require bootstrap-typeahead-rails
 //= require bootstrap-slider

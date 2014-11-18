@@ -1,0 +1,13 @@
+<% current_user.enrollments.each do |f| %>
+<p>
+  <% if Section.exists?(f.section_id) and f.section.course.presence %>
+  <%= link_to f.section.course.full_name, f.section %>
+  <% elsif Section.exists?(f.section_id) %>
+  <%= link_to f.section.section_name_and_title, f.section %>
+  <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => f.section.id).first, class: 'text-danger', method: :delete do %>
+  (remove)
+  <% end %>    
+  <% end %>
+</p>
+
+<% end %>

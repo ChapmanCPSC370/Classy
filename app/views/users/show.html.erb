@@ -76,11 +76,11 @@
     <% if @user.major.presence %>
     <% @user.major.degree_requirements.each do |f| %>
     <p>
-      <%= link_to f.course.full_name, f.course %>
+      <% f %>
         <% @user.enrollments.each do |g| %> 
-          <% if g.section.course.id == f.course.id %>
-            <span class="label label-warning">Currently Enrolled</span>
-        <% end %>
+          <% # if g.section.course.id == f.course.id %>
+           
+        <%# end %>
       <% end %>
       <% end %>
     </p>

@@ -1,0 +1,3 @@
+<%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: true, method: :delete do |f| %>
+  <%= section.enrollments.count %> <i class="fa fa-star"></i> On Wishlist
+<% end %>   

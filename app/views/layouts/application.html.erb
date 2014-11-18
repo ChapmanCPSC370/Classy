@@ -3,7 +3,7 @@
 <head>
   <title>Classy</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
@@ -39,66 +39,9 @@
               </div></li><% end %>
             
           </ul>
-            <ul class="nav navbar-nav">
-              <% if current_user.bAmbassador %>
-              <li> 
-                <%= link_to current_user, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Profile", 'data-placement' => 'bottom' do %>
-                  <i class="fa fa-user fa-x"></i>
-                <% end %>
-              </li>
-              <li> 
-              <%= link_to sections_wishlist_path, class: "tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Search", 'data-placement' => 'bottom' do %>
-                  <i class="fa fa-search fa-x"></i>
-                <% end %>
-              </li>
-              
-                <li>
-                <%= link_to "Schools", universities_path %>
-              </li>
-              <li>
-                <%= link_to "Departments", departments_path %>
-            </li>
-              <li>
-                <%= link_to "Majors", majors_path %>
-            </li>
-              <li>
-                <%= link_to "Courses", courses_all_courses_path %>
-              </li>
-              <li>
-                <%= link_to "Sections", sections_wishlist_path %>
-            </li>
-              <li>
-                <%= link_to "Friends", users_path %>
-              </li>
-              <% end %>
-          </ul>
             
             <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown ">
-                <a href="#" class="dropdown-toggle" style="outline: none"data-toggle="dropdown">
-                  <span style="padding-top: 15px;"><i style="padding-right : 5px;"class="fa fa-user"></i> <%= current_user.email %></span> 
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <%= link_to "View Profile", current_user  %>
-                  </li>
-                  <li>
-                    <%= link_to "Edit Profile", edit_registration_path(current_user) %>
-                  </li>  
-                  <li>
-                    <%= link_to "Help", static_pages_about_path %>
-                  </li>  
-                  <li class="divider"></li>
-                  <li>
-                    <%= link_to  logout_path, :method => :delete do %><i class="fa fa-sign-out"></i> Log out<% end %>
-                  </li>
-                </ul>
-              </li>
-              <% if current_user.bAmbassador %>
-              <form class="navbar-form navbar-left">
-                <%= link_to users_path, class: 'btn btn-primary navbar-' do %><i class="fa fa-key"></i> Ambassador Panel<% end %>
-              </form>
-              <% end %>
+              <%= render partial: 'layouts/user_dropdown' %>
           </ul>
           
           <% else %>
