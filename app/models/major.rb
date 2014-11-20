@@ -4,6 +4,7 @@ class Major < ActiveRecord::Base
   has_many :degree_requirements
   has_many :users
   has_and_belongs_to_many :courses
+  accepts_nested_attributes_for :courses
   
   def total_credits
     counted_credits = 0

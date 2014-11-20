@@ -10,11 +10,14 @@ gem 'rails4-autocomplete'
 gem 'animate-rails'
 gem 'bootstrap-typeahead-rails'
 gem 'bootstrap-slider-rails'
+gem "nested_form"
 gem "auto_html"
 gem 'will_paginate-bootstrap'
 gem 'roo'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
+gem "chartkick"
+gem 'bootstrap-material-design'
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

@@ -1,4 +1,3 @@
-
 <div class="bs-docs-headerrrrrrrr"><div class="container">
   <%= render 'layouts/messages' %>
 </center><% if user_signed_in? and current_user.bAmbassador %> <% link_to "parse data", sections_disperse_path %>
@@ -38,7 +37,7 @@ $("#the-basics2 form").submit();
     }
   
 </script>
-      <div class="panel panel-default">
+      <div class="well">
 <table  class="table table-responsive table- table-hover">
   <thead>
     <tr>
@@ -46,8 +45,8 @@ $("#the-basics2 form").submit();
       <th>TIME</th>
       <th>TEACHER</th>
       <th>GE</th>
-      <th>Capacity</th>
-      <th>Wishlist</th>
+      <th>Likes</th>
+      <th>Favorite</th>
       
       <th>Info</th>
     </tr>
@@ -61,7 +60,7 @@ $("#the-basics2 form").submit();
           <%= section.days %></td>
         <td><%= section.teacher %></td>
         <td><%= section.ge %></td>
-        <td><%= section.capacity %></td>
+        <td style="text-align: center; vertical-align: middle;"><%= section.capacity %></td>
         
         <td>
           <% if user_signed_in? %>
@@ -76,7 +75,7 @@ $("#the-basics2 form").submit();
           <h5 class="text-danger"><%= section.enrollments.count %> <i class="fa fa-heart"></i></h4>
           <% end %>
         </td>
-        <td><% if section.section_name.presence %><%= link_to 'i', '#', class: 'btn btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' %><% end %></td>
+        <td><% if section.section_name.presence %><%= link_to '#', class: 'btn btn-sm btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' do %><i class="fa fa-info fa-2x"></i><% end %><% end %></td>
        
       </tr>
     <% end %>
@@ -84,35 +83,35 @@ $("#the-basics2 form").submit();
 </table>
       </div>
         
- <%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
+ <%= will_paginate @collection, class: 'pagination', renderer: BootstrapPagination::Rails %>
 <br>
     </div>
     
-    <div class="col-md-3">
+    <div class="col-md-3" >
       <% if user_signed_in? %>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
+      <%= link_to current_user, class: 'btn btn- btn-block btn-primary tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-calendar fa-x"></i> Calendar View
+      <% end %>
+      <div class="well">
           <center><h4><strong>Wishlist</strong></h4></center>
-        </div>
-        <div class="panel-body" id="wishlist">
+<div id="wishlist">
           <%= render 'sections/wishlist' %>
         </div>
-      </div>
       <% else %> <p><%= link_to "Log in to save your schedule", new_user_session_path, class: 'btn-block btn btn-primary' %></p>
           <% end %><p>
+      </div>
       <% if user_signed_in? %>
-      <%= link_to current_user, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
-      <i class="fa fa-calendar fa-2x"></i>
-      <% end %>
-      <%= link_to new_user_session_path, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Use the Flag to mark incorrect or questionable information", 'data-placement' => 'bottom' do %>
-      <i class="fa fa-flag fa-2x"></i>
+      <%= link_to new_user_session_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Use the Flag to mark incorrect or questionable information", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-flag fa-x"></i> Flag
       <% end %>
       <% end %>
-      <%= link_to new_user_session_path, class: 'btn  btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
-      <i class="fa fa-question fa-2x"></i>
+      <%= link_to new_user_session_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-question fa-x"></i> Help
+      <% end %>
+      <%= link_to universities_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Go to Chapman University page", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-university fa-x"></i> Chapman University
       <% end %>
       <br>
       </p>
       <hr>
-      
     </div>

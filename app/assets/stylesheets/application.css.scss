@@ -14,6 +14,7 @@
 *- require font-awesome
 *= require fullcalendar
 *= require animate
+*= require bootstrap-material-design
 *= require bootstrap-typeahead-rails
 *= require bootstrap-slider
 journal flatly darkly readable paper slate spacelab sandstone superhero simplex united
@@ -37,9 +38,11 @@ $navbar-default-link-active-bg: $color1;
 body {
   font-family: 'Open Sans', sans-serif;
   //min-height: 100%;
-  padding-top: 50px;
+  padding-top: 70px;
 }
-
+.table th {
+   text-align: center;   
+}
 /*
 .bs-docs-header{
 //  position:relative;

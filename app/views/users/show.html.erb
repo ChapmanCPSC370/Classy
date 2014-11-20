@@ -1,126 +1,80 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
+  <div class="well">
 <center><h1><%= @user.email %></h1>
   
 </center>
-
-<h3>Spring 2015 Wishlist</h3>
-
-<% @user.enrollments.each do |f| %>
-    <p >
-      <% if Section.exists?(f.section_id) and f.section.course.presence %>
-        <%= link_to f.section.course.full_name, f.section %>
-      <% elsif Section.exists?(f.section_id) %>
-        <%= link_to f.section.section_name_and_title, f.section %> <br>
-      <%= f.section.schedule %> 
-      <% end %>
-    </p>
-<% end %>
-
-
-<div class="col-md-6"><div class="panel panel-primary"><div class="panel-body">
-  <center><p>
-  <%= image_tag @user.imageurl, width: 240 %><br>
-    <br>
-  
-    <% if @user == current_user %>
-    <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
-    <% else %>
-    <%= link_to "Add Friend", edit_user_registration_path(@user) %>
-    <% end %>
-  <% if  @user.first_name.presence %>
-  <h1><%= @user.first_name %> <%= @user.last_name %> </h1>
-    <% else %> Edit profile to set your name
-    <% end %>
-    <% if @user.bAmbassador %>
-    <h4><span class="label label-primary">Administrator</span></h4><br>
-    <% end %>
-  
-    </p>
-<h3>Fall 2014 Schedule</h3>
-  </center>
-<% @user.enrollments.each do |f| %>
-    <p>
-    <% if Section.exists?(f.section_id) and f.section.course.presence  %>
-      <%= link_to f.section.course.full_name, f.section %> with <%= f.section.teacher %> at <%= f.section.schedule %>
-    <% end %>
-    </p>
-<% end %>
-  </div>
-</div>
-</div>
-<div class="col-md-6">
-            <div class="panel panel-default">
-  <div class="panel-heading">
-    <center><h1>Program Evaluation</h1></center>
-  </div>
-  <div class="panel-body">
-
-  <h3><% if @user.major.presence %>Pursuing <%= link_to @user.major.name, @user.major %> (<%= @user.major.total_credits %> credits) <% if @user.minor.presence %>, Minor in <%= @user.minor %><% end %></h3>
-    <% if  @user.major.presence %>
-  <div class="progress">
-      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= Integer(6.0/@user.major.total_credits * 100) %>%;">
-        <span class="sr-onl">6 </span>
-      </div>
-    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= Integer(3.0/@user.major.total_credits * 100) %>%;">
-        <span class="sr-onl">3</span>
-      </div>
-    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= Integer(18.0/@user.major.total_credits * 100) %>%;">
-        <span class="sr-onl">18</span>
-      </div>
-    </div>
-    <center>
-      <i class="fa fa-square text-primary"></i> - Completed <i class="fa fa-square text-warning"></i>  - Currently Enrolled <i class="fa fa-square text-danger"></i>  - Remaining
-    </center><br>
-  <% end %>
-  <% end %>
-    <% if @user.major.presence %>
-    <% @user.major.degree_requirements.each do |f| %>
-    <p>
-      <% f %>
-        <% @user.enrollments.each do |g| %> 
-          <% # if g.section.course.id == f.course.id %>
-           
-        <%# end %>
-      <% end %>
-      <% end %>
-    </p>
-  <% end %>
-</div>
-  </div>
-</div>
-<div id='calendarr'></div>
-<script>
-
+  <script>
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    var class_arr = [13];
+    var events_arr = [{title: 'Herp', start: new Date(y, m, d, 12, 0),
+                end: new Date(y, m, d, 13, 0),
+                allDay: false} ];
+    
+  </script>
+  <% @user.enrollments.each do |f| %>
+  <% if f.section.presence %>
+  <% f.section.start_time_s %>
+  <% Integer start_hour = f.section.start_time_s.match(/\d{2}/).to_s.to_i %>
+  <% Integer start_minute = /(?<=:)\d{2}/.match(f.section.start_time_s).to_s.to_i %>
+  <script> class_arr.push('<%= start_hour %>');
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d, '<%= start_hour %>', 0),
+                end: new Date(y, m, d, '<%= start_hour %>', 90),
+                allDay: false})
+    </script>
 
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        editable: true,
-        events: [
-            // some original fullCalendar examples
-            {
-                title: 'All Day Event',
-                start: new Date(y, m, 1)
-            },
-            {
-                title: 'Long Event',
-                start: new Date(y, m, d-5),
-                end: new Date(y, m, d-2)
-            },
-            {
+  <% end %>
+  <% end %>
+<div id='calendar'></div>
+<script>
+  events_arr.push({
                 id: 999,
                 title: 'Repeating Event',
                 start: new Date(y, m, d-3, 16, 0),
                 allDay: false
-            }
-        ]
+            });
+    var enrollments = '<%= escape_javascript @user.enrollments.to_json %>';
+  var enrollment1 = '<%= escape_javascript @user.enrollments.first.section %>';
+    
+    for (loop = date.getTime();
+                 loop <= date.getTime()+900033330;
+                 loop = loop + (24 * 60 * 60 * 1000)) {
+
+                var test_date = new Date(loop);
+
+                if (test_date.is().monday()) {
+                    // we're in Moday, create the event
+                    events_arr.push({
+                       title: 'Repeatingdd Event',
+                start: new Date(y, m, d-3, 16, 0),
+                allDay: false
+                    });
+                }
+
+                if (test_date.is().wednesday()) {
+                    // we're in Wednesday, create the Wednesday event
+                    events_arr.push({
+                        title: 'Repeating Event',
+                start: new Date(y, m, d-1, 16, 0),
+                allDay: false
+                    });
+                }
+  }
+    
+    $('#calendar').fullCalendar({
+        header: {
+          //  left: 'prev,next today',
+          left: '',
+          center: 'title', right: ''
+            //right: 'month,agendaWeek,agendaDay'
+        },minTime: 7,
+      maxTime: 24, allDaySlot: false,
+        defaultView: 'agendaWeek',
+        editable: false,
+        events: events_arr
     });
 
     // adding a every monday and wednesday events:
@@ -138,7 +92,7 @@
 
                 if (test_date.is().monday()) {
                     // we're in Moday, create the event
-                    events.push({
+                    events_arr.push({
                         title: 'I hate mondays - Garfield',
                         start: test_date
                     });
@@ -146,7 +100,7 @@
 
                 if (test_date.is().wednesday()) {
                     // we're in Wednesday, create the Wednesday event
-                    events.push({
+                    events_arr.push({
                         title: 'It\'s the middle of the week!',
                         start: test_date
                     });
@@ -172,3 +126,20 @@
 			events: '/sections.json'
 		});
 </script>
+
+
+<h3>Spring 2015 Wishlist</h3>
+
+<% @user.enrollments.each do |f| %>
+    <p >
+      <% if Section.exists?(f.section_id) and f.section.course.presence %>
+        <%= link_to f.section.course.full_name, f.section %>
+      <% elsif Section.exists?(f.section_id) %>
+        <%= link_to f.section.section_name_and_title, f.section %> <br>
+      <%= f.section.schedule %> 
+      <% end %>
+    </p>
+<% end %>
+
+
+</div>

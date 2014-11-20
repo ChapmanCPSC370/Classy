@@ -4,17 +4,17 @@
   </a>
   <ul class="dropdown-menu">
     <li>
-      <%= link_to "View Profile", current_user  %>
+      <%= link_to current_user do %><i class="fa fa-user"></i> View Profile <% end %>
     </li>
     <li>
-      <%= link_to "Edit Profile", edit_registration_path(current_user) %>
+      <%= link_to edit_registration_path(current_user) do %><i class="fa fa-gears"></i> Edit Profile<% end %>
     </li>  
     <li>
-      <%= link_to "Help", static_pages_about_path %>
+      <%= link_to static_pages_help_path do %><i class="fa fa-question"></i> Help<% end %>
     </li>  
     <li class="divider"></li>
     <li>
-      <%= link_to  logout_path, :method => :delete do %><i class="fa fa-sign-out"></i> Log out<% end %>
+      <%= link_to logout_path, :method => :delete do %><i class="fa fa-sign-out"></i> Log out<% end %>
     </li>
     <% if current_user.bAmbassador %>
     <li class="divider"></li>

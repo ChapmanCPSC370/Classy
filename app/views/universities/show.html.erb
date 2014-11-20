@@ -1,3 +1,4 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <p id="notice"><%= notice %></p>
 <div class="container">
 <div class="row">
@@ -9,6 +10,9 @@
   </i>
 </p>
 
+    <%= column_chart Section.group(:subject).count %><p class="lead">Did you know about <% the_section = Section.order("RANDOM()").first %><b><%= the_section.subject_number_section %></b>
+    <%= link_to the_section.section_name, the_section %> 
+    
 <div id="the-basics2">
   <input id="auto_complete" class="form-control typeahead" type="text" placeholder="Courses">
 </div>

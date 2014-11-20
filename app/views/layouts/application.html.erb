@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-default navbar- navbar-fixed-top" role="navigation">
+<div class="navbar navbar-primary navbar- navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,22 +19,23 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="text-primary fa fa-graduation-cap "></i>
+          <i class="text- fa fa-graduation-cap "></i>
              CLASSY
           <% end %>
         </div>
         <div class="collapse navbar-collapse">
           <% if user_signed_in? %>
           <ul class="nav navbar-nav">
+            <li>
             <% if current_page?(sections_wishlist_path) or current_page?(current_user) %>
             <li><div id="the-basics2">
-<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", class: 'navbar-form form-inline') do %>
+<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", style: "margin: 0;", class: 'form-inline navbar-form navbar-left') do %>
   <div class="form-group col-md-" id="section-search-form">
     <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
     </div>
-              <%= button_tag( :class => "btn btn-primary")  do %>
-  <i class="fa fa-search"></i> Search
-<% end %>
+              <%= button_tag( :class => "btn btn-primary btn-")  do %>
+  <i class="fa fa-search"></i>
+                <% end %>
 <% end %>
               </div></li><% end %>
             
@@ -84,10 +85,10 @@
       </div>
     </div>
 <% else %>
-      <div class="container"><br><br><br><br><hr>
+      <div class="container"><hr><div class="well">
       <center>Copright &copy; Classy, 2014 <br>
-      <%= link_to "Blog & Updates", posts_path %> | <%= link_to "Feedback", new_feedback_path %> | <%= link_to "About", static_pages_about_path %> | <%= link_to "Company", static_pages_company_path %><br>Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %><br><br>
-      </div>
+      <%= link_to "Blog & Updates", posts_path %> | <%= link_to "Feedback", new_feedback_path %> | <%= link_to "About", static_pages_about_path %> | <%= link_to "Help Tools", static_pages_help_path %> | <%= link_to "Bring Classy to Your School", static_pages_ambassador_path %> | <%= link_to "Company", static_pages_company_path %><br>Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %><br>
+        </div></div>
    <% end %>
 </body>
 </html>

@@ -1,3 +1,3 @@
-<%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-warning", remote: true, method: :delete do |f| %>
-  <%= section.enrollments.count %> <i class="fa fa-star"></i> On Wishlist
+<%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm - tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Unfavorite", 'data-placement' => 'bottom', remote: true, method: :delete do |f| %>
+  <% section.enrollments.count %> <i class="fa fa-heart fa-2x text-danger"></i>
 <% end %>   

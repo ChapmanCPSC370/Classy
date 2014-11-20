@@ -1,7 +1,8 @@
+<% section.enrollments.count %>
 <%= form_for [current_user, Enrollment.new], html: { id: 'form_id' }, remote: true, url: { controller: :enrollments, user_id: current_user.id } do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :section_id, value: section.id %>
-  <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %>
-  <%= section.enrollments.count %> <i class="fa fa-star-o"></i> Wishlist?
+  <%= button_tag(type: "submit", class: "btn btn-sm tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Favorite", 'data-placement' => 'bottom') do %>
+   <i class="fa fa-heart-o fa-2x text-danger"></i>
 <% end %>
 <% end %>

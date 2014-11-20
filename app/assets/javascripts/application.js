@@ -14,9 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require date
 //= require fullcalendar
+//= require jquery_nested_form
 //= require bootstrap-typeahead-rails
 //= require bootstrap-slider
+//= require bootstrap-material-design
 
 
 

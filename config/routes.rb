@@ -71,6 +71,8 @@ Rails.application.routes.draw do
   
   get 'static_pages/home'
   get 'static_pages/company'
+  get 'static_pages/help'
+  get 'static_pages/ambassador'
   get 'courses/all_courses'
   get 'courses/edit_all'
   
