@@ -100,8 +100,9 @@
 <% @user.enrollments.each do |f| %>
     <p >
       <% if Section.exists?(f.section_id) and f.section.course.presence %>
+      <%= link_to f.section.course.full_name, f.section, method: :delete %>
       <% elsif Section.exists?(f.section_id) %>
-      <%= link_to f.section.section_name_and_title, f.section %> <%= link_to '(Remove)', f.section, method: :delete, class: 'text-warning' %> <br>
+      <%= link_to f.section.section_name_and_title, f.section %>  <br>
       <%= f.section.schedule %> 
       <% end %>
     </p>

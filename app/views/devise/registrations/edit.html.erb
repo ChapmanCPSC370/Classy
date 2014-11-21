@@ -18,15 +18,6 @@
     <%= f.text_field :imageurl %></div>
 
 
-<div><%= f.label :major %>
-  <%= f.collection_select :major_id, Major.all, :id, :name %></div>
-
-  <div><%= f.label :minor %>
-    <%= f.text_field :minor %></div>
-
-  <div><%= f.label :bio %>
-    <%= f.text_area :bio %></div>
-
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
