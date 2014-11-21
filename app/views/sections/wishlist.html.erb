@@ -97,9 +97,9 @@ $("#the-basics2 form").submit();
 <div id="wishlist">
           <%= render 'sections/wishlist' %>
         </div>
-      <% else %> <p><%= link_to "Log in to save your schedule", new_user_session_path, class: 'btn-block btn btn-primary' %></p>
+        <% else %> <p><%= link_to "Log in to save your schedule and see a calendar of your schedule", new_user_session_path, class: '' %></p>
           <% end %><p>
-      </div>
+
       <% if user_signed_in? %>
       <%= link_to new_user_session_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Use the Flag to mark incorrect or questionable information", 'data-placement' => 'bottom' do %>
       <i class="fa fa-flag fa-x"></i> Flag
