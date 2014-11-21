@@ -1,7 +1,30 @@
-<div class="container"><div class="well"><h1><center>Helpful Registration Tools</center></h1>
-  <p class="lead">
+<div class="container"><div class="well"><h1><center>Registration Help</center></h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+         <%= image_tag "Search.png", class: "img-responsive" %>
+    </div><div class="col-md-6">
+         <h3>Use the search bar to quickly find classes by the GE code, the name of the course, the name of the teacher, or by the subject.</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+         <h3>Save everything to a wishlist so you can get them later.</h3>
+    </div>
+    <div class="col-md-6">
+         <%= image_tag "Wishlist.png", class: "img-responsive" %>
+    </div>
+  </div><hr>
+  <div class="row">
+    <div class="col-md-6">
+         <%= image_tag "Cal.png", class: "img-responsive" %>
+    </div><div class="col-md-6">
+         <h3>All your classes go on a calendar view, so you can see which classes have conflicting time slots. </h3>
+    </div>
+  </div><hr>
+  <h2>Useful links:<br>
   <%= link_to "Chapman Add/Drop Form", "http://www.chapman.edu/students/academic-resources/registrar/_files/forms/registration.pdf", :target => "_blank" %>
-  <br><br>Did you know you can create your own major? Just fill out the <%= link_to "petition form", "http://www.chapman.edu/students/academic-resources/registrar/_files/forms/self-design-major-app.pdf", target: "_blank" %> and turn it into the registrar. 
-  </p>
+    <br><br>Did you know you can create your own major?</h2><h4>Just fill out the <%= link_to "petition form", "http://www.chapman.edu/students/academic-resources/registrar/_files/forms/self-design-major-app.pdf", target: "_blank" %> and turn it into the registrar. 
+  </h4>
 </div>
 </div>
