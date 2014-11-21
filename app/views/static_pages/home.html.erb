@@ -23,13 +23,12 @@
   <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name).to_json };" %>
       <%= javascript_tag "var autocomplete_subjects = #{ @autocomplete_subjects.pluck(:subject).to_json };" %>
       <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_teachers.pluck(:teacher).to_json };" %>
-      <%= javascript_tag "var autocomplete_ge = #{ @autocomplete_items.pluck(:ge).to_json };" %>
+  <%= javascript_tag "var autocomplete_ge = #{ @autocomplete_items.pluck(:ge).to_json };" %>
 <script type="text/javascript">
 $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 2 },
 { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_subjects), templates: {
   header: '<h3 style="padding-left: 10px;" class="league-name">Department</h3>'}
-},
-                                       { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_ge), templates: {
+},{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_ge), templates: {
   header: '<h3 style="padding-left: 10px;" class="league-name">GE</h3>'}
 },
 {name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_items),templates: {header: '<h3 style="padding-left: 10px;" class="league-name">Name</h3>'}
@@ -38,7 +37,7 @@ $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength:
 header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
 }).on('typeahead:selected', function(e, data) {
 $("#the-basics2 form").submit();
-}).css('width','400px');
+}).css();
 </script>
 <script>
   $('#hours').slider({ 
