@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Classy</title>
+  <title>Shoreline</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -19,26 +19,29 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="text- fa fa-graduation-cap "></i>
-             Classy
+          <%= image_tag "ShorelinLogoWhite.png", width: 32 %>
+             Shoreline
           <% end %>
         </div>
         <div class="collapse navbar-collapse">
           <% if user_signed_in? %>
           <ul class="nav navbar-nav">
             <li>
-            <% if current_page?(sections_wishlist_path) or current_page?(current_user) %>
+            <% if current_page?(sections_wishlist_path) %>
             <li><div id="the-basics2">
 <%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", style: "margin: 0;", class: 'form-inline navbar-form navbar-left') do %>
   <div class="form-group col-md-" id="section-search-form">
-    <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
+    <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Subject, GE, Name, or Teacher..." %>
     </div>
               <%= button_tag( :class => "btn btn-primary btn-")  do %>
   <i class="fa fa-search"></i>
                 <% end %>
 <% end %>
-              </div></li><% end %>
-            
+              </div></li><% elsif current_page?(current_user) %>
+            <li>
+              <%= link_to sections_wishlist_path, class: "navbar-right" do %><i class="fa fa-search"></i> Search<% end %>
+            </li>
+            <% end %>
           </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -51,7 +54,7 @@
             <li><div id="the-basics2">
            <%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2 section-search-form form-", style: "margin: 0;", class: 'form-inline navbar-form navbar-left') do %>
   <div class="form-group col-md-" id="section-search-form">
-    <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Class, Teacher, Major, Requirement..." %>
+    <%= text_field_tag :search, params[:search], style: 'width: 100%;', class: "form-control typeahead", id: "auto_complete", placeholder: "Search by Subject, GE, Name, or Teacher..." %>
     </div>
               <%= button_tag( :class => "btn btn-primary btn-")  do %>
   <i class="fa fa-search"></i>
@@ -81,13 +84,13 @@
 <% if current_page?(root_path) or current_page?(new_user_session_path) or current_page?(new_user_registration_path) %>
 <div class="footer">
       <div class="container"><br><p class="pull-right">Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %></p>
-        <p class="text-muted"><%= link_to "Privacy & Terms", static_pages_about_path, class: 'text-muted' %> &emsp; <%= link_to "Feedback", new_feedback_path, class: 'text-muted' %> &emsp; <%= link_to "About", static_pages_about_path, class: 'text-muted' %> &emsp; </p>
+        <p class="text-muted"><%= link_to "Help", static_pages_help_path, class: 'text-muted' %> &emsp; <%= link_to "Feedback", new_feedback_path, class: 'text-muted' %> &emsp; <%= link_to "About", static_pages_about_path, class: 'text-muted' %> &emsp; </p>
       </div>
     </div>
 <% else %>
       <div class="container"><hr><div class="well">
-      <center>Copright &copy; Classy, 2014 <br>
-      <%= link_to "Blog & Updates", posts_path %> | <%= link_to "Feedback", new_feedback_path %> | <%= link_to "About", static_pages_about_path %> | <%= link_to "Help Tools", static_pages_help_path %> | <%= link_to "Bring Classy to Your School", static_pages_ambassador_path %> | <%= link_to "Company", static_pages_company_path %><br>Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %><br>
+      <center>Copright &copy; Shoreline, 2014 <br>
+        <%= link_to "Give Feedback", new_feedback_path %> | <%= link_to "Blog & Updates", "https://twitter.com/ShorelineIO" %> | <%= link_to "About/Mission", static_pages_about_path %> | <%= link_to "Helpful Registration Tools", static_pages_help_path %> | <%= link_to "Bring Shoreline to Your School", static_pages_ambassador_path %> | <%= link_to "Company", static_pages_company_path %><br>Made with <i class="fa fa-heart text-danger"></i> by <%= link_to "James Steininger", "http://www.jamessteininger.info/about/" %><br>
         </div></div>
    <% end %>
 </body>

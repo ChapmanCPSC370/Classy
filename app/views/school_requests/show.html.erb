@@ -1,19 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>User:</strong>
-  <%= @school_request.user_id %>
-</p>
+<div class="container">
+    <div class="well"><p id="notice"><%= notice %></p>
 
 <p>
   <strong>School name:</strong>
   <%= @school_request.school_name %>
 </p>
 
-<p>
-  <strong>Number requests:</strong>
-  <%= @school_request.number_requests %>
-</p>
 
-<%= link_to 'Edit', edit_school_request_path(@school_request) %> |
+
 <%= link_to 'Back', school_requests_path %>

@@ -10,10 +10,14 @@
       <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name).to_json };" %>
       <%= javascript_tag "var autocomplete_subjects = #{ @autocomplete_subjects.pluck(:subject).to_json };" %>
       <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_teachers.pluck(:teacher).to_json };" %>
+      <%= javascript_tag "var autocomplete_ge = #{ @autocomplete_items.pluck(:ge).to_json };" %>
 <script type="text/javascript">
 $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 2 },
 { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_subjects), templates: {
   header: '<h3 style="padding-left: 10px;" class="league-name">Department</h3>'}
+},
+                                       { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_ge), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">GE</h3>'}
 },
 {name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_items),templates: {header: '<h3 style="padding-left: 10px;" class="league-name">Name</h3>'}
 },
@@ -60,7 +64,7 @@ $("#the-basics2 form").submit();
           <%= section.days %></td>
         <td><%= section.teacher %></td>
         <td><%= section.ge %></td>
-        <td style="text-align: center; vertical-align: middle;"><%= section.capacity %></td>
+        <td style="text-align: center; vertical-align: middle;"><%= section.enrollments.count %></td>
         
         <td>
           <% if user_signed_in? %>
@@ -72,7 +76,8 @@ $("#the-basics2 form").submit();
             <% end %>
             </div>
           <% else %>
-          <h5 class="text-danger"><%= section.enrollments.count %> <i class="fa fa-heart"></i></h4>
+          <%= link_to '#', class: "btn btn-sm tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Sign in to save", 'data-placement' => 'bottom' do %>
+            <i class="fa fa-heart-o fa-2x text-danger"></i><% end %>
           <% end %>
         </td>
         <td><% if section.section_name.presence %><%= link_to '#', class: 'btn btn-sm btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' do %><i class="fa fa-info fa-2x"></i><% end %><% end %></td>
@@ -101,11 +106,12 @@ $("#the-basics2 form").submit();
           <% end %><p>
 
       <% if user_signed_in? %>
-      <%= link_to new_user_session_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Use the Flag to mark incorrect or questionable information", 'data-placement' => 'bottom' do %>
-      <i class="fa fa-flag fa-x"></i> Flag
+      </div>
+      <%= link_to new_feedback_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Give us feedback to make Shoreline better", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-pencil fa-x"></i> Feedback
       <% end %>
       <% end %>
-      <%= link_to new_user_session_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
+      <%= link_to static_pages_help_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
       <i class="fa fa-question fa-x"></i> Help
       <% end %>
       <%= link_to universities_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Go to Chapman University page", 'data-placement' => 'bottom' do %>

@@ -11,19 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
+ <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="field">
     <%= f.label :school_name %><br>
-    <%= f.text_field :school_name %>
-  </div>
-  <div class="field">
-    <%= f.label :number_requests %><br>
-    <%= f.number_field :number_requests %>
+    <%= f.text_field :school_name, class: 'form-control ' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Request School", class: 'btn btn-primary' %>
   </div>
 <% end %>

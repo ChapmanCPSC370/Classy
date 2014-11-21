@@ -9,64 +9,74 @@
     var d = 25;
     var m = 4;
     var y = 2012;
-    var class_arr = [13];
-    var events_arr = [{title: 'Herp', start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 13, 0),
-                allDay: false} ];
+    var class_arr = [133];
+    var events_arr = [];
     
   </script>
   <% @user.enrollments.each do |f| %>
   <% if f.section.presence %>
   <% f.section.start_time_s %>
   <% Integer start_hour = f.section.start_time_s.match(/\d{2}/).to_s.to_i %>
+    <% if f.section.start_time_s.match(/(PM)/) && !f.section.start_time_s.match(/(12:00PM)/) %>
+    <% start_hour += 12 %>
+    <% end %>
   <% Integer start_minute = /(?<=:)\d{2}/.match(f.section.start_time_s).to_s.to_i %>
+    <% Integer end_hour = f.section.end_time_s.match(/\d{2}/).to_s.to_i %>
+    <% if f.section.end_time_s.match(/(PM)/) %>
+    <% end_hour += 12 %>
+    <% end %>
+    <% Integer end_minute = /(?<=:)\d{2}/.match(f.section.end_time_s).to_s.to_i %>
   <script> class_arr.push('<%= start_hour %>');
-    events_arr.push({title: '<%= f.section.days.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|)/) %>', start: new Date(y, m, d, '<%= start_hour %>', 0),
-                end: new Date(y, m, d, '<%= start_hour %>', 90),
-                allDay: false})
+    if ('<%= f.section.days.match(/(Monday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-4, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d-4, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Tuesday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-3, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d-3, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Wednesday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-2, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d-2, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Thursday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-1, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d-1, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Friday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Saturday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d+1, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d+1, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+    if ('<%= f.section.days.match(/(Sunday)/) %>'){
+    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d+2, '<%= start_hour %>', '<%= start_minute %>'),
+                end: new Date(y, m, d+2, '<%= end_hour %>', '<%= end_minute %>'),
+                allDay: false})  
+    }
+      
+    
     </script>
 
   <% end %>
   <% end %>
 <div id='calendar'></div>
 <script>
-  events_arr.push({
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d-3, 16, 0),
-                allDay: false
-            });
     var enrollments = '<%= escape_javascript @user.enrollments.to_json %>';
   var enrollment1 = '<%= escape_javascript @user.enrollments.first.section %>';
     
-    for (loop = date.getTime();
-                 loop <= date.getTime()+900033330;
-                 loop = loop + (24 * 60 * 60 * 1000)) {
-
-                var test_date = new Date(loop);
-
-                if (test_date.is().monday()) {
-                    // we're in Moday, create the event
-                    events_arr.push({
-                       title: 'Repeatingdd Event',
-                start: new Date(y, m, d-3, 16, 0),
-                allDay: false
-                    });
-                }
-
-                if (test_date.is().wednesday()) {
-                    // we're in Wednesday, create the Wednesday event
-                    events_arr.push({
-                        title: 'Repeating Event',
-                start: new Date(y, m, d-1, 16, 0),
-                allDay: false
-                    });
-                }
-  }
     
     $('#calendar').fullCalendar({year: 2012,
  month: 4,
- date: 25,
+ date: 25,eventColor: '#2979FF',
         header: {
           //  left: 'prev,next today',
           left: '',
@@ -82,55 +92,6 @@
         editable: false,
         events: events_arr
     });
-
-    // adding a every monday and wednesday events:
-    $('#calendar').fullCalendar( 'addEventSource',        
-        function(start, end, callback) {
-            // When requested, dynamically generate virtual
-            // events for every monday and wednesday.
-            var events = [];
-
-            for (loop = start.getTime();
-                 loop <= end.getTime();
-                 loop = loop + (24 * 60 * 60 * 1000)) {
-
-                var test_date = new Date(loop);
-    
-                if (test_date.is().monday()) {
-                    // we're in Moday, create the event
-                    events_arr.push({
-                        title: 'I hate mondays - Garfield',
-                        start: test_date
-                    });
-                }
-
-                if (test_date.is().wednesday()) {
-                    // we're in Wednesday, create the Wednesday event
-                    events_arr.push({
-                        title: 'It\'s the middle of the week!',
-                        start: test_date
-                    });
-                }
-            } // for loop
-
-            // return events generated
-            callback( events );
-        }
-    );
-  
-  
-  $('#calendrrrar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek' //basicDay, basicWeek
-			},
-      defaultDate: '2014-09-12',
-      defaultView: 'agendaWeek',
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: '/sections.json'
-		});
 </script>
 
 
@@ -139,13 +100,12 @@
 <% @user.enrollments.each do |f| %>
     <p >
       <% if Section.exists?(f.section_id) and f.section.course.presence %>
-        <%= link_to f.section.course.full_name, f.section %>
       <% elsif Section.exists?(f.section_id) %>
-        <%= link_to f.section.section_name_and_title, f.section %> <br>
+      <%= link_to f.section.section_name_and_title, f.section %> <%= link_to '(Remove)', f.section, method: :delete, class: 'text-warning' %> <br>
       <%= f.section.schedule %> 
       <% end %>
     </p>
 <% end %>
-
+<%= link_to "Back to search", sections_wishlist_path, class: "btn btn-primary" %>
 
 </div>
