@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require date
+//= require google-analytics-turbolinks
 //= require fullcalendar
 //= require jquery_nested_form
 //= require bootstrap-typeahead-rails

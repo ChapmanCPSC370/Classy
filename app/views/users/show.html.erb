@@ -6,9 +6,9 @@
 </center>
   <script>
     var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
+    var d = 25;
+    var m = 4;
+    var y = 2012;
     var class_arr = [13];
     var events_arr = [{title: 'Herp', start: new Date(y, m, d, 12, 0),
                 end: new Date(y, m, d, 13, 0),
@@ -21,7 +21,7 @@
   <% Integer start_hour = f.section.start_time_s.match(/\d{2}/).to_s.to_i %>
   <% Integer start_minute = /(?<=:)\d{2}/.match(f.section.start_time_s).to_s.to_i %>
   <script> class_arr.push('<%= start_hour %>');
-    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d, '<%= start_hour %>', 0),
+    events_arr.push({title: '<%= f.section.days.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|)/) %>', start: new Date(y, m, d, '<%= start_hour %>', 0),
                 end: new Date(y, m, d, '<%= start_hour %>', 90),
                 allDay: false})
     </script>
@@ -64,12 +64,18 @@
                 }
   }
     
-    $('#calendar').fullCalendar({
+    $('#calendar').fullCalendar({year: 2012,
+ month: 4,
+ date: 25,
         header: {
           //  left: 'prev,next today',
           left: '',
-          center: 'title', right: ''
+          center: '', right: ''
             //right: 'month,agendaWeek,agendaDay'
+        },columnFormat: {
+            month: 'ddd',
+            week: 'ddd',
+            day: 'dddd d/M'
         },minTime: 7,
       maxTime: 24, allDaySlot: false,
         defaultView: 'agendaWeek',
@@ -89,7 +95,7 @@
                  loop = loop + (24 * 60 * 60 * 1000)) {
 
                 var test_date = new Date(loop);
-
+    
                 if (test_date.is().monday()) {
                     // we're in Moday, create the event
                     events_arr.push({

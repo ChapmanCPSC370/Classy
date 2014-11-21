@@ -8,6 +8,8 @@ gem 'devise'
 gem 'jquery-ace-rails'
 gem 'rails4-autocomplete'
 gem 'animate-rails'
+gem 'newrelic_rpm'
+gem 'google-analytics-turbolinks'
 gem 'bootstrap-typeahead-rails'
 gem 'bootstrap-slider-rails'
 gem "nested_form"
