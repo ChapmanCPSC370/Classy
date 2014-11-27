@@ -22,11 +22,25 @@
 //= require bootstrap-slider
 //= require bootstrap-material-design
 
-
+// $(".enrollment-cal-hide").bind('change', function(){
+//   alert('esdas');
+//   if (this.checked){
+//     alert('esdas');
+//     $.ajax({
+//       url: '/enrollments/'+this.value+'/toggle',
+//       type: 'POST',
+//       data: {"cal_hidden": this.checked}
+//     });
+//   }
+//   else {
+//     alert("no");
+//   }
+// });
 
 $(document).on("ready page:change", function() {
     $('.tag-tooltip').tooltip();
 });
+
 var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substrRegex;

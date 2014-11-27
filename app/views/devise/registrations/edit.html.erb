@@ -10,7 +10,7 @@
 
   <div><%= f.label :first_name %>
     <%= f.text_field :first_name %></div>
-
+        <%= f.collection_select :school_id, University.all, :id, :name %>
   <div><%= f.label :last_name %>
     <%= f.text_field :last_name %></div>
 

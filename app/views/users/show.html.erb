@@ -1,9 +1,12 @@
 <div class="container">
 <p id="notice"><%= notice %></p>
   <div class="well">
-<center><h1><%= @user.email %></h1>
-  
+<center>
+  <h1><%= @user.email %></h1>
+  <%= link_to "Edit", edit_user_registration_path(@user) %>
 </center>
+    <div class="row">
+      <div class="col-md-9">
   <script>
     var date = new Date();
     var d = 25;
@@ -14,7 +17,7 @@
     
   </script>
   <% @user.enrollments.each do |f| %>
-  <% if f.section.presence %>
+        <% if f.section.presence and !f.cal_hidden %>
   <% f.section.start_time_s %>
   <% Integer start_hour = f.section.start_time_s.match(/\d{2}/).to_s.to_i %>
     <% if f.section.start_time_s.match(/(PM)/) && !f.section.start_time_s.match(/(12:00PM)/) %>
@@ -22,7 +25,7 @@
     <% end %>
   <% Integer start_minute = /(?<=:)\d{2}/.match(f.section.start_time_s).to_s.to_i %>
     <% Integer end_hour = f.section.end_time_s.match(/\d{2}/).to_s.to_i %>
-    <% if f.section.end_time_s.match(/(PM)/) %>
+    <% if f.section.end_time_s.match(/(PM)/)  && !f.section.end_time_s.match(/(12)/) %>
     <% end_hour += 12 %>
     <% end %>
     <% Integer end_minute = /(?<=:)\d{2}/.match(f.section.end_time_s).to_s.to_i %>
@@ -89,20 +92,48 @@
         events: events_arr
     });
 </script>
-
+      </div>
+      <div class="col-md-3">
 
 <h3>Spring 2015 Wishlist</h3>
 
 <% @user.enrollments.each do |f| %>
     <p >
       <% if Section.exists?(f.section_id) and f.section.course.presence %>
-      <%= link_to f.section.course.full_name, f.section, method: :delete %>
+        <%= link_to f.section.course.full_name, f.section, method: :delete %>
       <% elsif Section.exists?(f.section_id) %>
-      <%= link_to f.section.section_name_and_title, f.section %>  <br>
-      <%= f.section.schedule %> 
+        
+        <% if !f.cal_hidden %>  
+      <div class="checkbox">
+                    <label>
+                      <%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, :class => "enrollment-cal-hide" %> <%= f.section.section_name %>
+                      </label>
+                </div>
+      <% link_to enrollment_cal_hide_path(f), class: 'btn btn- btn-primary btn-sm' do %>
+            dasdasds
+          <% end %>
+      <% else %><%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, class: "enrollment-cal-hide" %> <%= f.section.section_name %><script>$(".enrollment-cal-hide").bind('click', function(){
+  alert('esdas');
+  if (this.checked){
+    alert('esdas');
+});</script>
+        <div class="checkbox enrollment-cal-hide">
+                    <label>
+                      <%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, :class => "enrollment-cal-hide" %> <%= f.section.section_name %>
+                      </label>
+                </div>
+      <% link_to enrollment_cal_show_path(f) do %>
+           ddasdas
+          <% end %>
       <% end %>
-    </p>
-<% end %>
-<%= link_to "Back to search", sections_wishlist_path, class: "btn btn-primary" %>
+        <br>
+        <% end %>
+      </p>
+      <% end %>
+        
+      </div>
+    </div>
+    <hr>
+<%= link_to "Back to search", sections_wishlist_path, class: "" %>
 
 </div>

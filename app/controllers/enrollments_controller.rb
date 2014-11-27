@@ -1,6 +1,30 @@
 class EnrollmentsController < ApplicationController
-  before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
+  before_action :set_enrollment, only: [:edit, :update, :destroy]
+  
+  def toggle
+    @enrollment = Enrollment.find(params[:id])
+    @user = @enrollment.user
 
+    if @enrollment.update_attributes(:cal_hidden => params[:cal_hidden])
+      redirect_to @user
+    else
+      redirect_to @user
+    end
+  end
+  
+  def cal_hide
+    @enrollment = Enrollment.find(params[:enrollment_id])
+    @enrollment.update_attribute(:cal_hidden, true)
+    @user = @enrollment.user
+    redirect_to @user
+  end
+  
+  def cal_show
+    @enrollment = Enrollment.find(params[:enrollment_id])
+    @enrollment.update_attribute(:cal_hidden, false)
+    @user = @enrollment.user
+    redirect_to @user
+  end
   # GET /enrollments
   # GET /enrollments.json
   def index
@@ -21,6 +45,7 @@ class EnrollmentsController < ApplicationController
   def edit
   end
 
+  
   # POST /enrollments
   # POST /enrollments.json
   def create
@@ -75,6 +100,6 @@ class EnrollmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def enrollment_params
-      params.require(:enrollment).permit(:user_id, :section_id)
+      params.require(:enrollment).permit(:cal_hidden, :user_id, :section_id)
     end
 end

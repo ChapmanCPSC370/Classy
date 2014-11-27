@@ -20,6 +20,12 @@ class Section < ActiveRecord::Base
     end
   end
   
+  # Creating majors regex
+  # [A-Z]{3,4} ((\d{3}\/\d{3}L)|(\d{3}))
+  # WOW
+  
+  
+  
   def self.disperse
     Section.all.each do |f|
       subject_regex = /\A[a-zA-Z]{2,4}/

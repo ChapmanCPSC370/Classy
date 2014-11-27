@@ -11,7 +11,13 @@ Rails.application.routes.draw do
 
   resources :majors
 
-  resources :enrollments
+  resources :enrollments  do
+      get 'cal_hide'
+    get 'cal_show'
+    member do
+    post 'toggle'
+  end
+  end
 
   resources :announcements
 
@@ -95,7 +101,9 @@ Rails.application.routes.draw do
     get :autocomplete_section_teacher, on: :collection
     get 'alli'
     resources :sections do
-      resources :enrollments
+      resources :enrollments do
+        get 'cal_hide'
+      end
     end
     resources :posts do
       resources :users
@@ -106,7 +114,9 @@ Rails.application.routes.draw do
  # post "course/create"
   
   resources :users do
-    resources :enrollments
+    resources :enrollments do
+      get 'cal_hide'
+    end
     
   end
   # The priority is based upon order of creation: first created -> highest priority.
