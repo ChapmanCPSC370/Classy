@@ -13,8 +13,8 @@ gem 'google-analytics-turbolinks'
 gem 'bootstrap-typeahead-rails'
 gem 'bootstrap-slider-rails'
 gem "nested_form"
+gem 'jquery-turbolinks'
 gem "auto_html"
-gem 'will_paginate-bootstrap'
 gem 'roo'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
