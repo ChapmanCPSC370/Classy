@@ -1,6 +1,6 @@
 class SchoolRequestsController < ApplicationController
   before_action :set_school_request, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
   # GET /school_requests
   # GET /school_requests.json
   def index

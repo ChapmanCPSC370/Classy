@@ -1,7 +1,7 @@
 class UniversitiesController < ApplicationController
   before_action :set_university, only: [:show, :edit, :update, :destroy]
   respond_to :html, :xml, :json
-  
+  before_action :authenticate_user!
   autocomplete :course, :name, full: true
   # GET /universities
   # GET /universities.json

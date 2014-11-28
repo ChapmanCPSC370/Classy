@@ -10,40 +10,8 @@
   </i>
 </p>
 
-    <%= column_chart Section.group(:subject).count %><p class="lead">Did you know about <% the_section = Section.order("RANDOM()").first %><b><%= the_section.subject_number_section %></b>
+    <%= column_chart Section.group(:subject).count %>
+    
+    <p class="lead">Did you know about <% the_section = Section.order("RANDOM()").first %><b><%= the_section.subject_number_section %></b>
     <%= link_to the_section.section_name, the_section %> 
     
-<div id="the-basics2">
-  <input id="auto_complete" class="form-control typeahead" type="text" placeholder="Courses">
-</div>
-<%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:name).to_json };" %>
-<script type="text/javascript">
-  $('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 1
-},
-{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_items)
-});
-</script>
-
-<ul class="nav nav-pills nav-justified">
-  <li><%= link_to university_departments_path(@university) do %><h4><i class="fa fa-building fa-2x"></i><br>Departments</h4><% end %></li>
-  <li><%= link_to university_majors_path(@university) do %><h4><i class="fa fa-flask fa-2x"></i><br>Majors &amp; Minors</h4><% end %></li>
-  <li><%= link_to university_courses_path(@university) do %><h4><i class="fa fa-list fa-2x"></i><br>Courses</h4><% end %></li>
-  <li><%= link_to @university do %><h4><i class="fa fa-group fa-2x"></i><br>Teachers</h4><% end %></li>
-</ul>
-
-
-
-<%= link_to 'Edit', edit_university_path(@university) %> |
-<%= link_to 'Back', universities_path %>
-
-<hr>
-
-<% @university.departments.order("name asc").each do |f| %>
-<div class="col-md-4">
-<h3><%= link_to f.name, f %></h3>
-<% f.majors.each do |g| %>
-  <h4><%= link_to g.name, g %> <% if user_signed_in? && current_user.enrolled_major?(g) %><span class="label label-success">Enrolled</span><% end %></h4>
-<% end %>
-<hr>
-</div>
-<% end %>
