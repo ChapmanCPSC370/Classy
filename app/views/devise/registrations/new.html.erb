@@ -1,5 +1,6 @@
-<br><center><%= image_tag "ShorelineLogoColor.png", width: 100 %><br><br></center>
+<br><center><%= image_tag "ShorelineLogoColor.png", width: 100 %><br><br></center><div class="row">
 <div class=" col-md-4 col-md-offset-4">
+<%= render 'layouts/messages' %>
  <center> <h3>Ready to take control over your education?</h2>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -16,7 +17,4 @@
   <div><br><%= f.submit "Sign up", class: 'btn btn-primary btn-block' %></div>
 <% end %>
 <br>
-<%= render "devise/shared/links" %>
-</div>
-</div>
 </div>
