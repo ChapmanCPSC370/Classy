@@ -1,0 +1,21 @@
+
+<h3>Spring 2015 Wishlist</h3>
+        <p><i class="fa fa-eye"></i> Hide and unhide classes from your calendar to make the perfect schedule</p>
+<% @user.enrollments.each do |f| %>
+    <p >
+      <% if Section.exists?(f.section_id) and f.section.course.presence %>
+        <%= link_to f.section.course.full_name, f.section, method: :delete %>
+      <% elsif Section.exists?(f.section_id) %>
+        
+      <% if !f.cal_hidden %>
+      <%= link_to enrollment_cal_hide_path(f), format: :js, style: 'white-space: normal;', class: 'btn btn-block btn-primary btn-sm tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Click to hide from calendar", 'data-placement' => 'left' do %>
+      <%= f.section.start_time %> <%= f.section.section_name %>
+        <% end %>
+      <% else %>
+      <%= link_to enrollment_cal_show_path(f), format: :js, style: 'white-space: normal;', class: 'btn btn-block btn-raised btn-default tag-tooltip btn-sm', data: {:toggle=>"tooltip"}, 'data-original-title' => "Click to show on calendar", 'data-placement' => 'left' do %>
+      <%= f.section.start_time %> <%= f.section.section_name %>
+        <% end %>
+      <% end %>
+     <% end %>
+      </p>
+<% end %>

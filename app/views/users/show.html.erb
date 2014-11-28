@@ -94,43 +94,9 @@
 </script>
       </div>
       <div class="col-md-3">
-
-<h3>Spring 2015 Wishlist</h3>
-
-<% @user.enrollments.each do |f| %>
-    <p >
-      <% if Section.exists?(f.section_id) and f.section.course.presence %>
-        <%= link_to f.section.course.full_name, f.section, method: :delete %>
-      <% elsif Section.exists?(f.section_id) %>
-        
-        <% if !f.cal_hidden %>  
-      <div class="checkbox">
-                    <label>
-                      <%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, :class => "enrollment-cal-hide" %> <%= f.section.section_name %>
-                      </label>
-                </div>
-      <% link_to enrollment_cal_hide_path(f), class: 'btn btn- btn-primary btn-sm' do %>
-            dasdasds
-          <% end %>
-      <% else %><%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, class: "enrollment-cal-hide" %> <%= f.section.section_name %><script>$(".enrollment-cal-hide").bind('click', function(){
-  alert('esdas');
-  if (this.checked){
-    alert('esdas');
-});</script>
-        <div class="checkbox enrollment-cal-hide">
-                    <label>
-                      <%= check_box_tag 'cal_hidden', f.id , !f.cal_hidden, :class => "enrollment-cal-hide" %> <%= f.section.section_name %>
-                      </label>
-                </div>
-      <% link_to enrollment_cal_show_path(f) do %>
-           ddasdas
-          <% end %>
-      <% end %>
-        <br>
-        <% end %>
-      </p>
-      <% end %>
-        
+        <div id="wishlist">
+        <%= render 'users/wishlist' %>
+        </div>
       </div>
     </div>
     <hr>

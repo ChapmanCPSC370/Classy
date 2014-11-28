@@ -1,6 +1,6 @@
 class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:edit, :update, :destroy]
-  
+   respond_to :html, :xml, :json
   def toggle
     @enrollment = Enrollment.find(params[:id])
     @user = @enrollment.user
@@ -24,6 +24,7 @@ class EnrollmentsController < ApplicationController
     @enrollment.update_attribute(:cal_hidden, false)
     @user = @enrollment.user
     redirect_to @user
+    
   end
   # GET /enrollments
   # GET /enrollments.json
