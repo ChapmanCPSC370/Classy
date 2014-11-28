@@ -1,9 +1,8 @@
-<div class="bs-docs-headerrrrrrrr"><div class="container">
+<div class="container">
   <%= render 'layouts/messages' %>
-</center><% if user_signed_in? and current_user.bAmbassador %> <% link_to "parse data", sections_disperse_path %>
+<% if user_signed_in? and current_user.bAmbassador %> <% link_to "parse data", sections_disperse_path %>
 <%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
 </div><div class="container ">
-<br>
   <div class="row">
     <div class="col-md-9">
       
@@ -94,11 +93,10 @@ $("#the-basics2 form").submit();
     
     <div class="col-md-3" >
       <% if user_signed_in? %>
-      <%= link_to current_user, class: 'btn btn- btn-block btn-primary tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
-      <i class="fa fa-calendar fa-x"></i> Calendar
+      <%= link_to current_user, class: 'btn btn- btn-block btn-success tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-calendar fa-x"></i> View Calendar
       <% end %>
       <div class="well">
-          <center><h4><strong>Wishlist</strong></h4></center>
 <div id="wishlist">
           <%= render 'sections/wishlist' %>
         </div>

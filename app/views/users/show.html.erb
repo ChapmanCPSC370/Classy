@@ -1,12 +1,9 @@
 <div class="container">
-<p id="notice"><%= notice %></p>
-  <div class="well">
-<center>
-  <h1><%= @user.email %></h1>
-  <%= link_to "Edit", edit_user_registration_path(@user) %>
-</center>
+<%= render 'layouts/messages' %>
     <div class="row">
       <div class="col-md-9">
+        <div class="well">
+        
   <script>
     var date = new Date();
     var d = 25;
@@ -93,13 +90,19 @@
     });
 </script>
       </div>
+      </div>
       <div class="col-md-3">
+        
+        <!-- link to search -->
+        <%= link_to sections_wishlist_path, class: 'btn btn- btn-block btn-success tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Go back to searching for classes", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-search fa-x"></i> Search Classes
+      <% end %>
+        
+        <div class="well">
         <div id="wishlist">
         <%= render 'users/wishlist' %>
         </div>
       </div>
     </div>
-    <hr>
-<%= link_to "Back to search", sections_wishlist_path, class: "" %>
 
 </div>
