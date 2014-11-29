@@ -4,6 +4,8 @@
 
 Shoreline encourages exploration and ownership over ones education. Navigate the course catalog with ease, make a wishlist of your favorites, and then edit a calendar to make the perfect schedule. 
 
+![image](/app/assets/images/Search.png)
+
 #Development Status
 
 We are entering our first release: **version 0.1**
