@@ -1,8 +1,25 @@
 ![logo](/app/assets/images/ShorelineAltBig.png)
 
+#What is Shoreline?
+
 Shoreline encourages exploration and ownership over ones education. Navigate the course catalog with ease, make a wishlist of your favorites, and then edit a calendar to make the perfect schedule. 
 
-##Install Document
+#Development Status
+
+We are entering our first release: **version 0.1**
+
+The next milestone is the Ambassador program, which allows students from any school begin the process of incorporating their school's data into Shoreline. 
+
+#Ways You Can Contribute
+
+We love help. There are many ways to do so:
+
+* Front-end Development
+* Back-end development
+* Testing & Bug Squashing
+* Community Support & Morale Boosting
+
+#Step-by-Step Setup
 
 This is a simple installation document which gives you a basic idea who to get the project up and  running on your local machine
 
@@ -49,7 +66,10 @@ You can find more information about Ruby here: http://rubyonrails.org/
 - Run the app
 	To run the Rails app, go to your browser and open: http://localhost:3000
 
+#License
 
-##Gems used 
-devise, font-awesome, postgres, bootstrap, sass, block.io
+Shoreline is licensed under the GNU General Public License. For more information, read the license file in the Shoreline repository.
 
+#Contributors
+
+James Steininger
