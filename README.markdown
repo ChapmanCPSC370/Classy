@@ -14,12 +14,18 @@ The next milestone is the Ambassador program, which allows students from any sch
 
 #Ways You Can Contribute
 
-We love help. There are many ways to do so:
+We love help. There are many ways to do so. However, the first step, which is labeled as 'beginner' in our Issues page, is to add your name to the Company page and list of Contributors in the README. 
 
 * Front-end Development
+* 	This includes all development concerned with design, user interface, and partially user experience. 
+* 	Ruby on Rails, the framework used to make Shoreline, by nature creates a lot of overlap between front-end and back-end development. This means there will always be a lot of communication between engineers and designers. 
+* 	Head over to the [Bootstrap docs](http://getbootstrap.com/) to learn more about our front-end CSS framework
 * Back-end development
+* 	Ruby on Rails is the language and framework of Shoreline. Head over to [the official Ruby on Rails website](http://rubyonrails.org/) to get started. 
 * Testing & Bug Squashing
+* 	Mark any issues in our GitHub issue tracker, or using the Feedback form found on the site. 
 * Community Support & Morale Boosting
+* 	The beatings will continue until morale improves. 
 
 #Step-by-Step Setup
 
