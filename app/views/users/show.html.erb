@@ -28,12 +28,12 @@
     <% Integer end_minute = /(?<=:)\d{2}/.match(f.section.end_time_s).to_s.to_i %>
   <script> class_arr.push('<%= start_hour %>');
     if ('<%= f.section.days.match(/(Monday)/) %>'){
-    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-4, '<%= start_hour %>', '<%= start_minute %>'),
+    events_arr.push({ title: '<%= f.section.section_name %>', start: new Date(y, m, d-4, '<%= start_hour %>', '<%= start_minute %>'),
                 end: new Date(y, m, d-4, '<%= end_hour %>', '<%= end_minute %>'),
                 allDay: false})  
     }
     if ('<%= f.section.days.match(/(Tuesday)/) %>'){
-    events_arr.push({title: '<%= f.section.section_name %>', start: new Date(y, m, d-3, '<%= start_hour %>', '<%= start_minute %>'),
+    events_arr.push({ title: '<%= f.section.section_name %>', start: new Date(y, m, d-3, '<%= start_hour %>', '<%= start_minute %>'),
                 end: new Date(y, m, d-3, '<%= end_hour %>', '<%= end_minute %>'),
                 allDay: false})  
     }
@@ -62,7 +62,24 @@
                 end: new Date(y, m, d+2, '<%= end_hour %>', '<%= end_minute %>'),
                 allDay: false})  
     }
-      
+      function checkOverlap(event) {  
+
+    var start = new Date(event.start);
+    var end = new Date(event.end);
+
+    var overlap = $('#calendar').fullCalendar('clientEvents', function(ev) {
+        if( ev == event)
+            return false;
+        var estart = new Date(ev.start);
+        var eend = new Date(ev.end);
+
+        return (Math.round(estart)/1000 < Math.round(end)/1000 && Math.round(eend) > Math.round(start));
+    });
+
+    if (overlap.length){  
+            //either move this event to available timeslot or remove it
+       }                  
+  }
     
     </script>
 
@@ -70,6 +87,7 @@
   <% end %>
 <div id='calendar'></div>
 <script>
+  
     $('#calendar').fullCalendar({year: 2012,
  month: 4,
  date: 25,eventColor: '#2979FF',

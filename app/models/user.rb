@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
   has_many :enrollments, dependent: :destroy
   belongs_to :major
   
+  def total_enrolled_credits
+    Integer total = 0
+    enrollments.each do |f|
+      total += 3
+    end
+    return total
+  end
+  
   def enrolled?(section)
     enrollments.find_by(section_id: section.id)
   end
