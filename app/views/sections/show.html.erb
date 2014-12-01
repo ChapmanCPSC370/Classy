@@ -52,7 +52,7 @@
     <p class="lead">
     <%= simple_format(f.description) %>
       <% if user_signed_in? %>
-      <br><% if f.user = current_user %>
+      <br><% if f.user == current_user %>
       <%= link_to "Edit your review", edit_review_path(f) %>
       <% end %>
       <% end %>
