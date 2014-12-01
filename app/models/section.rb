@@ -100,7 +100,9 @@ class Section < ActiveRecord::Base
     if num_ratings == 0
       num_ratings = 1
     end
-    return (ave_rating / num_ratings).to_s
+    the_rating = (ave_rating / num_ratings)
+    the_rating = '%.1f' % the_rating
+    return the_rating.to_s
   end
   
   def name

@@ -1,23 +1,95 @@
 <div class="container">
-<p id="notice"><%= notice %></p>
+  <%= render 'layouts/messages' %>
 
 <% if @section.section_name.presence %>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-3">
-      </div>
-      <div class="col-md-6">
-    <h1><center>
-      <%= @section.section_name %></center></h1>
-      </div>
-    </div>
-    <p class="lead"><b><%= @section.teacher %> <br><%= @section.subject_number_section %></b><br>
-      <%= @section.schedule %>
+  <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+      
+    
+    <h1><%= @section.subject_number_section %><br>
+      <%= @section.section_name %></h1><hr>
+
+    <p class="lead">Teacher: <b><%= @section.teacher %> <br>
+      </b>
+      Schedule: <b><%= @section.start_time_s %> - <%= @section.end_time_s %><br>
+      <%= @section.days %></b><br>
+      <% if @section.ge.presence %>GE: <b><%= @section.ge %></b><% end %>
       </p>
+  </div>
+  </div>
+      <div class="col-md-8">
+        <% if @section.reviews.any?{|f| f.user_id == current_user.id} %>
+        <% else %>
+        <a class="btn btn-primary pull-right " data-toggle="modal" data-target="#myModal">
+					Add A Review
+	    </a> 
+        <% end %>
+        <h2>Reviews <span class="label label-warning"><i class="fa fa-star"></i> <%= @section.average_rating %> stars</span></h2>
+        Based on <%= @section.reviews.count %> ratings
+        <br><br>
+    <% if @section.reviews.any? %>
+  <% @section.reviews.each do |f| %>
+    <div class="well">
+    <h4>
+      <span class="label label-default"><i class="fa fa-star"></i> <%= f.rating %> stars</span>
+      <span class="label label-default"><%= f.semester %> <%= f.semester_year %></span>
+      <span class="label label-default"><i class="fa fa-calendar"></i> Written <%= f.created_at.strftime("%B %d, %Y") %></span>
+    </h4>
+    <p class="lead">
+    <%= simple_format(f.description) %>
+      <br><% if f.user = current_user %>
+      <%= link_to "Edit your review", edit_review_path(f) %>
+      <% end %>
+    </p>
+      <%= link_to new_feedback_path, class: '', data: {:toggle=>"tooltip"}, 'data-original-title' => "Report this review as inappropriate (and describe the reason)", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-flag fa-x"></i> Report?
+      <% end %>
+    </div>
+  <% end %>
+  <% else %>
+  No reviews
+  <% end %>
+    
+    
+    <!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title" id="myModalLabel">New Review</h3>
+						</div>
+            <%= form_for [@section, Review.new] do |f| %>
+						<div class="modal-body">
+              
+              <%= f.hidden_field :user_id, value: current_user.id %>
+              <%= f.hidden_field :section_id, value: @section.id %>
+              Rating (5 is the best): <%= f.select(:rating, [1, 2, 3, 4, 5]) %>
+              <div>
+								Which semester did you take this course?<br>
+                <%= f.select(:semester, ["Fall", "Spring", "Summer", "Interterm"]) %><%= f.select(:semester_year, ["2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004"]) %>
+							</div><br>
+							<div>
+								Write a combined review of the class and teacher: <br>
+								<%= f.text_area :description, rows: 5, class:"form-control" %>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit "Publish Review", class: "btn btn-primary" %>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+    <!-- END MODAL -->
+    
+    
   </div>
 </div>
 <% end %>
+  
 
 <!-- OLD OLD OLD OLD OLD -->
 <% if @section.course.presence %>

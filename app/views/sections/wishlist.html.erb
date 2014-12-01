@@ -48,6 +48,7 @@ $("#the-basics2 form").submit();
       <th>TIME</th>
       <th>TEACHER</th>
       <th>GE</th>
+      <th>Rating</th>
       <th>Likes</th>
       <th>Favorite</th>
       
@@ -58,11 +59,12 @@ $("#the-basics2 form").submit();
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><b><% if section.section_name.presence %><%=  section.section_name %></b><br><%= section.subject_number_section %><% end %></td>
+        <td><b><% if section.section_name.presence %><%= link_to section.section_name, section %></b><br><%= section.subject_number_section %><% end %></td>
         <td><%= section.start_time_s %> - <%= section.end_time_s %><br>
           <%= section.days %></td>
         <td><%= section.teacher %></td>
         <td><%= section.ge %></td>
+        <td style="text-align: center; vertical-align: middle;"><span class="label label-warning"><i class="fa fa-star"></i> <% if section.reviews.any? %><%= section.average_rating %><% else %> None<% end %></span></td>
         <td style="text-align: center; vertical-align: middle;"><%= section.enrollments.count %></td>
         
         <td>

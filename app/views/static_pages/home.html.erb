@@ -12,10 +12,10 @@
   </center>
   
 <div id="the-basics2">
-<%= form_tag(sections_wishlist_path, :method => "get", id: "the-basics2  form-", class: 'for') do  %>
+  <%= form_tag(sections_wishlist_path, :method => "get", autofocus: true, id: "the-basics2  form-", class: 'for') do  %>
 <div class="form-group col-md-">
   
-  <%= text_field_tag :search, params[:search], id: "inputLarge ", class: "form-control typeahead", id: "auto_complete", placeholder: "Search for a Class, Teacher, Major, or Requirement" %>
+  <%= text_field_tag :search, params[:search], id: "inputLarge ", class: "form-control typeahead", id: "auto_complete", :autofocus => true, placeholder: "Search for a Class, Teacher, Major, or Requirement" %>
     </div><center>
   <%= submit_tag "Search Shoreline", class: "btn btn-primary btn- btn-", :name => nil %>
 

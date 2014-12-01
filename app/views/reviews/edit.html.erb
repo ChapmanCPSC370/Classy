@@ -1,6 +1,9 @@
+<div class="container"><div class="well"><% if current_user.id == @review.user_id %>
 <h1>Editing review</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @review %> |
-<%= link_to 'Back', reviews_path %>
+<% else %>
+<h1>Access denied</h1>
+<% end %>
+  </div>
+</div>
