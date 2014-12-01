@@ -19,11 +19,13 @@
   </div>
   </div>
       <div class="col-md-8">
+        <% if user_signed_in? %>
         <% if @section.reviews.any?{|f| f.user_id == current_user.id} %>
         <% else %>
         <a class="btn btn-primary pull-right " data-toggle="modal" data-target="#myModal">
 					Add A Review
 	    </a> 
+        <% end %>
         <% end %>
         <h2>Reviews <span class="label label-warning"><i class="fa fa-star"></i> <%= @section.average_rating %> stars</span></h2>
         Based on <%= @section.reviews.count %> ratings
@@ -38,8 +40,10 @@
     </h4>
     <p class="lead">
     <%= simple_format(f.description) %>
+      <% if user_signed_in? %>
       <br><% if f.user = current_user %>
       <%= link_to "Edit your review", edit_review_path(f) %>
+      <% end %>
       <% end %>
     </p>
       <%= link_to new_feedback_path, class: '', data: {:toggle=>"tooltip"}, 'data-original-title' => "Report this review as inappropriate (and describe the reason)", 'data-placement' => 'bottom' do %>
@@ -60,6 +64,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h3 class="modal-title" id="myModalLabel">New Review</h3>
 						</div>
+            <% if user_signed_in? %>
             <%= form_for [@section, Review.new] do |f| %>
 						<div class="modal-body">
               
@@ -80,6 +85,7 @@
               <%= f.submit "Publish Review", class: "btn btn-primary" %>
 						</div>
 						<% end %>
+            <% end %>
 					</div>
 				</div>
 			</div>
