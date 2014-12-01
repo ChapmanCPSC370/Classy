@@ -2,6 +2,11 @@ class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   respond_to :html, :xml, :json
 
+  
+  def to_param
+    "#{id} #{name}".parameterize
+  end
+  
   # GET /sections
   # GET /sections.json
   def index
