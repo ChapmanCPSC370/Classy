@@ -59,7 +59,6 @@ $("#the-basics2 form").submit();
       <th>TEACHER</th>
       <th>GE</th>
       <th>Rating</th>
-      <th>Likes</th>
       <th>Favorite</th>
       
       <th>Info</th>
@@ -75,8 +74,6 @@ $("#the-basics2 form").submit();
         <td><%= section.teacher %></td>
         <td><%= section.ge %></td>
         <td style="text-align: center; vertical-align: middle;"><span class="label label-warning"><i class="fa fa-star"></i> <% if section.reviews.any? %><%= section.average_rating %><% else %> None<% end %></span></td>
-        <td style="text-align: center; vertical-align: middle;"><%= section.enrollments.count %></td>
-        
         <td>
           <% if user_signed_in? %>
           <div id="<%= section.id %>enroll_form">
@@ -88,7 +85,7 @@ $("#the-basics2 form").submit();
             </div>
           <% else %>
           <%= link_to '#', class: "btn btn-sm tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Sign in to save", 'data-placement' => 'bottom' do %>
-            <i class="fa fa-heart-o fa-2x text-danger"></i><% end %>
+            <i class="fa fa-heart-o fa-2x text-danger" style="font-size: 16px;"> <%= section.enrollments.count %></i><% end %>
           <% end %>
         </td>
         <td><% if section.section_name.presence %><%= link_to '#', class: 'btn btn-sm btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' do %><i class="fa fa-info fa-2x"></i><% end %><% end %></td>
