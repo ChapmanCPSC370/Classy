@@ -10,18 +10,193 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
 *- require font-awesome
 *= require fullcalendar
+*= require animate
+*= require bootstrap-material-design
+*= require bootstrap-typeahead-rails
+*= require bootstrap-slider
 journal flatly darkly readable paper slate spacelab sandstone superhero simplex united
  */
-@import "bootswatch/readable/variables";
-@import "bootstrap-sprockets";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+//@import "bootswatch/readable/variables";
+
+/*$color1: #4784BA;
+$color2: #64AED1;
+//$navbar-inverse-color: white;
+//$navbar-inverse-link-color: white;
+//$navbar-inverse-bg: #AAAAAA;
+*/$navbar-default-bg: #f5f5f5;
+
+/*$navbar-default-color: white;
+$navbar-default-link-color: white;
+$navbar-default-link-active-bg: $color1;
+*/
 @import "bootstrap";
 @import "font-awesome";
-body {
-  padding-top: 75px;
+body {font-weight: 200;
+  font-family: 'Open Sans', sans-serif;
+  //min-height: 100%;
+  padding-top: 70px;
+}
+.table th {
+   text-align: center;   
+}
+/*
+.bs-docs-header{
+//  position:relative;
+  padding:30px 15px;
+ // color: white;
+  //text-align:center;
+  text-shadow:0 1px 0 rgba(0,0,0,.1);
+  background-color: $color1;
+  background-image:-webkit-gradient(linear,left top,left bottom,from($color2),to($color1));
+  background-image:-webkit-linear-gradient(top,$color2 0,$color1 100%);
+  background-image:-o-linear-gradient(top,$color2 0,$color1 100%);
+  background-image:linear-gradient(to bottom,$color2 0,$color1 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$color2', endColorstr=$color1, GradientType=0);
+  background-repeat:repeat-x
+}
+*/
+
+#wrapper {
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-@import "bootswatch/readable/bootswatch";
+#wrapper.toggled {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+  color: white;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    background-image: linear-gradient(#00BCFF, #562DA1);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-left: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #dddddd;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #ffffff;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-right: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-right: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-left: 0;
+    }
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+//@import "bootswatch/readable/bootswatch";
+
+.twitter-typeahead {
+	width: 100%; 
+}
+
+.tt-dropdown-menu {
+	width: 100%;
+}
+
+.tt-hint {
+    width: 100%;
+}

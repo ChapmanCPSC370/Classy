@@ -1,0 +1,56 @@
+<h1>Sections</h1>
+<%= link_to "New Section", new_section_path %> | <%= link_to "Edit All",sections_edit_all_path %>
+<hr>
+
+<% @sections.each do |section| %> 
+<div class="row panel panel-default panel-body">
+  <div class="col-md-6">
+  <% if Course.exists?(section.course_id) %>
+    <p class=""><%= link_to Course.find(section.course_id).full_name, section %></p>
+  <% end %>
+  <td><%= section.term %></td>
+  <td><%= section.teacher %></td>
+  <td><%= section.schedule %></td>
+  <td><%= section.room %></td>
+
+<td>
+   </td>
+<td><div class="dropdown pull-right">
+  <button class="btn btn-default dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown">
+
+    <i class="fa fa-pencil"></i>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><%= link_to 'Edit', edit_section_path(section) %></li>
+    <li role="presentation"><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+  </div></td>
+</tr>
+</div><div class="col-md-6">
+
+  <div class="btn-group">
+    <%= link_to section_reviews_path(section), class: "btn btn-sm btn-default" do %><i class="fa fa-star-o"></i> Favorite ( <%= section.average_rating.to_i %> )<% end %>
+  </div>
+</td>
+<td><div class="btn-group">
+  <%= link_to "Review", section_reviews_path(section), class: "btn btn-sm btn-default" %><%= link_to section.average_rating, section_reviews_path(section), class: "btn btn-sm btn-primary" %>
+  </div> </td>
+<td><% if user_signed_in? && current_user.enrolled?(section) %>
+  <%= link_to Enrollment.where(:user_id => current_user.id, :section_id => section.id).first, class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure?" } do |f| %>
+  Drop
+  <% end %>
+  <% else %>
+  <% if user_signed_in? &&  %>
+  <%= form_for [current_user, Enrollment.new] do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :section_id, value: section.id %>
+  <%= button_tag(type: "submit", class: "btn btn-default btn-sm") do %> Enroll <% end %>
+  <% end %>
+  <% end %>
+  <% end %>
+
+</div>
+</div>
+<% end %>
+<br>
+

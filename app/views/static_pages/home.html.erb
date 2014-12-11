@@ -1,4 +1,68 @@
-<h1>Classy: The open education platform</h1>
-<h3>What is Classy?</h3>
-<h4>Classy is an open education platform. Classy can help you find information about courses, plan which courses you want to take, find ratings on courses and professors, and collaborate with students.</h4>
-<%= link_to "Sign Up Today!", new_user_registration_path, class: "btn btn-success" %>
+<body style="background-color: white;"><div class="intro"><div class="home-search"><div class="col-md-4 col-md-offset-4"><%= render 'layouts/messages' %>
+  <center><br><br><br><h1 style="font-family: 'Open Sans'; font-size: 50px; font-weight: 100;"><%= image_tag "ShorelineLogoColor.png", width: 100 %><br>Shoreline</h1></center>
+  
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41312073-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(function() {
+   $('#test').addClass('animated fadeInUp');
+});
+</script>
+  </center>
+  
+<div id="the-basics2">
+  <%= form_tag(sections_wishlist_path, :method => "get", autofocus: true, id: "the-basics2  form-", class: 'for') do  %>
+<div class="form-group col-md-">
+  
+  <%= text_field_tag :search, params[:search], id: "inputLarge ", class: "form-control typeahead", id: "auto_complete", :autofocus => true, placeholder: "Search for a Class, Teacher, Major, or Requirement" %>
+    </div><center>
+  <%= submit_tag "Search Shoreline", class: "btn btn-primary btn- btn-", :name => nil %>
+
+<% end %>
+</div>
+  <center><h5 class="text-muted">Currently supporting Chapman University<br><%= link_to "Bring Shoreline to Your School", static_pages_ambassador_path %></h5></center>
+  <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name).to_json };" %>
+      <%= javascript_tag "var autocomplete_subjects = #{ @autocomplete_subjects.pluck(:subject).to_json };" %>
+      <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_teachers.pluck(:teacher).to_json };" %>
+  <%= javascript_tag "var autocomplete_ge = #{ @autocomplete_items.pluck(:ge).to_json };" %>
+<script type="text/javascript">
+$('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 2 },
+{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_subjects), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">Department</h3>'}
+},{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_ge), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">GE</h3>'}
+},
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_items),templates: {header: '<h3 style="padding-left: 10px;" class="league-name">Name</h3>'}
+},
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_teachers),templates: {
+header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
+}).on('typeahead:selected', function(e, data) {
+$("#the-basics2 form").submit();
+}).css();
+</script>
+<script>
+  $('#hours').slider({ 
+        formater: function(value) {
+            return formatTime(minutesToTime(value));
+        },
+        
+        tooltip_separator: " to ", 
+    }).on("slideStop", drawTables);
+  
+  function drawTables() {
+      
+    }
+  
+</script>
+  </div>
+</div></div>

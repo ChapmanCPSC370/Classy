@@ -1,22 +1,59 @@
 Rails.application.routes.draw do
+  resources :school_requests
+
+  resources :feedbacks
+
+  resources :learning_resources
+
+  resources :completed_courses
+
+  resources :degree_requirements
+
   resources :majors
 
-  resources :enrollments
+  resources :enrollments  do
+      get 'cal_hide'
+    get 'cal_show'
+    member do
+    post 'toggle'
+  end
+  end
 
   resources :announcements
 
   resources :assignments
+  resources :departments do
+    resources :majors
+  end
+  resources :reviews
 
-  resources :colusseums
+  get 'sections/all_sections'
+  get 'sections/edit_all'
+  get 'sections/all_sections2'
+  get 'sections/search_sections'
+  get 'sections/wishlist'
+  get 'sections/dedupe'
+  get 'sections/disperse'
+  
+  delete 'sections/destroy_multiple'
+
   resources :sections do
+    resources :learning_resources
+    resources :reviews
     resources :enrollments
     resources :assignments
     resources :announcements
     resources :users
+    get 'students'
+    collection { post :import }
   end
   
 
-  resources :universities
+  resources :universities do
+    get :autocomplete_course_name, on: :collection
+    resources :departments
+    resources :majors
+  end
 
    as :user do
     get '/register', to: 'devise/registrations#new', as: :register
@@ -24,7 +61,7 @@ Rails.application.routes.draw do
     get '/logout', to: 'devise/sessions#destroy', as: :logout
   end
 
-  devise_for :users, skip: [:sessions]
+  devise_for :users, skip: [:sessions], :controllers => {:registrations => "registrations"}
 
   as :user do
     get "/login" => 'devise/sessions#new', as: :new_user_session
@@ -39,7 +76,13 @@ Rails.application.routes.draw do
   end
   
   get 'static_pages/home'
+  get 'static_pages/company'
+  get 'static_pages/help'
+  get 'static_pages/ambassador'
   get 'courses/all_courses'
+  get 'courses/edit_all'
+  
+  delete 'courses/destroy_multiple'
   get 'static_pages/about'
   root 'static_pages#home'
   
@@ -49,25 +92,31 @@ Rails.application.routes.draw do
   end
   resources :universities do
     resources :courses do
+      get :autocomplete_section_teacher, on: :collection
       resources :posts
       post "course/new"
     end
   end
   resources :courses do
+    get :autocomplete_section_teacher, on: :collection
     get 'alli'
     resources :sections do
-      resources :enrollments
+      resources :enrollments do
+        get 'cal_hide'
+      end
     end
     resources :posts do
       resources :users
     end
-    post "course/new"
+   # post "course/new"
   end
   
-  post "course/create"
+ # post "course/create"
   
   resources :users do
-    resources :enrollments
+    resources :enrollments do
+      get 'cal_hide'
+    end
     
   end
   # The priority is based upon order of creation: first created -> highest priority.

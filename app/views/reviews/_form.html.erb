@@ -1,0 +1,26 @@
+<%= form_for(@review) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+              <%= f.hidden_field :section_id, value: @section.id %>
+              Rating (5 is the best): <%= f.select(:rating, [1, 2, 3, 4, 5]) %>
+              <div>
+								Which semester did you take this course?<br />
+                <%= f.select(:semester, ["Fall", "Spring", "Summer", "Interterm"]) %><%= f.select(:semester_year, ["2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004"]) %>
+							</div><br>
+							<div>
+								Write a combined review of the class and teacher: <br />
+								<%= f.text_area :description, rows: 5, class:"form-control" %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

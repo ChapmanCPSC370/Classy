@@ -1,0 +1,29 @@
+<h1>Listing degree_requirements</h1>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Major</th>
+      <th>Minor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @degree_requirements.each do |degree_requirement| %>
+      <tr>
+        <td><% if degree_requirement.course.presence %><%= degree_requirement.course.name %><% end %></td>
+        <td><%= degree_requirement.major.name %></td>
+        <td><%= degree_requirement.minor_id %></td>
+        <td><%= link_to 'Show', degree_requirement %></td>
+        <td><%= link_to 'Edit', edit_degree_requirement_path(degree_requirement) %></td>
+        <td><%= link_to 'Destroy', degree_requirement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Degree requirement', new_degree_requirement_path %>

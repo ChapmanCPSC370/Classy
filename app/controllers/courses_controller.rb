@@ -1,16 +1,38 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_filter :find_university, only: [:index, :new, :create, :post]
+  before_filter :find_university, only: [:index, :post]
   respond_to :html, :xml, :json
 
   # GET /courses
   # GET /courses.json
   def all_courses
+    if params[:search]
+      @courses = Course.search(params[:search]).order("name ASC")
+      @autocomplete_items = Course.all
+    else
+      @courses = Course.all.order('name ASC')
+      @autocomplete_items = Course.all
+      respond_with json: @courses
+    end
+  end
+  
+  def edit_all
     @courses = Course.all
   end
   
+  def destroy_multiple
+    Course.destroy(params[:courses])
+
+    respond_to do |format|
+      format.html { redirect_to courses_edit_all_path }
+      format.json { head :no_content }
+    end
+  end
+  
   def index
-    @courses = Course.all
+
+    @courses = Course.all.order('created_at DESC')
+
     @university = University.find(params[:university_id])
     @course = @university.courses.new
   end
@@ -28,19 +50,17 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-   # @course = Course.find(params[:id])
-    @university = University.find(@course.university_id)
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @university = University.find(params[:university_id])
-    @course = @university.courses.new(course_params)
+  #  @university = University.find(params[:university_id])
+    @course = Course.new(course_params)
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to university_courses_path(@university), notice: 'Course was successfully created.' }
+        format.html { redirect_to courses_all_courses_path, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }
@@ -54,7 +74,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to courses_all_courses_path, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }
@@ -69,7 +89,7 @@ class CoursesController < ApplicationController
     @university = @course.university
     @course.destroy
     respond_to do |format|
-      format.html { redirect_to university_courses_path(@university), notice: 'Course was successfully destroyed.' }
+      format.html { redirect_to courses_all_courses_path, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -86,6 +106,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:university_id, :name, :description, :credits)
+      params.require(:course).permit(:department_tag, :course_number, :university_id, :name, :description, :credits, :department_id)
     end
 end

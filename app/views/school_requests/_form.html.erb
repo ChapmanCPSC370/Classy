@@ -1,0 +1,22 @@
+<%= form_for(@school_request) do |f| %>
+  <% if @school_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@school_request.errors.count, "error") %> prohibited this school_request from being saved:</h2>
+
+      <ul>
+      <% @school_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="field">
+    <%= f.label :school_name %><br>
+    <%= f.text_field :school_name, class: 'form-control ' %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Request School", class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -4,12 +4,13 @@ class MajorsController < ApplicationController
   # GET /majors
   # GET /majors.json
   def index
-    @majors = Major.all
+    @majors = Major.all.order('name ASC')
   end
 
   # GET /majors/1
   # GET /majors/1.json
   def show
+    @users = User.where(:major_id => @major.id)
   end
 
   # GET /majors/new
@@ -69,6 +70,6 @@ class MajorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def major_params
-      params.require(:major).permit(:university_id, :name, :description, :department_id)
+      params.require(:major).permit(:university_id, :credits, :name, :description, :department_id)
     end
 end

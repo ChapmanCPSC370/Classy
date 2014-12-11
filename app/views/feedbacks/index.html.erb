@@ -1,0 +1,28 @@
+<div class="container">
+      <div class="well">
+        <h1>Listing feedback</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>Feedback type</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td><%= feedback.user_id %></td>
+        <td><%= feedback.feedback_type %></td>
+        <td><%= feedback.content %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Feedback', new_feedback_path %>
+  </div></div>

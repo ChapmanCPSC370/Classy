@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="well"><h1>School Requests</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>School name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @school_requests.each do |school_request| %>
+      <tr>
+        <td><%= school_request.school_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New School request', new_school_request_path %>

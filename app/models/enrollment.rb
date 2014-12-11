@@ -4,4 +4,9 @@ class Enrollment < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :section
+  
+  def cal_hide
+    this.update_attribute(:cal_hidden, true)
+  end
+
 end

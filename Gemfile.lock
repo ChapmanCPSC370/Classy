@@ -27,13 +27,25 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    animate-rails (1.0.7)
+      rails
     arel (5.0.1.20140414130214)
+    auto_html (1.6.4)
+      redcarpet (~> 3.1)
+      rinku (~> 1.5.0)
     bcrypt (3.1.7)
+    bootstrap-material-design (0.1.1)
+      bootstrap-sass (= 3.2.0.2)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bootstrap-slider-rails (1.9.0)
+      railties (>= 3.2, < 5.0)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
     bootswatch-rails (3.2.4)
       railties (>= 3.1)
     builder (3.2.2)
+    chartkick (1.2.4)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -52,22 +64,33 @@ GEM
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
     fullcalendar-rails (1.6.4.0)
+    google-analytics-turbolinks (0.0.4)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-ace-rails (1.0.1)
-    jquery-rails (3.1.2)
+    jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
+    jquery-ui-rails (4.2.1)
+      railties (>= 3.2.16)
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.6.1)
     minitest (5.4.1)
     multi_json (1.10.1)
+    nested_form (0.3.2)
+    newrelic_rpm (3.8.1.221)
+    nokogiri (1.6.4.1)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
@@ -84,6 +107,13 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.0)
       sprockets-rails (~> 2.0)
+    rails4-autocomplete (1.1.1)
+      rails (>= 3.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (4.1.0)
       actionpack (= 4.1.0)
       activesupport (= 4.1.0)
@@ -92,6 +122,14 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    redcarpet (3.2.0)
+    rinku (1.5.1)
+    roo (1.13.2)
+      nokogiri
+      rubyzip
+      spreadsheet (> 0.6.4)
+    ruby-ole (1.2.11.7)
+    rubyzip (1.1.6)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -101,6 +139,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    spreadsheet (1.0.0)
+      ruby-ole (>= 1.0)
     spring (1.1.3)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -127,25 +167,44 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.7)
+    will_paginate-bootstrap (1.0.1)
+      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  animate-rails
+  auto_html
+  bootstrap-material-design
   bootstrap-sass
+  bootstrap-slider-rails
+  bootstrap-typeahead-rails
   bootswatch-rails
+  chartkick
   coffee-rails (~> 4.0.0)
   devise
   font-awesome-rails
   fullcalendar-rails
+  google-analytics-turbolinks
   jbuilder (~> 2.0)
   jquery-ace-rails
-  jquery-rails
+  jquery-rails (~> 2.3.0)
+  jquery-turbolinks
+  jquery-ui-rails
+  nested_form
+  newrelic_rpm
   pg
   rails (= 4.1.0)
+  rails4-autocomplete
+  rails_12factor
+  roo
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
+  will_paginate (~> 3.0)
+  will_paginate-bootstrap

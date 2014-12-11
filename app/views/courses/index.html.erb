@@ -1,13 +1,40 @@
 <h1><%= link_to @university.name, @unviersity %> - Courses</h1>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Tag</th>
+      <th>Name</th>
+      <th># Sections</th>
+      <th>Department</th>
+      <th>Description</th>
+      <th>Credits</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
+  <tbody>
+    
     <% @courses.each do |course| %><div class="well">
+    <tr>
+        <td><%= course.course_number %></td>
+        <td><%= course.department.department_tag %></td>
+        <td><%=  course.name %></td>
+        <td><%= course.sections.count %></td>
+        <td><%= link_to course.department.name, course.department %></td>
+        <td><%= course.description %></td>
+        <td><%= course.credits %></td>
+        <td><%= link_to 'Show', course_posts_path(course) %></td>
+        <td><%= link_to 'Edit', edit_course_path(course) %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
 <h4>
-  <% if current_user.badmin %>
+  <% if user_signed_in? && current_user.badmin %>
   <%= link_to course.name, course_sections_path(course) %> <span class="label label-default"><%= course.credits %> Credits</span>
   <% else %>
   <%= course.name %>
   <% end %>
-  <% if current_user.badmin %>
+  <% if user_signed_in? && current_user.badmin %>
   <div class="pull-right dropdown">
     <button class=" pull-right: btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
       <span class="caret"></span>
@@ -20,6 +47,8 @@
   </div>
   
   <% end %>
+  </tbody>
+</table>
   <%= course.description %>
 </h4>
         <% course.sections.each do |f| %>
@@ -38,7 +67,7 @@
 </div>
     <% end %>
 <div class="well">
-<br><% if current_user.badmin %>
+  <br><% if user_signed_in? && current_user.badmin %>
 <%= form_for Course.new, url: {university_id: @university.id}  do |f| %>
   <% if @course.errors.any? %>
     <div id="error_explanation">

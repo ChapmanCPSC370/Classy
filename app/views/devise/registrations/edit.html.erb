@@ -1,3 +1,6 @@
+<div class="container">
+      <div class="well">
+<%= render 'layouts/messages' %>
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -8,21 +11,13 @@
 
   <div><%= f.label :first_name %>
     <%= f.text_field :first_name %></div>
-
+        <%= f.collection_select :school_id, University.all, :id, :name %>
   <div><%= f.label :last_name %>
     <%= f.text_field :last_name %></div>
 
   <div><%= f.label :profile_image_url %>
     <%= f.text_field :imageurl %></div>
 
-  <div><%= f.label :major %>
-    <%= f.text_field :major %></div>
-
-  <div><%= f.label :minor %>
-    <%= f.text_field :minor %></div>
-
-  <div><%= f.label :bio %>
-    <%= f.text_area :bio %></div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -45,3 +40,5 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+      </div>
+    </div>

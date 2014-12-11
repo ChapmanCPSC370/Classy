@@ -1,19 +1,46 @@
 <p id="notice"><%= notice %></p>
-<h1><%= @course.name %> </h1>
-<h4><span class="label label-primary"><%= @course.credits %> Credits</span> <%= link_to @course.university.name, university_courses_path(@course.university) %></h4>
-
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
+<h1><%= @course.full_name %> </h1>
+<p class="lead"><i>"<%= @course.description %>"</i>
 </p>
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %> | 
-<%= link_to 'Posts', course_posts_path(@course) %>
-<%= link_to 'Sections', course_sections_path(@course) %>
-<h4>Sections</h4>
-<% @course.sections.each do |f| %>
-<div class="well">
-<%= f.teacher %>
+<hr>
+<div class="row">
+  <div class="col-md-9">
+    <div class="well">
+      <h3>Sections Offered Fall 2014</h3>
+      <hr>
+      <% @course.sections.each do |f| %>
+      <h4>
+        <%= link_to f.teacher, f %> <%= f.schedule %> <%= f.average_rating %> rating
+      </h4>
+      <% end %>
+    </div>
+    <div class="well">
+      <h3>Student Showcase</h3>
+      <p><i>Showing the best student work from all sections</i></p>
+      <hr>
+      <% @course.sections.each do |f| %>
+      <h4>
+        
+      </h4>
+      <% end %>
+    </div>
+  </div>
+   <div class="col-md-3">
+    <div class="well">
+      <h3>School: <%= link_to @course.university.name, university_courses_path(@course.university) %></h3>
+      <h3>Credits: <span class="label label-default"><%= @course.credits %></span> </h3>
+      <h3>Rating: <span class="label label-success"><%= @course.average_rating %></span></h3><p>(Average rating from all sections)
+      
+    </div>
+     
+     <div class='well'>
+       <h3>Majors this class fulfills</h3>
+       <% @course.degree_requirements.each do |f| %>
+       <h4><%= f.major.name %></h4>
+       <% end %>
+     </div>
+  </div>
 </div>
-<% end %>
+
+
+

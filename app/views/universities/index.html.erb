@@ -1,18 +1,35 @@
-
-    <% @universities.each do |university| %>
+<div class="container">
+<h1>Schools</h1>
+<div id='calendarrrr'></div>
+<script>$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},defaultDate: '2014-09-12',
+  defaultView: 'agendaWeek',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: '/sections.json'
+		});</script>
+<hr>
+<p class="lead">If you do not see your school here, <%= link_to "start the process for your school now!", new_school_request_path, class: "" %></p>
+<hr>    
+<% @universities.each do |university| %>
       <tr>
-        <h3><i class="fa fa-university"></i> <%= university.name %></h3>
-        <%= link_to 'See All Courses', university_courses_path(university), class: "btn btn-block pull-right btn-sm btn-primary" %>
-        <% if current_user.badmin %>
+        <%= link_to university do %><h3><i class="fa fa-university"></i><%= university.name %></h3><% end %>
+       
+        <% if user_signed_in? && current_user.badmin %>
         <%= link_to 'Show', university %> | 
         <%= link_to 'Edit', edit_university_path(university) %> | 
         <%= link_to 'Destroy', university, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
         <br>
-        <td><%= university.description %></td>
 </tr>
     <% end %>
 <br>
+<% if user_signed_in? %>
 <% if current_user.badmin %>
 <%= link_to 'New University', new_university_path %>
+<% end %>
 <% end %>

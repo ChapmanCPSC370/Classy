@@ -6,6 +6,20 @@ gem 'rails', '4.1.0'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'jquery-ace-rails'
+gem 'rails4-autocomplete'
+gem 'animate-rails'
+gem 'newrelic_rpm'
+gem 'google-analytics-turbolinks'
+gem 'bootstrap-typeahead-rails'
+gem 'bootstrap-slider-rails'
+gem "nested_form"
+gem 'jquery-turbolinks'
+gem "auto_html"
+gem 'roo'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
+gem "chartkick"
+gem 'bootstrap-material-design'
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
@@ -14,6 +28,7 @@ end
 gem 'fullcalendar-rails'
 
 group :production do
+  gem 'rails_12factor'
   gem 'pg'
 end
 # Use SCSS for stylesheets
@@ -28,7 +43,8 @@ gem 'font-awesome-rails'
 # gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.3.0"
+gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

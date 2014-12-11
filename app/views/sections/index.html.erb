@@ -1,24 +1,10 @@
-<h1>Listing sections for <%= @course.name %></h1>
-<%= @course.description %>
-
-<%= form_for [@course, Section.new], url: {controller: :sections, course_id: @course.id } do |f| %>
-  <%= f.hidden_field :course_id %>
-  <%= f.hidden_field :name, value: @course.name %><p>
-<%= f.label :term %>
-<%= f.text_field :term %></p><p>
-<%= f.label :teacher %>
-<%= f.text_field :teacher %></p><p>
-<%= f.label :room %>
-<%= f.text_field :room %></p><p>
-<%= f.label :schedule %>
-<%= f.text_field :schedule %></p><p>
-  <%= f.submit %>
-</p>
-<% end %>
-
+<h1>Sections</h1>
+<hr>
+<%= link_to "New Section", new_section_path %> | <%= link_to "Edit All",sections_edit_all_path %>
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Course</th>
       <th>Term</th>
       <th>Teacher</th>
@@ -31,11 +17,13 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.course_id %></td>
+        <td></td>
+        <td><% if Course.exists?(section.course_id) %><%= Course.find(section.course_id).full_name %><% end %></td>
         <td><%= section.term %></td>
         <td><%= section.teacher %></td>
         <td><%= section.schedule %></td>
         <td><%= section.room %></td>
+        <td><%= link_to 'Reviews', section_reviews_path(section) %></td>
         <td><%= link_to 'Show', section %></td>
         <td><%= link_to 'Edit', edit_section_path(section) %></td>
         <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -45,4 +33,5 @@
 </table>
 
 <br>
+
 

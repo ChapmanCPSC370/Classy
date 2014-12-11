@@ -1,34 +1,17 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @university.name %><%= @university.id %>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+<h1>
+  <%= @university.name %>
+</h1>
+<p class="lead"><i>"<%= @university.description %>"
+  </i>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @university.description %>
-</p>
-
-<%= link_to 'Edit', edit_university_path(@university) %> |
-<%= link_to 'Back', universities_path %>
-<%= link_to 'Courses', university_courses_path(@university) %>
-
-<hr>
-
-<%= form_for [@universty, Course.new], url: {university_id: @university.id} do |f| %>
-<%= f.hidden_field :university_id %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </p>
-<p>
-  <%= f.label :credits %>
-  <%= f.text_field :credits %>
-  </p>
-  <%= f.submit "Save New Course", class: "btn btn-primary" %>
-<% end %>
+    <%= column_chart Section.group(:subject).count %>
+    
+    <p class="lead">Did you know about <% the_section = Section.order("RANDOM()").first %><b><%= the_section.subject_number_section %></b>
+    <%= link_to the_section.section_name, the_section %> 
+    

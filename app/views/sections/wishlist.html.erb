@@ -1,0 +1,128 @@
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41312073-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div class="container">
+  <%= render 'layouts/messages' %>
+<% if user_signed_in? and current_user.bAmbassador %> <% link_to "parse data", sections_disperse_path %>
+<%= link_to "Delete duplicates", sections_dedupe_path %><% end %>
+</div><div class="container ">
+  <div class="row">
+    <div class="col-md-9">
+      
+      <%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.pluck(:section_name).to_json };" %>
+      <%= javascript_tag "var autocomplete_subjects = #{ @autocomplete_subjects.pluck(:subject).to_json };" %>
+      <%= javascript_tag "var autocomplete_teachers = #{ @autocomplete_teachers.pluck(:teacher).to_json };" %>
+      <%= javascript_tag "var autocomplete_ge = #{ @autocomplete_items.pluck(:ge).to_json };" %>
+<script type="text/javascript">
+$('#the-basics2 .typeahead').typeahead({ hint: true, highlight: true, minLength: 2 },
+{ name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_subjects), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">Department</h3>'}
+},
+                                       { name: 'states', displayKey: 'value', source: substringMatcher(autocomplete_ge), templates: {
+  header: '<h3 style="padding-left: 10px;" class="league-name">GE</h3>'}
+},
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_items),templates: {header: '<h3 style="padding-left: 10px;" class="league-name">Name</h3>'}
+},
+{name: 'nba-teams',displayKey: 'value',source: substringMatcher(autocomplete_teachers),templates: {
+header: '<h3 style="padding-left: 10px;" class="league-name">Teacher</h3>'}
+}).on('typeahead:selected', function(e, data) {
+$("#the-basics2 form").submit();
+}).css('width','400px');
+</script>
+<script>
+  $('#hours').slider({ 
+        formater: function(value) {
+            return formatTime(minutesToTime(value));
+        },
+        
+        tooltip_separator: " to ", 
+    }).on("slideStop", drawTables);
+  
+  function drawTables() {
+      
+    }
+  
+</script>
+      <div class="well">
+<table  class="table table-responsive table- table-hover">
+  <thead>
+    <tr>
+      <th>COURSE</th>
+      <th>TIME</th>
+      <th>TEACHER</th>
+      <th>GE</th>
+      <th>Rating</th>
+      <th>Favorite</th>
+      
+      <th>Info</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><b><% if section.section_name.presence %><%= link_to section.section_name, section %></b><br><%= section.subject_number_section %><% end %></td>
+        <td><%= section.start_time_s %> - <%= section.end_time_s %><br>
+          <%= section.days %></td>
+        <td><%= section.teacher %></td>
+        <td><%= section.ge %></td>
+        <td style="text-align: center; vertical-align: middle;"><span class="label label-warning"><i class="fa fa-star"></i> <% if section.reviews.any? %><%= section.average_rating %><% else %> None<% end %></span></td>
+        <td>
+          <% if user_signed_in? %>
+          <div id="<%= section.id %>enroll_form">
+            <% if current_user.enrolled?(section) %>
+            <%= render partial: 'sections/unenroll', locals: {section: section} %>
+            <% else %>
+              <%= render partial: 'sections/enroll', locals: {section: section} %>
+            <% end %>
+            </div>
+          <% else %>
+          <%= link_to '#', class: "btn btn-sm tag-tooltip", data: {:toggle=>"tooltip"}, 'data-original-title' => "Sign in to save", 'data-placement' => 'bottom' do %>
+            <i class="fa fa-heart-o fa-2x text-danger" style="font-size: 16px;"> <%= section.enrollments.count %></i><% end %>
+          <% end %>
+        </td>
+        <td><% if section.section_name.presence %><%= link_to '#', class: 'btn btn-sm btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => " " + section.schedule + section.section_name_and_title, 'data-placement' => 'left' do %><i class="fa fa-info fa-2x"></i><% end %><% end %></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+      </div>
+        
+ <%= will_paginate @collection, class: 'pagination', renderer: BootstrapPagination::Rails %>
+<br>
+    </div>
+    
+    <div class="col-md-3" >
+      <% if user_signed_in? %>
+      <%= link_to current_user, class: 'btn btn- btn-block btn-success tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "See a Calendar of your Wishlist", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-calendar fa-x"></i> View Calendar
+      <% end %>
+      <div class="well">
+<div id="wishlist">
+          <%= render 'sections/wishlist' %>
+        </div>
+        <% else %> <p><%= link_to "Log in to save your schedule and see a calendar of your schedule", new_user_session_path, class: '' %></p>
+          <% end %><p>
+
+      <% if user_signed_in? %>
+      </div>
+      <%= link_to new_feedback_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Give us feedback to make Shoreline better", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-pencil fa-x"></i> Feedback
+      <% end %>
+      <% end %>
+      <%= link_to static_pages_help_path, class: 'btn btn-raised btn-block btn-default tag-tooltip', data: {:toggle=>"tooltip"}, 'data-original-title' => "Help", 'data-placement' => 'bottom' do %>
+      <i class="fa fa-question fa-x"></i> Help
+      <% end %>
+      
+      Note: Using Shoreline does not register you for classes. Right now, Shoreline is only a search tool. We are looking into ways to integrate real registration. Please use your schools regular registration tool, and Shoreline for search. 
+      </p>
+      <hr>
+    </div>
